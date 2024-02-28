@@ -17,9 +17,9 @@ return new class extends Migration
             $table->foreignId('therapist_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->date('date')->nullable(false);
             $table->enum('payment_type', ['cash', 'transfer']);
-            $table->integer('transfer_cost')->nullable(false);
+            $table->integer('transfer_cost');
             $table->integer('discount')->default(0);
-            $table->integer('totals')->nullable(false);
+            $table->integer('totals');
         });
     }
 

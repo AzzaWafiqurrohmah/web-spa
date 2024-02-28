@@ -15,12 +15,12 @@ return new class extends Migration
             $table->id();
             $table->foreignId('treatment_catagory_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('franchise_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->string('name', 100)->nullable(false);
-            $table->integer('duration')->nullable(false);
-            $table->string('pictures');
-            $table->date('period_start')->nullable(false);
-            $table->date('period_end')->nullable(false);
-            $table->integer('price')->nullable(false);
+            $table->string('name', 100);
+            $table->integer('duration');
+            $table->json('pictures')->default('[]');
+            $table->date('period_start');
+            $table->date('period_end');
+            $table->integer('price');
             $table->integer('discount')->default(0);
         });
     }

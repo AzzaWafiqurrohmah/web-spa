@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('treatment_packets', function (Blueprint $table) {
+        Schema::create('tool_treatment', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('tool_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('treatment_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('packet_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
         });
     }
 
@@ -23,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('treatment_packets');
+        Schema::dropIfExists('tool_treatment');
     }
 };

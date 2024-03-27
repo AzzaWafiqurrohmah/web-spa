@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class TreatmentCatagory extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name'
+    ];
 
     public function treatments(): HasMany
     {

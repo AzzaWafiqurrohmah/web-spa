@@ -10,6 +10,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Therapist extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'franchise_id', 'raw_id', 'fullname', 'birth_date', 'gender',
+        'phone', 'address', 'body_height', 'body_weight', 'start_working'
+    ];
 
     public function franchise() :BelongsTo
     {

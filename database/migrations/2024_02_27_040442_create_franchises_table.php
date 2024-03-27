@@ -13,9 +13,9 @@ return new class extends Migration
     {
         Schema::create('franchises', function (Blueprint $table) {
             $table->id();
-            $table->string('name', 100)->nullable(false);
-            $table->string('latitude');
-            $table->string('longtitude');
+            $table->string('name', 100);
+            $table->string('latitude')->nullable();
+            $table->string('longtitude')->nullable();
         });
     }
 

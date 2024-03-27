@@ -11,6 +11,10 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Treatment extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'treatment_catagory_id', 'franchise_id', 'name', 'duration',
+        'pictures', 'period_start', 'period_end', 'price', 'discount'
+    ];
 
     public function reservationDetail() :HasMany
     {

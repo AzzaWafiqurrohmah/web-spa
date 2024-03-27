@@ -10,6 +10,10 @@ class Franchise extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name', 'latitude', 'longtitude'
+    ];
+
     public function therapist() :HasMany
     {
         return $this->hasMany(Therapist::class);

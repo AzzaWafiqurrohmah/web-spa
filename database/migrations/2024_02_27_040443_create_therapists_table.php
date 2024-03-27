@@ -14,15 +14,15 @@ return new class extends Migration
         Schema::create('therapists', function (Blueprint $table) {
             $table->id();
             $table->foreignId('franchise_id')->constrained()->cascadeOnDelete();
-            $table->string('raw_id', 5)->nullable(false);
-            $table->string('fullname', 100)->nullable(false);
-            $table->date('birth_date');
-            $table->enum('gender', ['male', 'female'])->default('female');
-            $table->string('phone', 12)->nullable(false);
-            $table->string('address', 255)->nullable(false);
-            $table->integer('body_height')->nullable(false);
-            $table->integer('body_weight')->nullable(false);
-            $table->timestamp('start_working')->useCurrent();
+            $table->string('raw_id', 5);
+            $table->string('fullname', 100);
+            $table->date('birth_date')->nullable();
+            $table->enum('gender', ['male', 'female'])->default('female')->nullable();
+            $table->string('phone', 12);
+            $table->string('address', 255);
+            $table->integer('body_height');
+            $table->integer('body_weight');
+            $table->date('start_working')->nullable();
         });
     }
 

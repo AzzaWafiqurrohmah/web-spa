@@ -17,11 +17,11 @@ return new class extends Migration
             $table->foreignId('franchise_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name', 100);
             $table->integer('duration');
-            $table->json('pictures')->default('[]');
-            $table->date('period_start');
-            $table->date('period_end');
+            $table->json('pictures')->default('[]')->nullable();
+            $table->date('period_start')->nullable();
+            $table->date('period_end')->nullable();
             $table->integer('price');
-            $table->integer('discount')->default(0);
+            $table->integer('discount')->default(0)->nullable();
         });
     }
 

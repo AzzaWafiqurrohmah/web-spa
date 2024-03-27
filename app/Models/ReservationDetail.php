@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ReservationDetail extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'treatment_id', 'reservation_id', 'extra_cost', 'discount'
+    ];
     public function reservation() :BelongsTo
     {
         return $this->belongsTo(Reservation::class);

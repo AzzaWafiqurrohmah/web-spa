@@ -14,17 +14,17 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('franchise_id')->constrained()->cascadeOnDelete();
-            $table->string('fullname', 100)->nullable(false);
-            $table->string('phone', 12)->nullable(false);
-            $table->tinyInteger('is_member')->nullable(false);
-            $table->date('start_member');
-            $table->string('address', 255);
+            $table->string('fullname', 100);
+            $table->string('phone', 12);
+            $table->tinyInteger('is_member');
+            $table->date('start_member')->nullable();
+            $table->string('address', 255)->nullable();
             $table->enum('gender', ['male', 'female']);
-            $table->date('birth_date');
-            $table->string('home_pict');
-            $table->string('home_details');
-            $table->string('latitude');
-            $table->string('longtitude');
+            $table->date('birth_date')->nullable();
+            $table->string('home_pict')->nullable();
+            $table->string('home_details')->nullable();
+            $table->string('latitude')->nullable();
+            $table->string('longtitude')->nullable();
         });
     }
 

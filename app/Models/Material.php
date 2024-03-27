@@ -10,6 +10,10 @@ class Material extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'name'
+    ];
+
     public function treatment() :BelongsToMany
     {
         return $this->belongsToMany(Treatment::class);

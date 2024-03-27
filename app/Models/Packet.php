@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Packet extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name', 'discount'
+    ];
 
     public function treatments(): BelongsToMany
     {

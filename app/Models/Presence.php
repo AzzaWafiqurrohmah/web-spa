@@ -9,6 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Presence extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'therapist_id', 'status'
+    ];
 
     public function therapist() :BelongsTo
     {

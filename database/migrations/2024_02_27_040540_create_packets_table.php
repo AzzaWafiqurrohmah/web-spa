@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('packets', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable(false);
-            $table->integer('discount')->default(0);
+            $table->string('name');
+            $table->integer('discount')->default(0)->nullable();
         });
     }
 

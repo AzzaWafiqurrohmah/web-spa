@@ -9,7 +9,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 class Tool extends Model
 {
     use HasFactory;
-
+    protected $fillable = [
+        'name'
+    ];
     public function treatment() :BelongsToMany
     {
         return $this->belongsToMany(Treatment::class);

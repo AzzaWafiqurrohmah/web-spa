@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('franchise_id')->constrained()->cascadeOnDelete();
+            $table->string('raw_id', 10);
             $table->string('fullname', 100);
             $table->string('phone', 12);
             $table->tinyInteger('is_member');

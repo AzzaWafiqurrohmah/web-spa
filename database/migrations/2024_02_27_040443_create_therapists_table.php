@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('therapists', function (Blueprint $table) {
             $table->id();
             $table->foreignId('franchise_id')->constrained()->cascadeOnDelete();
-            $table->string('raw_id', 5);
+            $table->string('raw_id', 10);
             $table->string('fullname', 100);
             $table->date('birth_date')->nullable();
             $table->enum('gender', ['male', 'female'])->default('female')->nullable();

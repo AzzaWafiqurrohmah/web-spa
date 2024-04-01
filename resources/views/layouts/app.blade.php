@@ -4,15 +4,15 @@
     'buttons',
     'forms', 'modals', 'notifications', 'typography', 'upgrade-to-pro']))
 
-     Nav
+{{--     Nav--}}
     @include('layouts.nav')
-     SideNav
+{{--     SideNav--}}
     @include('layouts.sidenav')
     <main class="content">
-         TopBar
+{{--         TopBar--}}
         @include('layouts.topbar')
         @yield('content')
-         Footer
+{{--         Footer--}}
         @include('layouts.footer')
     </main>
 

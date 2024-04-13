@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CustomerController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,6 +24,14 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
     Route::post('/store', 'store')->name('store');
 });
 
-Route::get('/dashboard', function (){
-    return view('pages.dashboard');
-})->name('dashboard');
+Route::middleware('auth')->group(function (){
+    //dashboard
+    Route::get('/dashboard', function (){
+        return view('pages.dashboard');
+    })->name('dashboard');
+
+    //customer
+    Route::resource('customers', CustomerController::class);
+
+});
+

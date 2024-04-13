@@ -1,18 +1,14 @@
 @extends('layouts.base')
 @section('app')
-    @if(in_array(request()->route()->getName(), ['dashboard', 'profile', 'profile-example', 'users', 'bootstrap-tables', 'transactions',
-    'buttons',
-    'forms', 'modals', 'notifications', 'typography', 'upgrade-to-pro']))
+    @if(in_array(request()->route()->getName(), ['dashboard', 'customers.index']))
 
-{{--     Nav--}}
     @include('layouts.nav')
-{{--     SideNav--}}
     @include('layouts.sidenav')
     <main class="content">
-{{--         TopBar--}}
-        @include('layouts.topbar')
+        @if(in_array(request()->route()->getName(), ['dashboard']))
+            @include('layouts.topbar')
+        @endif
         @yield('content')
-{{--         Footer--}}
         @include('layouts.footer')
     </main>
 

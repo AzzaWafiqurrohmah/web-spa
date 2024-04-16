@@ -3,29 +3,42 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Spatie\Permission\Traits\HasRoles;
 
-class Therapist extends Model
+class Therapist extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, HasRoles;
+
+    public $timestamps = false;
+
     protected $fillable = [
-        'franchise_id', 'raw_id', 'fullname', 'birth_date', 'gender',
-        'phone', 'address', 'body_height', 'body_weight', 'start_working'
+        'body_weight',
+        'start_working',
+        'address',
+        'phone',
+        'gender',
+        'birth_date',
+        'fullname',
+        'password',
+        'raw_id',
+        'franchise_id',
+        'email'
     ];
 
-    public function franchise() :BelongsTo
+    public function franchise(): BelongsTo
     {
         return $this->belongsTo(Franchise::class);
     }
 
-    public function presence() :HasMany
+    public function presence(): HasMany
     {
         return $this->hasMany(Presence::class);
     }
 
-    public function reservation() :HasMany
+    public function reservation(): HasMany
     {
         return $this->hasMany(Reservation::class);
     }

@@ -1,6 +1,6 @@
 @extends('layouts.base')
 @section('app')
-    @if(in_array(request()->route()->getName(), ['dashboard', 'customers.index']))
+    @if(in_array(request()->route()->getName(), ['dashboard', 'customers.index', 'customers.create']))
 
     @include('layouts.nav')
     @include('layouts.sidenav')
@@ -16,8 +16,7 @@
     'forgot-password', 'forgot-password-example', 'reset-password','reset-password-example']))
 
     @yield('content')
-     Footer
-    @include('layouts.footer2')
+{{--    @include('layouts.footer2')--}}
 
 
     @elseif(in_array(request()->route()->getName(), ['404', '500', 'lock']))

@@ -3,14 +3,20 @@
 <title>Customer</title>
 <div class="row">
     <div class="col-md-10">
-        <div>
-            <h3>Daftar pengguna</h3>
+        <div class="mt-5 mb-3" >
+            <h1>Data pelanggan</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item">Customer</li>
+                </ol>
+            </nav>
         </div>
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between mb-4">
                     <div>
-                        <a href="" class="btn btn-primary">New User</a>
+                        <a href="{{route('customers.create')}}" class="btn btn-primary">New User</a>
                     </div>
                 </div>
                 <div class="table-responsive">
@@ -30,7 +36,9 @@
                                 <td>374.1.008</td>
                                 <td>admin</td>
                                 <td>081234213213</td>
-                                <td>Aktif</td>
+                                <td>
+                                    <a href="" class="btn btn-sm btn-danger">Start member</a>
+                                </td>
                                 <td class="d-flex gap-2">
                                     <a href="" class="btn btn-sm btn-warning">Details</a>
                                     <a href="" class="btn btn-sm btn-info">Edit</a>

@@ -52,8 +52,34 @@
     <!-- Notyf -->
     <link type="text/css" href="/vendor/notyf/notyf.min.css" rel="stylesheet">
 
+    <!-- map -->
+        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+              integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+              crossorigin=""/>
+
     <!-- Volt CSS -->
     <link type="text/css" href="/css/volt.css" rel="stylesheet">
+        <style>
+            .image-preview {
+                aspect-ratio: 15/9;
+                border: 2px dashed #ccc;
+                border-radius: .5rem;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                cursor: pointer;
+                background-position: center;
+                background-size: cover;
+
+                & small {
+                    background-color: rgba(255, 255, 255, .9);
+                    padding: 5px 10px;
+                    border-radius: .5rem;
+                }
+            }
+
+            #map { height: 300px; width: 95%; margin-left: 10px; margin-bottom: 10px }
+        </style>
 
 {{--    @livewireStyles--}}
 </head>
@@ -70,6 +96,12 @@
 
 
 {{--    @livewireScripts--}}
+
+    <!-- map -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+            crossorigin=""></script>
+
     <!-- Core -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>

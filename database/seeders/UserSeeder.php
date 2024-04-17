@@ -15,19 +15,27 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
+        Franchise::create([
+            'name' => 'jember',
+            'latitude' => '0',
+            'longitude' => '0'
+        ]);
+
         User::create([
             'name' => 'Owner',
+            'franchise_id' => '1',
             'email' => 'owner@mail.com',
             'password' => Hash::make('owner123'),
         ])->assignRole('owner');
 
         User::create([
             'name' => 'admin',
+            'franchise_id' => '1',
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin123')
         ])->assignRole('admin');
 
-        Franchise::factory()->create()->therapist()->create([
+        Therapist::create([
             'raw_id' => '1234567890',
             'email' => 'therapist@mail.com',
             'password' => Hash::make('therapist123'),
@@ -39,6 +47,7 @@ class UserSeeder extends Seeder
             'body_height' => '160',
             'body_weight' => '50',
             'start_working' => now(),
+            'franchise_id' => '1'
         ])->assignRole('therapist');
     }
 }

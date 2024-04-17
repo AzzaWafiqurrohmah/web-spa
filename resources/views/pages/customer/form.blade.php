@@ -9,7 +9,7 @@
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="mb-4">
                     <label for="fullname">Nama Lengkap</label>
-                    <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror"  value="{{old('fullname')}}" autofocus>
+                    <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror"  value="{{old('fullname', $customer?->fullname)}}" autofocus>
                     @error('fullname')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>
@@ -22,7 +22,7 @@
                         <span class="input-group-text">
                             <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
                         </span>
-                        <input data-datepicker="" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" type="text" value="{{old('birth_date')}}" placeholder="dd/mm/yyyy">
+                        <input data-datepicker="" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" type="text" value="{{old('birth_date', $customer?->birth_date)}}" placeholder="yyyy-mm-dd">
                     </div>
                     @error('birthDate')
                     <div class="invaid-feedback">
@@ -34,7 +34,7 @@
             <div class="col-lg-6">
                 <div class="mb-4">
                     <label for="phone">Nomor Telepon</label>
-                    <input type="text" name="phone" value="{{old('phone')}}" class="form-control @error('phone') is-invalid @enderror">
+                    <input type="text" name="phone" value="{{old('phone', $customer?->phone)}}" class="form-control @error('phone') is-invalid @enderror">
                     @error('phone')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>
@@ -44,14 +44,13 @@
                 <div class="mb-3">
                     <fieldset style=" flex-direction: row; align-items: center;">
                         <legend class="h6" >Jenis Kelamin</legend>
-                        <div class="form-check-inline" style="margin-right: 20px;">
-                            <input class="form-check-input" type="radio" name="gender" id="male" value="male" checked>
-                            <label class="form-check-label" for="male">Laki - laki</label>
-                        </div>
-                        <div class="form-check-inline">
-                            <input class="form-check-input" type="radio" name="gender" id="female" value="female">
-                            <label class="form-check-label" for="female">Perempuan</label>
-                        </div>
+                        @foreach (App\Enums\Gender::values() as $cat => $val)
+                            <div class="form-check-inline" style="margin-right: 20px;">
+                                <input class="form-check-input" type="radio" name="gender" id="{{$cat}}" value="{{$cat}}"
+                                    @checked($cat == $customer?->gender || old('gender') == $cat)>
+                                <label class="form-check-label" for="{{$cat}}">{{$val}}</label>
+                            </div>
+                        @endforeach
                     </fieldset>
                 </div>
             </div>
@@ -79,7 +78,7 @@
             <div class="col-lg-6">
                 <div class="mb-4">
                     <label for="home_details">Detail Rumah</label>
-                    <textarea class="form-control" placeholder="Detail rumah anda ..." id="home_details" name="home_details" style="width: 100%;" rows="4"></textarea>
+                    <textarea class="form-control" placeholder="Detail rumah anda ..." id="home_details" name="home_details" style="width: 100%;" rows="4" >{{ $customer? $customer->home_details : '' }}</textarea>
                     @error('home_details')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>
@@ -88,7 +87,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="address">Alamat Lengkap</label>
-                    <textarea class="form-control" placeholder="Alamat anda ..." id="address" name="address" style="width: 100%;" rows="4"></textarea>
+                    <textarea class="form-control" placeholder="Alamat anda ..." id="address" name="address" style="width: 100%;" rows="4"> {{ $customer? $customer->address : '' }}</textarea>
                     @error('address')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>
@@ -109,10 +108,9 @@
     <div class="card-body">
         <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Keterangan Member</h4>
         <div class="row">
-            <!-- Left side columns -->
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="member" name="member">
+                    <input class="form-check-input" type="checkbox" value="1" id="member" name="member" @checked($customer?->member_id != '0') @disabled($customer?->member_id != '0')>
                     <label class="form-check-label" for="member">
                         Tambahkan sebagai member
                     </label>
@@ -138,7 +136,7 @@
         const lat = document.getElementById('latitude');
         const lng = document.getElementById('longtitude');
 
-        var previousMarker = L.marker([-8.173043, 113.701767]).addTo(map);
+        var previousMarker = L.marker([{{ $customer?->latitude }}, {{ $customer?->longtitude }}]).addTo(map);
         function onMapClick(e) {
             if (previousMarker !== null) {
                 map.removeLayer(previousMarker);

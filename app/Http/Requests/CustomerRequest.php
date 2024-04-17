@@ -21,16 +21,22 @@ class CustomerRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'fullname' => 'required|string',
             'birth_date' => 'required|date_format:m/d/Y',
             'phone' => 'required|size:12',
             'gender' => 'required',
-            'home_pict' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'home_details' => 'required',
-            'address' => 'required',
-            'latitude' => 'required',
-            'longtitude' => 'required'
+            'address' => 'required'
         ];
+
+        if ($this->isMethod('POST')){
+            $rules['home_pict'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+            $rules['latitude'] = 'required';
+            $rules['longitude'] = 'required';
+        }
+
+
+        return $rules;
     }
 }

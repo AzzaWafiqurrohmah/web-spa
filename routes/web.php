@@ -36,6 +36,8 @@ Route::middleware('auth')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('create', 'create')->name('create');
             Route::post('store', 'store')->name('store');
+
+            Route::get('/{customer}/edit', 'edit')->name('edit');
             Route::match(['PUT', 'PATCH'], '{customer}/update', 'update')->name('update');
 
             Route::get('datatables', 'datatables')->name('datatables');

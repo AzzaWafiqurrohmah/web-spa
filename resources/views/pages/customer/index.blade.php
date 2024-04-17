@@ -53,5 +53,10 @@
                 {data: 'action', orderable: false, searchable: false},
             ],
         });
+
+
+        $('#customers-table').on('click', '.btn-edit', function(e) {
+            window.location.href = "{{ route('customers.edit', 'VALUE') }}".replace('VALUE', $(this).data('id'));
+        });
     </script>
 @endpush

@@ -50,17 +50,22 @@ class CustomerController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Customer $customer)
     {
-        //
+        return view('pages.customer.edit', [
+            'customer' => $customer
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(CustomerRequest $request, Customer $customer)
     {
-        //
+//        dd($request);
+        CustomerRepository::save($request->all(), $customer);
+        return to_route('customers.index')
+            ->with('alert_s', 'Berhasil mengubah Data Pelanggan');
     }
 
     /**

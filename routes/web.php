@@ -30,10 +30,6 @@ Route::middleware('auth')->group(function () {
         return view('pages.dashboard');
     })->name('dashboard');
 
-    //customer
-<<<<<<< HEAD
-//    Route::resource('customers', CustomerController::class);
-
     Route::prefix('customers')
         ->name('customers.')
         ->controller(CustomerController::class)->group(function () {
@@ -47,8 +43,4 @@ Route::middleware('auth')->group(function () {
 
             Route::delete('{customer}', 'destroy')->name('destroy');
         });
-
-=======
-    Route::resource('customers', CustomerController::class);
->>>>>>> 393fdd876c456e50d08757465a7af840adb834dd
 });

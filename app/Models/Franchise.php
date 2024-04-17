@@ -16,6 +16,11 @@ class Franchise extends Model
         'name', 'latitude', 'longitude'
     ];
 
+    public function user(): HasMany
+    {
+        return $this->hasMany(User::class);
+    }
+
     public function therapist(): HasMany
     {
         return $this->hasMany(Therapist::class);

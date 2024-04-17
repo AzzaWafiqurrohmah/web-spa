@@ -136,7 +136,10 @@
         const lat = document.getElementById('latitude');
         const lng = document.getElementById('longtitude');
 
-        var previousMarker = L.marker([{{ $customer?->latitude }}, {{ $customer?->longtitude }}]).addTo(map);
+        var previousMarker = null;
+        @if($customer)
+            previousMarker = L.marker([{{ $customer?->latitude }}, {{ $customer?->longtitude }}]).addTo(map);
+        @endif
         function onMapClick(e) {
             if (previousMarker !== null) {
                 map.removeLayer(previousMarker);

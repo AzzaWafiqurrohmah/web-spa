@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Repository\CustomerRepository;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
 {
@@ -71,9 +72,14 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Customer $customer)
     {
-        //
+        Storage::disk('public')->delete($customer->home_pict);
+        $customer->delete();
+
+        return $this->success(
+            message: 'Berhasil menghapus Data Pelanggan'
+        );
     }
 
     public function datatables()

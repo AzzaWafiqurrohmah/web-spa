@@ -168,6 +168,22 @@
         <!-- End Google Tag Manager -->
     @endif
 
+    <script>
+        $.ajaxSetup({
+            headers: {
+                'X-CSRF-TOKEN': '{{ csrf_token() }}',
+            }
+        });
+
+        @if(session()->has('swal_s'))
+        Swal.fire({
+            icon: 'success',
+            text: '{{ session()->get('swal_s') }}',
+            timer: 1500,
+        });
+        @endif
+    </script>
+
 @stack('script')
 @include('components.sweetalert')
 </body>

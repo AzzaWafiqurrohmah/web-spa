@@ -169,6 +169,7 @@
     @endif
 
 @stack('script')
+@include('components.sweetalert')
 </body>
 
 </html>

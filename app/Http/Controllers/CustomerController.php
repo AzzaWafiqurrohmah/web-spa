@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\CustomerRequest;
 use App\Http\Resources\CustomerResource;
 use App\Models\Customer;
+use App\Repository\CustomerRepository;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 
@@ -29,9 +31,12 @@ class CustomerController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CustomerRequest $request)
     {
-        //
+        CustomerRepository::save($request->all());
+
+        return to_route('customers.index')
+            ->with('alert_s', 'Berhasil menambahkan Pelanggan');
     }
 
     /**

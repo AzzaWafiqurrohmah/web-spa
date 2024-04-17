@@ -6,11 +6,10 @@
     <div class="card-body">
         <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Detail Pelanggan</h4>
         <div class="row">
-            <!-- Left side columns -->
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="mb-4">
                     <label for="fullname">Nama Lengkap</label>
-                    <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror"  autofocus>
+                    <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror"  value="{{old('fullname')}}" autofocus>
                     @error('fullname')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>
@@ -18,19 +17,24 @@
                     @enderror
                 </div>
                 <div class="mb-4">
-                    <label for="birthday">Tanggal lahir</label>
+                    <label for="birth_date">Tanggal lahir</label>
                     <div class="input-group">
                         <span class="input-group-text">
                             <svg class="icon icon-xs text-gray-600" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M6 2a1 1 0 00-1 1v1H4a2 2 0 00-2 2v10a2 2 0 002 2h12a2 2 0 002-2V6a2 2 0 00-2-2h-1V3a1 1 0 10-2 0v1H7V3a1 1 0 00-1-1zm0 5a1 1 0 000 2h8a1 1 0 100-2H6z" clip-rule="evenodd"></path></svg>
                         </span>
-                        <input data-datepicker="" class="form-control" id="birthday" type="text" placeholder="dd/mm/yyyy" required>
+                        <input data-datepicker="" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date" name="birth_date" type="text" value="{{old('birth_date')}}" placeholder="dd/mm/yyyy">
                     </div>
+                    @error('birthDate')
+                    <div class="invaid-feedback">
+                        <small class="text-danger">{{ $message }}</small>
+                    </div>
+                    @enderror
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="mb-4">
                     <label for="phone">Nomor Telepon</label>
-                    <input type="text" name="phone" class="form-control @error('phone') is-invalid @enderror">
+                    <input type="text" name="phone" value="{{old('phone')}}" class="form-control @error('phone') is-invalid @enderror">
                     @error('phone')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>
@@ -50,12 +54,6 @@
                         </div>
                     </fieldset>
                 </div>
-{{--                <div class="form-check">--}}
-{{--                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck10">--}}
-{{--                    <label class="form-check-label" for="defaultCheck10">--}}
-{{--                        Tambahkan sebagai member--}}
-{{--                    </label>--}}
-{{--                </div>--}}
             </div>
         </div>
     </div>
@@ -67,31 +65,31 @@
         <div class="row">
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="mb-4">
-                    <label for="homepict">Foto Depan Rumah</label>
-                    <label class="image-preview" for="homepict" style="background-image: none">
+                    <label for="home_pict" class="form-label">Foto Depan Rumah</label>
+                    <label class="image-preview" for="home_pict" style="background-image: url('{{ Storage::url($customer?->home_pict) }}')">
                         <small>Klik untuk {{ $customer ? 'mengganti' : 'mengunggah' }}</small>
-                        <input type="file" name="homepict" id="homepict" class="d-none" accept="image/*">
+                        <input type="file" name="home_pict" id="home_pict" class="d-none" accept="image/*">
                     </label>
 
-                    @error('homepict')
-                    <small class="text-danger">{{ $message }}</small>
+                    @error('home_pict')
+                        <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
             </div>
             <div class="col-lg-6">
                 <div class="mb-4">
-                    <label for="homedetail">Detail Rumah</label>
-                    <textarea class="form-control" placeholder="Detail rumah anda ..." id="homedetail" style="width: 100%;" rows="4"></textarea>
-                    @error('homedetail')
+                    <label for="home_details">Detail Rumah</label>
+                    <textarea class="form-control" placeholder="Detail rumah anda ..." id="home_details" name="home_details" style="width: 100%;" rows="4"></textarea>
+                    @error('home_details')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>
                     </div>
                     @enderror
                 </div>
                 <div class="mb-4">
-                    <label for="homedetail">Alamat Lengkap</label>
-                    <textarea class="form-control" placeholder="Alamat anda ..." id="homedetail" style="width: 100%;" rows="4"></textarea>
-                    @error('homedetail')
+                    <label for="address">Alamat Lengkap</label>
+                    <textarea class="form-control" placeholder="Alamat anda ..." id="address" name="address" style="width: 100%;" rows="4"></textarea>
+                    @error('address')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>
                     </div>
@@ -99,7 +97,10 @@
                 </div>
             </div>
             <label for="map" style="margin-bottom: 10px">Detail lokasi rumah</label>
-            <div id="map"></div>
+            <div id="map">
+                <input type="hidden" id="latitude" name="latitude">
+                <input type="hidden" id="longtitude" name="longtitude">
+            </div>
         </div>
     </div>
 </div>
@@ -111,8 +112,8 @@
             <!-- Left side columns -->
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="" id="defaultCheck10">
-                    <label class="form-check-label" for="defaultCheck10">
+                    <input class="form-check-input" type="checkbox" value="1" id="member" name="member">
+                    <label class="form-check-label" for="member">
                         Tambahkan sebagai member
                     </label>
                 </div>
@@ -133,17 +134,36 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
-        var marker = L.marker([-8.173043, 113.701767]).addTo(map);
-        var previousMarker = null;
+        //put latlng
+        const lat = document.getElementById('latitude');
+        const lng = document.getElementById('longtitude');
+
+        var previousMarker = L.marker([-8.173043, 113.701767]).addTo(map);
         function onMapClick(e) {
             if (previousMarker !== null) {
                 map.removeLayer(previousMarker);
             }
 
+            lat.value = e.latlng.lat;
+            lng.value = e.latlng.lng;
             previousMarker = L.marker(e.latlng).addTo(map);
         }
         map.on('click', onMapClick);
 
+
+
+        $('#home_pict').on('change', function() {
+            const preview = $(this).parent();
+            const file = this.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.css('background-image', `url('${e.target.result}')`);
+            }
+
+            reader.readAsDataURL(file);
+            console.log($(this).value);
+        });
 
 
     </script>

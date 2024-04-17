@@ -17,7 +17,7 @@
             </div>
 {{--            <div class="card">--}}
 {{--                <div class="card-body">--}}
-                    <form action="{{ route('customers.store') }}" method="post">
+                    <form action="{{ route('customers.store') }}"  method="POST" enctype="multipart/form-data">
                         @include('pages.customer.form')
                     </form>
 {{--                </div>--}}

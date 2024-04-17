@@ -2,10 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\CustomerResource;
+use App\Models\Customer;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+    use ApiResponser;
     /**
      * Display a listing of the resource.
      */
@@ -61,4 +65,25 @@ class CustomerController extends Controller
     {
         //
     }
+
+    public function datatables()
+    {
+        return datatables(Customer::query())
+            ->addIndexColumn()
+            ->addColumn('id', fn($customer) => format_id('customer' ,$customer->raw_id, $customer->gender, $customer->id))
+            ->addColumn('member', fn($customer) => view('pages.customer.member', compact('customer')))
+            ->addColumn('action', fn($customer) => view('pages.customer.action', compact('customer')))
+            ->toJson();
+    }
+
+    public function json()
+    {
+        $customers = Customer::all();
+
+        return $this->success(
+            CustomerResource::collection($customers),
+            'Berhasil mengambil data'
+        );
+    }
+
 }

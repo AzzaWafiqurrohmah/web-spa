@@ -20,7 +20,7 @@
                     </div>
                 </div>
                 <div class="table-responsive">
-                    <table class="table table-striped table-hover" id="users-table">
+                    <table class="table table-striped table-hover" id="customers-table">
                         <thead>
                         <tr>
                             <th>ID customer</th>
@@ -30,27 +30,7 @@
                             <th>Aksi</th>
                         </tr>
                         </thead>
-                        <tbody>
-{{--                        @foreach($users as $user)--}}
-                            <tr>
-                                <td>374.1.008</td>
-                                <td>admin</td>
-                                <td>081234213213</td>
-                                <td>
-                                    <a href="" class="btn btn-sm btn-danger">Start member</a>
-                                </td>
-                                <td class="d-flex gap-2">
-                                    <a href="" class="btn btn-sm btn-warning">Details</a>
-                                    <a href="" class="btn btn-sm btn-info">Edit</a>
-                                    <form action="" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button  type="submit" class="btn btn-sm btn-danger">Hapus</button>
-                                    </form>
-                                </td>
-                            </tr>
-{{--                        @endforeach--}}
-                        </tbody>
+                        <tbody></tbody>
                     </table>
                 </div>
             </div>
@@ -61,6 +41,17 @@
 
 @push('script')
     <script>
-        $('#users-table').DataTable();
+        const customersTable = $('#customers-table').DataTable({
+            serverSide: true,
+            rendering: true,
+            ajax: '{{ route('customers.datatables') }}',
+            columns: [
+                {data: 'id'},
+                {data: 'fullname', name: 'fullname'},
+                {data: 'phone', name: 'phone'},
+                {data: 'member'},
+                {data: 'action', orderable: false, searchable: false},
+            ],
+        });
     </script>
 @endpush

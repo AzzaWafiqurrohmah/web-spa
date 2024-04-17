@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('raw_id', 10);
             $table->string('fullname', 100);
             $table->string('phone', 12);
-            $table->integer('member_id');
+            $table->integer('member_id')->default('0')->nullable();
             $table->date('start_member')->nullable();
             $table->string('address', 255)->nullable();
             $table->enum('gender', ['male', 'female']);

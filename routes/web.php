@@ -19,18 +19,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::middleware('guest')->controller(AuthController::class)->group(function (){
+Route::middleware('guest')->controller(AuthController::class)->group(function () {
     Route::get('/login', 'index')->name('login');
     Route::post('/store', 'store')->name('store');
 });
 
-Route::middleware('auth')->group(function (){
+Route::middleware('auth')->group(function () {
     //dashboard
-    Route::get('/dashboard', function (){
+    Route::get('dashboard', function () {
         return view('pages.dashboard');
     })->name('dashboard');
 
     //customer
+<<<<<<< HEAD
 //    Route::resource('customers', CustomerController::class);
 
     Route::prefix('customers')
@@ -47,5 +48,7 @@ Route::middleware('auth')->group(function (){
             Route::delete('{customer}', 'destroy')->name('destroy');
         });
 
+=======
+    Route::resource('customers', CustomerController::class);
+>>>>>>> 393fdd876c456e50d08757465a7af840adb834dd
 });
-

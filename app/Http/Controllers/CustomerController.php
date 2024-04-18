@@ -35,6 +35,7 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
+//        dd($request);
         CustomerRepository::save($request->all());
 
         return to_route('customers.index')
@@ -64,7 +65,6 @@ class CustomerController extends Controller
      */
     public function update(CustomerRequest $request, Customer $customer)
     {
-//        dd($request);
         CustomerRepository::save($request->all(), $customer);
         return to_route('customers.index')
             ->with('alert_s', 'Berhasil mengubah Data Pelanggan');
@@ -88,7 +88,7 @@ class CustomerController extends Controller
         $user = Auth::user();
         return datatables(Customer::query())
             ->addIndexColumn()
-            ->addColumn('id', fn($customer) => format_id('customer' ,$user->raw_id, $customer->gender, $customer->id))
+            ->addColumn('id', fn($customer) => format_id('customer' ,$user->franchise->raw_id, $customer->gender, $customer->id))
             ->addColumn('member', fn($customer) => view('pages.customer.member', compact('customer')))
             ->addColumn('action', fn($customer) => view('pages.customer.action', compact('customer')))
             ->toJson();

@@ -65,7 +65,7 @@
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="mb-4">
                     <label for="home_pict" class="form-label">Foto Depan Rumah</label>
-                    <label class="image-preview" for="home_pict" style="background-image: url('{{ Storage::url($customer?->home_pict) }}')">
+                    <label class="image-preview" for="home_pict" style="background-image: url('{{ Storage::url($customer ? $customer->home_pict : old('home_pict')) }}')">
                         <small>Klik untuk {{ $customer ? 'mengganti' : 'mengunggah' }}</small>
                         <input type="file" name="home_pict" id="home_pict" class="d-none" accept="image/*">
                     </label>
@@ -110,7 +110,8 @@
         <div class="row">
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="member" name="member" @checked($customer?->member_id != '0') @disabled($customer?->member_id != '0')>
+                    <input class="form-check-input" type="checkbox" value="1" id="member" name="member" @checked($customer && $customer?->member_id != '0')
+                        @disabled($customer && $customer?->member_id != '0')>
                     <label class="form-check-label" for="member">
                         Tambahkan sebagai member
                     </label>

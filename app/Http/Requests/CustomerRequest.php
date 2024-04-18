@@ -32,8 +32,8 @@ class CustomerRequest extends FormRequest
 
         if ($this->isMethod('POST')){
             $rules['home_pict'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
-            $rules['latitude'] = 'required';
-            $rules['longitude'] = 'required';
+//            $rules['latitude'] = 'required';
+//            $rules['longitude'] = 'required';
         }
 
 

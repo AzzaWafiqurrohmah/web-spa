@@ -97,8 +97,8 @@
             </div>
             <label for="map" style="margin-bottom: 10px">Detail lokasi rumah</label>
             <div id="map">
-                <input type="hidden" id="latitude" name="latitude">
-                <input type="hidden" id="longitude" name="longitude">
+                <input type="hidden" id="latitude" name="latitude" value="{{ $customer?->latitude }}">
+                <input type="hidden" id="longitude" name="longitude" value="{{ $customer?->longitude }}">
             </div>
         </div>
     </div>

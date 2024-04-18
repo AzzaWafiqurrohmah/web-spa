@@ -23,7 +23,7 @@ class CustomerRequest extends FormRequest
     {
         $rules = [
             'fullname' => 'required|string',
-            'birth_date' => 'required|date_format:m/d/Y',
+            'birth_date' => 'required|date_format:Y-m-d',
             'phone' => 'required|size:12',
             'gender' => 'required',
             'home_details' => 'required',

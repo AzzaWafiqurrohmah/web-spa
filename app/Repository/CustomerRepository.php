@@ -12,7 +12,7 @@ class CustomerRepository
     public static function save(array $data, ?Customer $customer = null)
     {
         $data['franchise_id'] = Auth::user()->franchise_id;
-        $data['birth_date'] = Carbon::createFromFormat('d/m/Y', $data['birth_date'])->format('Y-m-d');
+//        $data['birth_date'] = Carbon::createFromFormat('d/m/Y', $data['birth_date'])->format('Y-m-d');
 
         $now = Carbon::now();
         if(isset($data['member'])){

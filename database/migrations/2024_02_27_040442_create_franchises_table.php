@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('franchises', function (Blueprint $table) {
             $table->id();
+            $table->string('raw_id', 10);
             $table->string('name', 100);
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();

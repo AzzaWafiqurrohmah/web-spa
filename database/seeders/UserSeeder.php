@@ -17,6 +17,7 @@ class UserSeeder extends Seeder
     {
         Franchise::create([
             'name' => 'jember',
+            'raw_id' => '35.74',
             'latitude' => '0',
             'longitude' => '0'
         ]);
@@ -36,7 +37,6 @@ class UserSeeder extends Seeder
         ])->assignRole('admin');
 
         Therapist::create([
-            'raw_id' => '1234567890',
             'email' => 'therapist@mail.com',
             'password' => Hash::make('therapist123'),
             'fullname' => 'Terapis',

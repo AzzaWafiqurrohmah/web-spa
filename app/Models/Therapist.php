@@ -23,7 +23,6 @@ class Therapist extends Authenticatable
         'birth_date',
         'fullname',
         'password',
-        'raw_id',
         'franchise_id',
         'email'
     ];

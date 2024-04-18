@@ -13,7 +13,7 @@ class Franchise extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'name', 'latitude', 'longitude'
+        'raw_id', 'name', 'latitude', 'longitude'
     ];
 
     public function user(): HasMany

@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Repository\CustomerRepository;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
 class CustomerController extends Controller
@@ -84,9 +85,10 @@ class CustomerController extends Controller
 
     public function datatables()
     {
+        $user = Auth::user();
         return datatables(Customer::query())
             ->addIndexColumn()
-            ->addColumn('id', fn($customer) => format_id('customer' ,$customer->raw_id, $customer->gender, $customer->id))
+            ->addColumn('id', fn($customer) => format_id('customer' ,$user->raw_id, $customer->gender, $customer->id))
             ->addColumn('member', fn($customer) => view('pages.customer.member', compact('customer')))
             ->addColumn('action', fn($customer) => view('pages.customer.action', compact('customer')))
             ->toJson();

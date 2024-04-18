@@ -14,7 +14,7 @@ class Customer extends Model
 
     protected $fillable = [
         'franchise_id', 'fullname', 'phone', 'member_id', 'start_member', 'address',
-        'gender', 'birth_date', 'home_pict', 'home_details', 'latitude', 'longtitude'
+        'gender', 'birth_date', 'home_pict', 'home_details', 'latitude', 'longitude'
     ];
 
     public function franchise() :BelongsTo

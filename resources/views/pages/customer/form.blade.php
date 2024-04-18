@@ -98,7 +98,7 @@
             <label for="map" style="margin-bottom: 10px">Detail lokasi rumah</label>
             <div id="map">
                 <input type="hidden" id="latitude" name="latitude">
-                <input type="hidden" id="longtitude" name="longtitude">
+                <input type="hidden" id="longitude" name="longitude">
             </div>
         </div>
     </div>
@@ -135,11 +135,11 @@
 
         //put latlng
         const lat = document.getElementById('latitude');
-        const lng = document.getElementById('longtitude');
+        const lng = document.getElementById('longitude');
 
         var previousMarker = null;
         @if($customer)
-            previousMarker = L.marker([{{ $customer?->latitude }}, {{ $customer?->longtitude }}]).addTo(map);
+            previousMarker = L.marker([{{ $customer?->latitude }}, {{ $customer?->longitude }}]).addTo(map);
         @endif
         function onMapClick(e) {
             if (previousMarker !== null) {

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('home_pict')->nullable();
             $table->string('home_details')->nullable();
             $table->string('latitude')->nullable();
-            $table->string('longtitude')->nullable();
+            $table->string('longitude')->nullable();
         });
     }
 

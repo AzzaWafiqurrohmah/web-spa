@@ -45,9 +45,12 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Customer $customer)
     {
-        //
+        return $this->success(
+            CustomerResource::make($customer),
+            'Berhasil mengambil detail Kategori'
+        );
     }
 
     /**

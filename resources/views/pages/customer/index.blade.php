@@ -37,6 +37,7 @@
         </div>
     </div>
 </div>
+    @include('components.customerModal')
 @endsection
 
 @push('script')
@@ -93,5 +94,27 @@
                     deleteItem(this.dataset.id);
             });
         });
+
+        const customerModal = new bootstrap.Modal('#customer-modal');
+        // let editID = 0;
+
+        let ID = 0;
+        function fillForm() {
+            $.ajax({
+                url: `/customers/${ID}`,
+                success: (res) => fillFormdata(res.data),
+            });
+        }
+
+        $('#customer-modal').on('show.bs.modal', function (event) {
+            fillForm();
+        });
+
+        $('#customers-table').on('click', '.btn-detail', function(e) {
+            // console.log($(this).data('id'));
+            ID = this.dataset.id;
+            customerModal.show();
+        });
+
     </script>
 @endpush

@@ -4817,11 +4817,13 @@ textarea.form-control-lg {
     border-top-right-radius: 0; }
 
 .nav {
-  display: flex;
+  display: grid;
   flex-wrap: wrap;
   padding-left: 0;
   margin-bottom: 0;
-  list-style: none; }
+  list-style: none;
+  /*justify-items: center;*/
+}
 
 .nav-link {
   display: block;
@@ -4857,7 +4859,7 @@ textarea.form-control-lg {
   .nav-tabs .nav-item.show .nav-link {
     color: #374151;
     background-color: #9CA3AF;
-    border-color: #9CA3AF; }
+    border-color: #ffc107; }
   .nav-tabs .dropdown-menu {
     margin-top: -0.0625rem;
     border-top-left-radius: 0;
@@ -17375,10 +17377,12 @@ label {
 .nav-tabs .nav-link {
   border: 0;
   padding: 1rem 1rem;
-  background-color: #ffffff; }
+  background-color: #ffffff;
+  margin-bottom: 0.2px}
   .nav-tabs .nav-link.active {
-    color: #ffffff;
-    background-color: #1F2937; }
+      margin-bottom: 0px;
+    color: #ffc107;
+    background-color: #ffffff; }
 
 .nav-tabs.nav-dark .nav-link.active {
   color: #ffffff;

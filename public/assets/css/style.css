@@ -1,0 +1,28 @@
+/* Bordered Tabs */
+.nav-tabs-bordered {
+    border-bottom: none; /* Remove bottom border */
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
+
+
+
+.nav-tabs-bordered .nav-link {
+    margin-bottom: 0;
+    border: none;
+    color: #2c384e;
+    border-top: 2px solid #ebeef4; /* Add top border to tabs */
+    border-bottom: 2px solid #ffc107;
+}
+
+.nav-tabs-bordered .nav-link:hover,
+.nav-tabs-bordered .nav-link:focus {
+    color: #ffc107;
+}
+
+.nav-tabs-bordered .nav-link.active {
+    background-color: #fff;
+    color: #ffc107;
+    border-bottom: 2px solid #ffc107; /* Add top border to the active tab */
+}

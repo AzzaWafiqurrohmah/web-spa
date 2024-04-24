@@ -52,6 +52,8 @@
     <!-- Notyf -->
     <link type="text/css" href="/vendor/notyf/notyf.min.css" rel="stylesheet">
 
+    <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+
     <!-- map -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
               integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
@@ -146,6 +148,7 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
+    <script src="{{ asset('js/utils.js') }}"></script>
 
     @if(env('IS_DEMO'))
         <!-- Global site tag (gtag.js) - Google Analytics -->

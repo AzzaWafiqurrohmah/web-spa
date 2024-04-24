@@ -14,7 +14,7 @@
     <div class="d-flex justify-content-between w-100 flex-wrap">
         <div class="mb-3 mb-lg-0">
             <h1 class="h4">Modals</h1>
-            <p class="mb-0">Dozens of reusable components built to provide buttons, alerts, popovers, and more.</p>
+            <p class="mb-0">Dozens of reusable componentsbuilt to provide buttons, alerts, popovers, and more.</p>
         </div>
         <div>
             <a href="/documentation/components/modals/index.html" class="btn btn-outline-gray" target="_blank"><i class="far fa-question-circle me-1"></i> Modals Docs</a>

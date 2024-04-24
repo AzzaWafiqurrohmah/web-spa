@@ -52,6 +52,9 @@
         </a>
       </li>
         <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
+
+        @role('admin')
+
       <li class="nav-item {{ Request::segment(1) == 'transactions' ? 'active' : '' }}">
         <a href="/transactions" class="nav-link">
           <span class="sidebar-icon"><svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
@@ -169,6 +172,59 @@
             </a>
         </li>
       <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
+        @endrole
+
+      @role('owner')
+        <li class="nav-item {{ Request::segment(1) == 'franchise' ? 'active' : '' }}">
+            <a href="" class="nav-link">
+          <span class="sidebar-icon"><svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
+                                          xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path>
+              <path fill-rule="evenodd"
+                    d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                    clip-rule="evenodd"></path>
+            </svg></span>
+                <span class="sidebar-text">Franchise</span>
+            </a>
+        </li>
+        <li class="nav-item {{ Request::segment(1) == 'customers' ? 'active' : '' }}">
+            <a href="" class="nav-link">
+          <span class="sidebar-icon"><svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
+                                          xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path>
+              <path fill-rule="evenodd"
+                    d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                    clip-rule="evenodd"></path>
+            </svg></span>
+                <span class="sidebar-text">Admin</span>
+            </a>
+        </li>
+        <li class="nav-item {{ Request::segment(1) == 'customers' ? 'active' : '' }}">
+            <a href="" class="nav-link">
+          <span class="sidebar-icon"><svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
+                                          xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path>
+              <path fill-rule="evenodd"
+                    d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                    clip-rule="evenodd"></path>
+            </svg></span>
+                <span class="sidebar-text">Transaction</span>
+            </a>
+        </li>
+        <li class="nav-item {{ Request::segment(1) == 'customers' ? 'active' : '' }}">
+            <a href="" class="nav-link">
+          <span class="sidebar-icon"><svg class="icon icon-xs me-2" fill="currentColor" viewBox="0 0 20 20"
+                                          xmlns="http://www.w3.org/2000/svg">
+              <path d="M4 4a2 2 0 00-2 2v1h16V6a2 2 0 00-2-2H4z"></path>
+              <path fill-rule="evenodd"
+                    d="M18 9H2v5a2 2 0 002 2h12a2 2 0 002-2V9zM4 13a1 1 0 011-1h1a1 1 0 110 2H5a1 1 0 01-1-1zm5-1a1 1 0 100 2h1a1 1 0 100-2H9z"
+                    clip-rule="evenodd"></path>
+            </svg></span>
+                <span class="sidebar-text">Report</span>
+            </a>
+        </li>
+      @endrole
+
       <li class="nav-item">
         <a href="/upgrade-to-pro"
           class="btn btn-secondary d-flex align-items-center justify-content-center btn-upgrade-pro">

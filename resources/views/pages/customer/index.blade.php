@@ -26,7 +26,7 @@
                             <th>ID customer</th>
                             <th>Nama Lengkap</th>
                             <th>No Telp</th>
-                            <th>Member</th>
+                            <th>Status</th>
                             <th>Aksi</th>
                         </tr>
                         </thead>
@@ -114,6 +114,45 @@
             // console.log($(this).data('id'));
             ID = this.dataset.id;
             customerModal.show();
+        });
+
+
+        function member(id) {
+            $.ajax({
+                url: `/customers/${id}/member`,
+                method: 'POST',
+                success(res) {
+                    customersTable.ajax.reload();
+
+                    Swal.fire({
+                        icon: 'success',
+                        text: res.meta.message,
+                        timer: 1500,
+                    });
+                },
+                error(err) {
+                    Swal.fire({
+                        icon: 'error',
+                        text: err ,
+                        timer: 1500,
+                    });
+                },
+            });
+        }
+
+
+        $('#customers-table').on('click', '.btn-member', function(e) {
+            Swal.fire({
+                icon: 'question',
+                text: 'Apakah anda ingin menambahkan menjadi member?',
+                showCancelButton: true,
+                cancelButtonText: 'Batal',
+            }).then((res) => {
+                if(res.isConfirmed)
+                    // console.log(this.dataset.id);
+                    member(this.dataset.id);
+            });
+
         });
 
     </script>

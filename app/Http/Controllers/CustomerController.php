@@ -8,6 +8,7 @@ use App\Models\Customer;
 use App\Repository\CustomerRepository;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -83,6 +84,20 @@ class CustomerController extends Controller
 
         return $this->success(
             message: 'Berhasil menghapus Data Pelanggan'
+        );
+    }
+
+    public function member(string $id)
+    {
+        $now = Carbon::now();
+        $customer = Customer::find($id);
+        $customer->update([
+            'member_id' => $now->format('dmy'),
+            'start_member' => $now
+        ]);
+
+        return $this->success(
+            message: "Berhasil menambahkan member"
         );
     }
 

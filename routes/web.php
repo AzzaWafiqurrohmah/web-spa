@@ -44,5 +44,6 @@ Route::middleware('auth')->group(function () {
             Route::get('{customer}', 'show')->name('show');
 
             Route::delete('{customer}', 'destroy')->name('destroy');
+            Route::post('{id}/member', 'member')->name('member');
         });
 });

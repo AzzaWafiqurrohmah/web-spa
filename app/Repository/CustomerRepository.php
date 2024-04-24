@@ -15,7 +15,7 @@ class CustomerRepository
 
         $now = Carbon::now();
         if(isset($data['member'])){
-            $data['member_id'] = $now->format('dmy');
+            $data['is_member'] = 1;
             $data['start_member'] = $now;
         }
 

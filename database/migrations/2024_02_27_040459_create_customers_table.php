@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('franchise_id')->constrained()->cascadeOnDelete();
             $table->string('fullname', 100);
             $table->string('phone', 12);
-            $table->integer('member_id')->default('0')->nullable();
+            $table->tinyInteger('is_member')->default(0)->nullable();
             $table->date('start_member')->nullable();
             $table->string('address', 255)->nullable();
             $table->enum('gender', ['male', 'female']);

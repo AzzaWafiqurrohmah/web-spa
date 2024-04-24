@@ -13,7 +13,7 @@ class Customer extends Model
     public $timestamps = false;
 
     protected $fillable = [
-        'franchise_id', 'fullname', 'phone', 'member_id', 'start_member', 'address',
+        'franchise_id', 'fullname', 'phone', 'is_member', 'start_member', 'address',
         'gender', 'birth_date', 'home_pict', 'home_details', 'latitude', 'longitude'
     ];
 

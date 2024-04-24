@@ -36,7 +36,6 @@ class CustomerController extends Controller
      */
     public function store(CustomerRequest $request)
     {
-//        dd($request);
         CustomerRepository::save($request->all());
 
         return to_route('customers.index')
@@ -92,7 +91,7 @@ class CustomerController extends Controller
         $now = Carbon::now();
         $customer = Customer::find($id);
         $customer->update([
-            'member_id' => $now->format('dmy'),
+            'is_member' => 1,
             'start_member' => $now
         ]);
 

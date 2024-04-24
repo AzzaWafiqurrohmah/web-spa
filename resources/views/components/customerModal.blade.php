@@ -46,7 +46,7 @@
 
                         <div class="col-lg-12 col-md-12 mb-2">
                             <label >Member Id</label>
-                            <input type="text" value="" id="member_id" name="member_id" class="form-control" disabled>
+                            <input type="text" value="" id="is_member" name="is_member" class="form-control" disabled>
                         </div>
 
                         <div class="col-lg-12 col-md-12 mb-2">

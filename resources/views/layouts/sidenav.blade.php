@@ -79,7 +79,7 @@
                 <span class="sidebar-text">Customer</span>
             </a>
         </li>
-      <li class="nav-item">
+      <li class="nav-item" >
         <span class="nav-link collapsed d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
           data-bs-target="#submenu-pages">
           <span>
@@ -101,6 +101,11 @@
         </span>
         <div class="multi-level collapse" role="list" id="submenu-pages" aria-expanded="false">
           <ul class="flex-column nav">
+              <li class="nav-item {{ Request::segment(1) == 'treatmentCategories' ? 'active' : '' }}">
+                  <a class="nav-link" href="{{ route('treatmentCategories.index') }}">
+                      <span class="sidebar-text">Kategori Treatment</span>
+                  </a>
+              </li>
             <li class="nav-item">
               <a class="nav-link" href="">
                 <span class="sidebar-text">Daftar Treatment</span>
@@ -241,3 +246,4 @@
     </ul>
   </div>
 </nav>
+

@@ -28,7 +28,7 @@ class Treatment extends Model
 
     public function treatmentCatagory() :BelongsTo
     {
-        return $this->belongsTo(TreatmentCatagory::class);
+        return $this->belongsTo(TreatmentCategory::class);
     }
 
     public function tools(): BelongsToMany

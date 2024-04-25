@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Owner\FranchiseController;
+use App\Http\Controllers\TreatmentCategoriesController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -47,5 +48,20 @@ Route::middleware('auth')->group(function () {
             Route::post('{id}/member', 'member')->name('member');
         });
 
+    //franchise owner
     Route::resource('franchises', FranchiseController::class);
+
+    //category treatment
+    Route::prefix('treatmentCategories')
+        ->name('treatmentCategories.')
+        ->controller(TreatmentCategoriesController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('store', 'store')->name('store');
+            Route::match(['PUT', 'PATCH'], '{treatmentCategory}/update', 'update')->name('update');
+
+            Route::get('datatables', 'datatables')->name('datatables');
+            Route::get('{treatmentCategory}', 'show')->name('show');
+
+            Route::delete('{treatmentCategory}', 'destroy')->name('destroy');
+        });
 });

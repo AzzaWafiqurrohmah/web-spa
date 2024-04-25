@@ -111,8 +111,8 @@
                 <span class="sidebar-text">Daftar Treatment</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">
+            <li class="nav-item {{ Request::segment(1) == 'tools' ? 'active' : '' }}">
+              <a class="nav-link" href=" {{ route('tools.index') }}">
                 <span class="sidebar-text">Alat Treatment</span>
               </a>
             </li>

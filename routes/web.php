@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Owner\FranchiseController;
 use App\Http\Controllers\TreatmentCategoriesController;
+use App\Http\Controllers\ToolController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -63,5 +64,19 @@ Route::middleware('auth')->group(function () {
             Route::get('{treatmentCategory}', 'show')->name('show');
 
             Route::delete('{treatmentCategory}', 'destroy')->name('destroy');
+        });
+
+    //tool treatment
+    Route::prefix('tools')
+        ->name('tools.')
+        ->controller(ToolController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('store', 'store')->name('store');
+            Route::match(['PUT', 'PATCH'], '{tool}/update', 'update')->name('update');
+
+            Route::get('datatables', 'datatables')->name('datatables');
+            Route::get('{tool}', 'show')->name('show');
+
+            Route::delete('{tool}', 'destroy')->name('destroy');
         });
 });

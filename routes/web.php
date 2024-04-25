@@ -6,6 +6,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\Owner\FranchiseController;
 use App\Http\Controllers\TreatmentCategoriesController;
 use App\Http\Controllers\ToolController;
+use App\Http\Controllers\MaterialController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,4 +80,18 @@ Route::middleware('auth')->group(function () {
 
             Route::delete('{tool}', 'destroy')->name('destroy');
         });
+
+    //material treatment
+    Route::prefix('materials')
+        ->name('materials.')
+        ->controller(MaterialController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('store', 'store')->name('store');
+            Route::match(['PUT', 'PATCH'], '{material}/update', 'update')->name('update');
+
+            Route::get('datatables', 'datatables')->name('datatables');
+            Route::get('{material}', 'show')->name('show');
+            Route::delete('{material}', 'destroy')->name('destroy');
+        });
+
 });

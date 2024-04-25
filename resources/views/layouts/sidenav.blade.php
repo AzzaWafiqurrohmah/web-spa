@@ -116,8 +116,8 @@
                 <span class="sidebar-text">Alat Treatment</span>
               </a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">
+            <li class="nav-item {{ Request::segment(1) == 'materials' ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('materials.index') }}">
                 <span class="sidebar-text">Bahan Treatment</span>
               </a>
             </li>

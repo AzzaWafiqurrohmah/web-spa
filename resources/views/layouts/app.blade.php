@@ -1,7 +1,7 @@
 @extends('layouts.base')
 @section('app')
     @if(in_array(request()->route()->getName(), ['dashboard', 'customers.index', 'customers.create', 'customers.edit', 'customers.destroy',
-            'franchises.index', 'treatmentCategories.index', 'tools.index']))
+            'franchises.index', 'treatmentCategories.index', 'tools.index', 'materials.index']))
 
     @include('layouts.nav')
     @include('layouts.sidenav')

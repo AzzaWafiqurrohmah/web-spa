@@ -12,7 +12,6 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('tool_treatment', function (Blueprint $table) {
-            $table->id();
             $table->foreignId('tool_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('treatment_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
         });

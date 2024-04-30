@@ -2854,7 +2854,7 @@ textarea.form-control-lg {
 .form-select {
   display: block;
   width: 100%;
-  padding: 0.5rem 1rem 0.5rem 1rem;
+  padding: 0.5rem 2rem 0.5rem 1rem;
   font-size: 0.875rem;
   font-weight: 400;
   line-height: 1.5;
@@ -2862,7 +2862,7 @@ textarea.form-control-lg {
   background-color: #ffffff;
   background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%231F2937' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M2 5l6 6 6-6'/%3e%3c/svg%3e");
   background-repeat: no-repeat;
-  background-position: right 1rem center;
+  background-position: right 0.7rem center;
   background-size: 16px 12px;
   border: 0.0625rem solid #D1D5DB;
   border-radius: 0.5rem;

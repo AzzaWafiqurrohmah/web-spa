@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
 
             Route::delete('{customer}', 'destroy')->name('destroy');
             Route::post('{id}/member', 'member')->name('member');
+            Route::post('{month}/birthdate', 'birthdate')->name('birthdate');
         });
 
     //franchise owner

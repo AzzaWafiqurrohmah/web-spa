@@ -15,6 +15,16 @@
         <div class="card">
             <div class="card-body">
                 <div class="d-flex justify-content-between mb-4">
+                    <div style="">
+                        <form action="" method="GET">
+                            <select class="form-select float-left" id="month" name="month" aria-label="Default select example">
+                                <option selected>-- Pilih Bulan Lahir --</option>
+                                @foreach($months as $month)
+                                    <option value="{{$month->format('m')}}" {{ request('month') == $month->format('m') ? 'selected' : '' }} >{{$month->format('F')}}</option>
+                                @endforeach
+                            </select>
+                        </form>
+                    </div>
                     <div>
                         <a href="{{route('customers.create')}}" class="btn btn-primary">New User</a>
                     </div>
@@ -25,7 +35,7 @@
                         <tr>
                             <th>ID customer</th>
                             <th>Nama Lengkap</th>
-                            <th>No Telp</th>
+                            <th>Tanggal Lahir</th>
                             <th>Status</th>
                             <th>Aksi</th>
                         </tr>
@@ -49,10 +59,19 @@
             columns: [
                 {data: 'id'},
                 {data: 'fullname', name: 'fullname'},
-                {data: 'phone', name: 'phone'},
+                {data: 'birth_date', orderable: false},
                 {data: 'member'},
                 {data: 'action', orderable: false, searchable: false},
             ],
+        });
+
+        $('#month').change(function() {
+            let month = this.value;
+            customersTable.settings()[0].ajax = {
+                url: `/customers/${month}/birthdate`,
+                type: 'POST' // Set the method here
+            };
+            customersTable.ajax.reload();
         });
 
 

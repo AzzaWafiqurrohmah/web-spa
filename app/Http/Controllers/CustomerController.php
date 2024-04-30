@@ -18,9 +18,20 @@ class CustomerController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        return view('pages.customer.index');
+        $months = [];
+        for ($i = 1; $i <= 3; $i++)
+            $months[] = Carbon::now()->subMonth($i);
+
+        $customer = Customer::query();
+        if ($date = $request->month)
+            $customer->whereMonth('birth_date', $date);
+
+        return view('pages.customer.index', [
+            'date' => $request->month,
+            'months' => $months
+        ]);
     }
 
     /**
@@ -100,12 +111,28 @@ class CustomerController extends Controller
         );
     }
 
+    public function birthdate(string $month)
+    {
+        $customers = Customer::whereMonth('birth_date', $month)->get();
+
+        $user = Auth::user();
+        return datatables($customers)
+            ->addIndexColumn()
+            ->addColumn('id', fn($customer) => format_id('customer' ,$user->franchise->raw_id, $customer->gender, $customer->id))
+            ->addColumn('birth_date', fn($customer) => format_birthdate($customer->birth_date))
+            ->addColumn('member', fn($customer) => view('pages.customer.member', compact('customer')))
+            ->addColumn('action', fn($customer) => view('pages.customer.action', compact('customer')))
+            ->toJson();
+
+    }
+
     public function datatables()
     {
         $user = Auth::user();
         return datatables(Customer::query())
             ->addIndexColumn()
             ->addColumn('id', fn($customer) => format_id('customer' ,$user->franchise->raw_id, $customer->gender, $customer->id))
+            ->addColumn('birth_date', fn($customer) => format_birthdate($customer->birth_date))
             ->addColumn('member', fn($customer) => view('pages.customer.member', compact('customer')))
             ->addColumn('action', fn($customer) => view('pages.customer.action', compact('customer')))
             ->toJson();

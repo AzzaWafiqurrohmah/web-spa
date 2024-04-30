@@ -20,3 +20,25 @@ if(!function_exists('format_member'))
         return str_replace('.', '', $id);
     }
 }
+
+if(!function_exists('format_birthdate'))
+{
+    function format_birthdate($date)
+    {
+        $date = \Illuminate\Support\Carbon::createFromFormat("Y-m-d", $date);
+        return $date->format('d F Y');
+    }
+}
+
+if(!function_exists('parseDateParam')) {
+    function parseDateParam(?string $date) {
+        if(is_null($date)) return null;
+
+        $exploded = explode('-', $date);
+        return (object) [
+            'year' => $exploded[0],
+            'month' => $exploded[1],
+            'day' => $exploded[2] ?? null,
+        ];
+    }
+}

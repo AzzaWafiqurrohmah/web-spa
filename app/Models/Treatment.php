@@ -11,9 +11,14 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Treatment extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $fillable = [
-        'treatment_catagory_id', 'franchise_id', 'name', 'duration',
+        'treatment_category_id', 'franchise_id', 'name', 'duration',
         'pictures', 'period_start', 'period_end', 'price', 'discount'
+    ];
+
+    protected $casts = [
+        'pictures' => 'array'
     ];
 
     public function reservationDetail() :HasMany

@@ -106,8 +106,8 @@
                       <span class="sidebar-text">Kategori Treatment</span>
                   </a>
               </li>
-            <li class="nav-item">
-              <a class="nav-link" href="">
+            <li class="nav-item" {{ Request::segment(1) == 'treatments' ? 'active' : '' }}>
+              <a class="nav-link" href="{{ route('treatments.index') }}">
                 <span class="sidebar-text">Daftar Treatment</span>
               </a>
             </li>

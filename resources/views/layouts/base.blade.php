@@ -38,7 +38,8 @@
     <link type="text/css" href="/vendor/apexcharts/apexcharts.css" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+{{--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">--}}
     <!-- Datepicker -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker-bs4.min.css">
@@ -53,6 +54,11 @@
     <link type="text/css" href="/vendor/notyf/notyf.min.css" rel="stylesheet">
 
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+
 
     <!-- map -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -77,8 +83,54 @@
                     background-color: rgba(255, 255, 255, .9);
                     padding: 5px 10px;
                     border-radius: .5rem;
+                    color: #999999;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
                 }
             }
+
+            .image-preview .btn {
+                position: absolute; /* Mengatur posisi tombol absolut */
+                top: 5px; /* Menjadikan posisi tombol sedikit dari atas */
+                right: 2px; /* Menjadikan posisi tombol sedikit dari kanan */
+            }
+
+
+
+            /* Style untuk masing-masing elemen di dalam small */
+            .image-preview small > * {
+                margin-bottom: 5px; /* Memberi jarak antara ikon dan teks */
+            }
+
+
+            .select2-container--default .select2-selection--multiple .select2-selection__choice {
+                background-color: #f2f2f2;
+                border: 0.5px solid #f2f2f2;
+                /*border-radius: 4px;*/
+                cursor: default;
+                float: left;
+                margin-right: 5px;
+                padding: 0px 7px 3px 7px;
+                color: #000000;
+                border-radius: 5px;
+                align-items: center;
+            }
+
+            .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
+                color: #6B7280;
+                cursor: pointer;
+                display: inline-block;
+                font-weight: bold;
+                margin-right: 5px;
+                border-radius: 100px;
+            }
+
+            .select2-container--default.select2-container--focus .select2-selection--multiple {
+                border: solid #999999 1px;
+                outline: 0;
+            }
+
 
             #map { height: 300px; width: 95%; margin-left: 10px; margin-bottom: 10px }
         </style>
@@ -106,7 +158,8 @@
 
     <!-- Core -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>
+{{--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>--}}
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <!-- Vendor JS -->
     <script src="/assets/js/on-screen.umd.min.js"></script>
@@ -145,10 +198,14 @@
     <!-- Volt JS -->
     <script src="/assets/js/volt.js"></script>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
     <script src="{{ asset('js/utils.js') }}"></script>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     @if(env('IS_DEMO'))
         <!-- Global site tag (gtag.js) - Google Analytics -->

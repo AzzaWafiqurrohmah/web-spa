@@ -21,8 +21,8 @@ class CustomerController extends Controller
     public function index(Request $request)
     {
         $months = [];
-        for ($i = 1; $i <= 3; $i++)
-            $months[] = Carbon::now()->subMonth($i);
+        for ($i = 0; $i <= 2; $i++)
+            $months[] = Carbon::now()->addMonths($i);
 
         $customer = Customer::query();
         if ($date = $request->month)

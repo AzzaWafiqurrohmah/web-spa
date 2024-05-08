@@ -54,12 +54,13 @@
             ],
         });
 
-        const treatmentModal = new bootstrap.Modal('#treatment-modal');
-        let editID = 0;
-
 
         $('#newTreatment').on('click', function (e) {
             treatmentModal.show();
+        });
+
+        $('#treatments-table').on('click', '.btn-edit', function(e) {
+            window.location.href = "{{ route('treatments.edit', 'VALUE') }}".replace('VALUE', $(this).data('id'));
         });
 
     </script>

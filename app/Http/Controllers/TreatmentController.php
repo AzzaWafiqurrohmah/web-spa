@@ -47,25 +47,36 @@ class TreatmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Treatment $treatment)
     {
-        //
+        return $this->success(
+            TreatmentResource::make($treatment),
+            "Berhasil mengambil data"
+        );
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Treatment $treatment)
     {
-        //
+        $treatmentCategories = TreatmentCategory::all();
+        $tools = Tool::all();
+        $materials = Material::all();
+        return view('pages.treatment.main.edit', [
+            'treatmentCategories' => $treatmentCategories,
+            'tools' => $tools,
+            'materials' => $materials,
+            'treatment' => $treatment
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(TreatmentRequest $request, Treatment $treatment)
     {
-        //
+        dd($request->all());
     }
 
     /**

@@ -31,7 +31,7 @@ class Treatment extends Model
         return $this->belongsTo(Franchise::class);
     }
 
-    public function treatmentCatagory() :BelongsTo
+    public function treatmentCategory() :BelongsTo
     {
         return $this->belongsTo(TreatmentCategory::class);
     }

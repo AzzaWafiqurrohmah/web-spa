@@ -2,6 +2,7 @@
     $treatment = $treatment ?? null;
     $idTools = $treatment?->tools->pluck('id')->toArray() ?? [];
     $idMaterials = $treatment?->materials->pluck('id')->toArray() ?? [];
+    $pictures = $treatment->pictures ?? ['none'];
 @endphp
 @csrf
 
@@ -12,10 +13,10 @@
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="mb-4">
                     <label for="category_id">Kategori</label>
-                    <select name="treatment_category_id" class="form-control @error('treatmentCategory_id') is-invalid @enderror"  aria-label="Small select example" id="treatmentCategory_id">
+                    <select name="treatment_category_id" class="form-control @error('treatment_category_id') is-invalid @enderror"  aria-label="Small select example" id="treatmentCategory_id">
                         <option disabled selected>-- Pilih --</option>
                         @foreach($treatmentCategories as $category)
-                            <option value="{{$category->id}}" @selected($category->id == $treatment?->treatmentCategory->id|| old('treatmentCategory_id') == $category->id) >{{$category->name}}</option>
+                            <option value="{{$category->id}}" @selected($category->id == $treatment?->treatmentCategory->id|| old('treatment_category_id') == $category->id) >{{$category->name}}</option>
                         @endforeach
                     </select>
                     @error('treatment_category_id')
@@ -120,18 +121,23 @@
     <div class="card-body">
         <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Foto terkait</h4>
         <div class="row" id="picture-container">
-                <div class="col-lg-4" >
-                    <label class="image-preview" id="label" style="position: relative; aspect-ratio: 11/8;">
-                        <input type="file" name="pictures[00]" id="pictures00" class="d-none" accept="image/*">
-                        <small>
+            @foreach($pictures as $pict)
+                <div class="col-lg-4"  id="container">
+                    <label class="image-preview" id="label" style=" background-image: url('{{ Storage::url( $pict ) }}');position: relative; aspect-ratio: 11/8;">
+                        <input type="file" name="pictures[{{ $loop->iteration }}]" id="pictures" class="d-none" accept="image/*">
+                        <small class="{{ $treatment? 'd-none' : '' }}">
                             <i id="iconImage" style="font-size: 40px" class="bi bi-image-fill"></i>
                             <span>Klik untuk {{ $treatment ? 'mengganti' : 'mengunggah' }}</span>
                         </small>
+                        <button type="button" class="btn btn-outline-danger {{ $treatment? '' : 'd-none' }}" id="delete" name="delete">
+                            <i id="deleteIcon" class="bi bi-trash3" style="font-size: 15px;"></i>
+                        </button>
                     </label>
                     @error('pictures')
                     <small class="text-danger">{{ $message }}</small>
                     @enderror
                 </div>
+            @endforeach
                 <div class="col-lg-4" id="addLabel">
                     <label class="image-preview" id="addPict" for="addIcon" style="background-image: none; aspect-ratio: 11/8;">
                         <small>
@@ -140,7 +146,7 @@
                     </label>
                 </div>
             <div class="mb-2 text-end">
-                <button type="submit" class="btn btn-primary">Simpan</button>
+                <button type="submit" id="save" class="btn btn-primary">Simpan</button>
             </div>
         </div>
 
@@ -168,7 +174,7 @@
 
 
         $('#addPict').on("click", function(event){
-            if (event.target && event.target.id === 'addPict' || event.target && event.target.id === 'addIcon') {
+            if (event.target && (event.target.id === 'addPict' || event.target.id === 'addIcon')) {
                 const pictureContainer = document.getElementById('picture-container');
                 const newContainer = createElement(getSecond());
 
@@ -193,10 +199,21 @@
             }
         });
 
-
-        $('#picture-container').on('click', '#delete', function(e) {
-            $(this).closest('#container').remove();
+        document.addEventListener('click', function(event) {
+            const target = event.target;
+            if (target && (target.matches('button[name="delete"]') || event.target.id === 'deleteIcon')) {
+                $(target).closest('#container').remove();
+                // console.log('hii')
+            }
         });
+
+        // document.getElementById('delete').addEventListener('click', function (){
+        //     $(this).closest('#container').remove();
+        // });
+        //
+        // $('#picture-container').on('click', '#delete', function(e) {
+        //     $(this).closest('#container').remove();
+        // });
 
         function createElement(code)
         {
@@ -216,6 +233,7 @@
             button.classList.add("btn");
             button.classList.add("btn-outline-danger");
             button.id = "delete";
+            button.name = "delete";
 
             const trash = document.createElement("i");
             trash.style.fontSize = '15px';

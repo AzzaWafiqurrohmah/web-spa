@@ -81,9 +81,12 @@ class TherapistController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Therapist $therapist)
     {
-        //
+        $therapist->delete();
+        return $this->success(
+            message: "Berhasil menghapus data Terapis"
+        );
     }
 
     public function datatables()

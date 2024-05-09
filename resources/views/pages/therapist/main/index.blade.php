@@ -67,9 +67,9 @@
         {{--    treatmentModal.show();--}}
         {{--});--}}
 
-        {{--$('#treatments-table').on('click', '.btn-edit', function(e) {--}}
-        {{--    window.location.href = "{{ route('treatments.edit', 'VALUE') }}".replace('VALUE', $(this).data('id'));--}}
-        {{--});--}}
+        $('#therapist-table').on('click', '.btn-edit', function(e) {
+            window.location.href = "{{ route('therapists.edit', 'VALUE') }}".replace('VALUE', $(this).data('id'));
+        });
 
     </script>
 @endpush

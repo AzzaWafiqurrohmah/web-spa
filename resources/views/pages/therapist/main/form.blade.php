@@ -48,7 +48,7 @@
             <div class="col-lg-6">
                 <div class="mb-4">
                     <label for="address">Alamat Lengkap</label>
-                    <textarea class="form-control" placeholder="Alamat anda ..." id="address" name="address" style="width: 100%;" rows="4"> {{ old('address') ,$therapist? $therapist->address : '' }}</textarea>
+                    <textarea class="form-control" placeholder="Alamat anda ..." id="address" name="address" style="width: 100%;" rows="4"> {{ old('address',$therapist? $therapist->address : '' )}}</textarea>
                     @error('address')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>
@@ -122,7 +122,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="password">Password</label>
-                    <input type="password" name="password" value="{{old('password', $therapist?->password)}}" class="form-control @error('password') is-invalid @enderror">
+                    <input type="password" name="password" value="{{old('password')}}" class="form-control @error('password') is-invalid @enderror">
                     @error('password')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>

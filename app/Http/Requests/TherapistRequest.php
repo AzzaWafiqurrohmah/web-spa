@@ -21,7 +21,7 @@ class TherapistRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
+        $rules = [
             'fullname' => 'required|string',
             'birth_date' => 'required|date_format:Y-m-d',
             'gender' => 'required',
@@ -30,8 +30,15 @@ class TherapistRequest extends FormRequest
             'body_weight' => 'required|int|min:0',
             'phone' => 'required|size:12',
             'start_working' => 'required|date_format:Y-m-d',
-            'email' => 'required|email|unique:therapists,email',
-            'password' => 'required|size:8'
+            'email' => 'required|email',
+            'password' => 'nullable'
         ];
+
+        if($this->getMethod() == 'POST') {
+            $rules['password'] = 'required|size:8';
+            $rules['email'] = 'required|email|unique:therapists,email';
+        }
+
+        return $rules;
     }
 }

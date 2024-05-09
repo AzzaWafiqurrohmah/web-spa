@@ -15,6 +15,17 @@ class TherapistRepository
         $data['password'] = Hash::make($data['password']);
 
         $therapist = Therapist::create($data);
+        $therapist->assignRole('therapist');
+        return $therapist;
+    }
+
+    public static function update(Therapist $therapist, array $data)
+    {
+        if(is_null($data['password'] ?? null)) unset($data['password']);
+
+        if(isset($data['password'])) $data['password'] = Hash::make($data['password']);
+
+        $therapist->update($data);
         return $therapist;
     }
 }

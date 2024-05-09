@@ -16,15 +16,16 @@ class Therapist extends Authenticatable
 
     protected $fillable = [
         'body_weight',
+        'body_height',
         'start_working',
         'address',
         'phone',
         'gender',
         'birth_date',
         'fullname',
-        'password',
         'franchise_id',
-        'email'
+        'email',
+        'password'
     ];
 
     public function franchise(): BelongsTo

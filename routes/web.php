@@ -8,6 +8,7 @@ use App\Http\Controllers\TreatmentCategoriesController;
 use App\Http\Controllers\ToolController;
 use App\Http\Controllers\MaterialController;
 use App\Http\Controllers\TreatmentController;
+use App\Http\Controllers\TherapistController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -109,6 +110,21 @@ Route::middleware('auth')->group(function () {
             Route::get('datatables', 'datatables')->name('datatables');
             Route::get('{treatment}', 'show')->name('show');
             Route::delete('{treatment}', 'destroy')->name('destroy');
+        });
+
+    //therapist
+    Route::prefix('therapists')
+        ->name('therapists.')
+        ->controller(TherapistController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('/{therapist}/edit', 'edit')->name('edit');
+            Route::match(['PUT', 'PATCH'], '{therapist}/update', 'update')->name('update');
+
+            Route::get('datatables', 'datatables')->name('datatables');
+            Route::get('{therapist}', 'show')->name('show');
+            Route::delete('{therapist}', 'destroy')->name('destroy');
         });
 
 });

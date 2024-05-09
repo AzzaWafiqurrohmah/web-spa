@@ -148,8 +148,8 @@
           class="multi-level collapse {{ Request::segment(1) == 'buttons' || Request::segment(1) == 'notifications' || Request::segment(1) == 'forms' || Request::segment(1) == 'modals' || Request::segment(1) == 'typography' ? 'show' : '' }}"
           role="list" id="submenu-components" aria-expanded="false">
           <ul class="flex-column nav">
-            <li class="nav-item {{ Request::segment(1) == 'buttons' ? 'active' : '' }}">
-              <a class="nav-link" href="/buttons">
+            <li class="nav-item {{ Request::segment(1) == 'therapists' ? 'active' : '' }}">
+              <a class="nav-link" href="{{ route('therapists.index') }}">
                 <span class="sidebar-text">Daftar Terapis</span>
               </a>
             </li>

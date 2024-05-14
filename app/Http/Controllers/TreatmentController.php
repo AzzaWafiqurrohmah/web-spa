@@ -11,6 +11,7 @@ use App\Models\TreatmentCategory;
 use App\Repository\TreatmentRepository;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 
 class TreatmentController extends Controller
 {
@@ -85,9 +86,12 @@ class TreatmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Treatment $treatment)
     {
-        //
+        TreatmentRepository::destroy($treatment);
+        return $this->success(
+            message: "Berhasil menghapus data"
+        );
     }
 
     public function datatables()

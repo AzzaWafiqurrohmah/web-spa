@@ -63,5 +63,40 @@
             window.location.href = "{{ route('treatments.edit', 'VALUE') }}".replace('VALUE', $(this).data('id'));
         });
 
+        function deleteItem(id) {
+            $.ajax({
+                url: `/treatments/${id}`,
+                method: 'DELETE',
+                success(res) {
+                    treatmentTable.ajax.reload();
+
+                    Swal.fire({
+                        icon: 'success',
+                        text: res.meta.message,
+                        timer: 1500,
+                    });
+                },
+                error(err) {
+                    Swal.fire({
+                        icon: 'error',
+                        text: err ,
+                        timer: 1500,
+                    });
+                },
+            });
+        }
+
+        $('#treatments-table').on('click', '.btn-delete', function (e){
+            Swal.fire({
+                icon: 'question',
+                text: 'Apakah anda yakin?',
+                showCancelButton: true,
+                cancelButtonText: 'Batal',
+            }).then((res) => {
+                if(res.isConfirmed)
+                    deleteItem(this.dataset.id);
+            });
+        });
+
     </script>
 @endpush

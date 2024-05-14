@@ -67,4 +67,14 @@ class TreatmentRepository
         return $firstArray;
     }
 
+    public static function destroy(Treatment $treatment)
+    {
+        foreach ($treatment->pictures as $pict){
+            Storage::disk('public')->delete($pict);
+        }
+        $treatment->tools()->detach();
+        $treatment->materials()->detach();
+        $treatment->delete();
+    }
+
 }

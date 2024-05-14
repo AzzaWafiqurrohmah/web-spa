@@ -29,7 +29,8 @@ class TreatmentRequest extends FormRequest
             'price' => 'required|int',
             'discount' => 'required|int',
             'tools' => 'required',
-            'materials' => 'required'
+            'materials' => 'required',
+            'pictures' => 'nullable'
         ];
 
         if ($this->isMethod('POST')){

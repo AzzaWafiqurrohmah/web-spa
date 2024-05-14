@@ -103,7 +103,7 @@
                     <label for="materials">Bahan Treatment</label>
                     <select class="tags selected-options-new form-control" id="materials" name="materials[]" multiple>
                         @foreach($materials as $material)
-                            <option value="{{ $material->id }}" @selected(in_array($tool->id, $idMaterials) || in_array($material->id, old('materials', [])))>{{ $material->name }}</option>
+                            <option value="{{ $material->id }}" @selected(in_array($material->id, $idMaterials) || in_array($material->id, old('materials', [])))>{{ $material->name }}</option>
                         @endforeach
                     </select>
                     @error('materials')
@@ -121,14 +121,15 @@
     <div class="card-body">
         <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Foto terkait</h4>
         <div class="row" id="picture-container">
-            @foreach($pictures as $pict)
+            @foreach($pictures as $key => $pict)
                 <div class="col-lg-4"  id="container">
                     <label class="image-preview" id="label" style=" background-image: url('{{ Storage::url( $pict ) }}');position: relative; aspect-ratio: 11/8;">
-                        <input type="file" name="pictures[{{ $loop->iteration }}]" id="pictures" class="d-none" accept="image/*">
+                        <input type="file" name="pictures[{{ $key }}]" id="pictures" class="d-none" accept="image/*">
                         <small class="{{ $treatment? 'd-none' : '' }}">
                             <i id="iconImage" style="font-size: 40px" class="bi bi-image-fill"></i>
                             <span>Klik untuk {{ $treatment ? 'mengganti' : 'mengunggah' }}</span>
                         </small>
+                        <input type="hidden" name="deletePict[ {{ $key }} ]" value="{{ $key }}" disabled>
                         <button type="button" class="btn btn-outline-danger {{ $treatment? '' : 'd-none' }}" id="delete" name="delete">
                             <i id="deleteIcon" class="bi bi-trash3" style="font-size: 15px;"></i>
                         </button>
@@ -182,6 +183,7 @@
             }
         })
 
+
         const pictures = [];
         document.addEventListener('change', function(event) {
             const target = event.target;
@@ -202,18 +204,18 @@
         document.addEventListener('click', function(event) {
             const target = event.target;
             if (target && (target.matches('button[name="delete"]') || event.target.id === 'deleteIcon')) {
-                $(target).closest('#container').remove();
-                // console.log('hii')
+                const container = target.closest('#container');
+                const deleteInput = container.querySelector('input[type="hidden"]'); // Mendapatkan input hidden terkait
+
+                deleteInput.removeAttribute('disabled');
+                container.disabled = true;
+
+                const  inputFile = target.closest('#container');
+                inputFile.querySelector('input[type="file"]').remove();
+                $(target).closest('#container').addClass('d-none');
+
             }
         });
-
-        // document.getElementById('delete').addEventListener('click', function (){
-        //     $(this).closest('#container').remove();
-        // });
-        //
-        // $('#picture-container').on('click', '#delete', function(e) {
-        //     $(this).closest('#container').remove();
-        // });
 
         function createElement(code)
         {
@@ -264,9 +266,14 @@
             inputFile.classList.add("d-none");
             inputFile.accept = "image/*";
 
+            const inputHidden = document.createElement("input");
+            inputHidden.type = "hidden";
+            inputHidden.disabled = true;
+
             label.appendChild(inputFile);
             label.appendChild(small);
             label.appendChild(button);
+            label.appendChild(inputHidden);
             container.appendChild(label);
 
             return container;

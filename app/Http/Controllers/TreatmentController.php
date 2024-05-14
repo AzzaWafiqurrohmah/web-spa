@@ -40,6 +40,7 @@ class TreatmentController extends Controller
      */
     public function store(TreatmentRequest $request)
     {
+//        dd($request->all());
         TreatmentRepository::save($request->all());
         return to_route('treatments.index')->with('alert_s', "Berhasil menambahkan data Treatment");
     }
@@ -76,8 +77,10 @@ class TreatmentController extends Controller
      */
     public function update(TreatmentRequest $request, Treatment $treatment)
     {
-        dd($request->all());
+        TreatmentRepository::update($request->all(), $treatment);
+        return to_route('treatments.index')->with('alert_s', "Berhasil mengubah data");
     }
+
 
     /**
      * Remove the specified resource from storage.

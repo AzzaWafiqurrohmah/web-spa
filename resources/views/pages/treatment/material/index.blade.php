@@ -122,7 +122,7 @@
         }
 
         $('#material-modal').on('show.bs.modal', function (event) {
-            $('#material-modal-title').text(editID ? 'Edit Kategori' : 'Tambah Kategori');
+            $('#material-modal-title').text(editID ? 'Edit Bahan Treatment' : 'Tambah Bahan Treatment');
             if(editID != 0)
                 fillForm();
         });

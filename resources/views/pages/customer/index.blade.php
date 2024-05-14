@@ -26,7 +26,7 @@
                         </form>
                     </div>
                     <div>
-                        <a href="{{route('customers.create')}}" class="btn btn-primary">New User</a>
+                        <a href="{{route('customers.create')}}" class="btn btn-primary">Tambah Pelanggan</a>
                     </div>
                 </div>
                 <div class="table-responsive">

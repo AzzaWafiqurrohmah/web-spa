@@ -122,7 +122,7 @@
         }
 
         $('#tool-modal').on('show.bs.modal', function (event) {
-            $('#tool-modal-title').text(editID ? 'Edit Kategori' : 'Tambah Kategori');
+            $('#tool-modal-title').text(editID ? 'Edit Alat Treatment' : 'Tambah Alat Treatment');
             if(editID != 0)
                 fillForm();
         });

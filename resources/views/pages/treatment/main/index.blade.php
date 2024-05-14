@@ -2,7 +2,7 @@
 @section('content')
     <title>Treatment</title>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="mt-5 mb-3" >
                 <h3>Daftar Treatment</h3>
                 <nav>
@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-4">
                         <div>
-                            <a href="{{route('treatments.create')}}" class="btn btn-primary">New User</a>
+                            <a href="{{route('treatments.create')}}" class="btn btn-primary">Tambah Treatment</a>
                         </div>
                     </div>
                     <div class="table-responsive">

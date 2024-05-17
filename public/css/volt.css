@@ -18259,17 +18259,23 @@ label {
   content: url("data:image/svg+xml;utf8,<svg width='6' height='10' viewBox='0 0 6 10' fill='none' xmlns='http://www.w3.org/2000/svg'><path fill-rule='evenodd' clip-rule='evenodd' d='M3 0L6 4H0L3 0ZM3 10L0 6H6L3 10Z' fill='%231F2937'/></svg>");
   margin-left: .25rem; }
 
-.dataTables_wrapper .dataTables_info {
-  padding-left: 1.5rem; }
+/*.dataTables_wrapper .dataTables_info {*/
+/*  padding-left: 1.5rem; }*/
 
 .dataTables_wrapper .dataTables_paginate {
-  padding-right: 1.5rem; }
+  padding-right: 0.8rem; }
 
-.dataTables_wrapper .dataTables_length label {
-  padding-left: 1.5rem; }
+div.dataTables_wrapper div.dataTables_paginate ul.pagination {
+    margin-top: 6px;
+    white-space: nowrap;
+    justify-content: flex-end;
+}
 
-.dataTables_wrapper .dataTables_filter {
-  padding-right: 1.5rem; }
+/*.dataTables_wrapper .dataTables_length label {*/
+/*  padding-left: 1.5rem; }*/
+
+/*.dataTables_wrapper .dataTables_filter {*/
+/*  padding-right: 1.5rem; }*/
 
 .dataTable-top,
 .dataTable-bottom {

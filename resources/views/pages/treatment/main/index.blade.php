@@ -2,7 +2,7 @@
 @section('content')
     <title>Treatment</title>
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-10">
             <div class="mt-5 mb-3" >
                 <h3>Daftar Treatment</h3>
                 <nav>
@@ -25,7 +25,7 @@
                             <tr>
                                 <th>ID Treatment</th>
                                 <th>Nama</th>
-                                <th>Durasi (menit)</th>
+                                <th>Durasi</th>
                                 <th>Harga</th>
                                 <th>Aksi</th>
                             </tr>
@@ -48,8 +48,8 @@
             columns: [
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},
-                {data: 'duration', name: 'duration'},
-                {data: 'price', name: 'price'},
+                {data: 'duration'},
+                {data: 'price'},
                 {data: 'action', orderable: false, searchable: false},
             ],
         });

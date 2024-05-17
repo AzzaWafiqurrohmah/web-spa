@@ -97,6 +97,8 @@ class TreatmentController extends Controller
     {
         return datatables(Treatment::query())
             ->addIndexColumn()
+            ->addColumn('duration', fn($treatment) => $treatment->duration . " menit")
+            ->addColumn('price', fn($treatment) => "Rp " . $treatment->price)
             ->addColumn('action', fn($treatment) => view('pages.treatment.main.action', compact('treatment')))
             ->toJson();
     }

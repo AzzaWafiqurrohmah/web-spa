@@ -2,7 +2,7 @@
 @section('content')
 <title>Customer</title>
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-11">
         <div class="mt-5 mb-3" >
             <h1>Data pelanggan</h1>
             <nav>

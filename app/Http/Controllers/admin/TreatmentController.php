@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\TreatmentRequest;
 use App\Http\Resources\TreatmentResource;
 use App\Models\Material;
@@ -10,8 +11,6 @@ use App\Models\Treatment;
 use App\Models\TreatmentCategory;
 use App\Repository\TreatmentRepository;
 use App\Traits\ApiResponser;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 
 class TreatmentController extends Controller
 {

@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\MaterialRequest;
 use App\Http\Resources\MaterialResource;
 use App\Models\Material;
 use App\Traits\ApiResponser;
-use Illuminate\Http\Request;
 
 class MaterialController extends Controller
 {

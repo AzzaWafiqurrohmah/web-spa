@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\TreatmentCategoryRequest;
 use App\Http\Resources\TreatmentCategoryResource;
 use App\Models\TreatmentCategory;
 use App\Traits\ApiResponser;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class TreatmentCategoriesController extends Controller
 {

@@ -1,14 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CustomerController;
+use App\Http\Controllers\admin\AuthController;
+use App\Http\Controllers\admin\CustomerController;
+use App\Http\Controllers\admin\MaterialController;
+use App\Http\Controllers\admin\TherapistController;
+use App\Http\Controllers\admin\ToolController;
+use App\Http\Controllers\admin\TreatmentCategoriesController;
+use App\Http\Controllers\admin\TreatmentController;
 use App\Http\Controllers\Owner\FranchiseController;
-use App\Http\Controllers\TreatmentCategoriesController;
-use App\Http\Controllers\ToolController;
-use App\Http\Controllers\MaterialController;
-use App\Http\Controllers\TreatmentController;
-use App\Http\Controllers\TherapistController;
+use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes

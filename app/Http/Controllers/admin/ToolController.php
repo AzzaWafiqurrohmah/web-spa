@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
+use App\Http\Controllers\Controller;
 use App\Http\Requests\ToolRequest;
 use App\Http\Resources\ToolResource;
 use App\Models\Tool;
 use App\Traits\ApiResponser;
-use Illuminate\Http\Request;
 
 class ToolController extends Controller
 {

@@ -26,32 +26,44 @@
                     <div >
                         <div class="col-lg-12 col-md-12 mb-2">
                         <label >Nama Lengkap</label>
-                        <input type="text" value="" id="fullname" name="fullname" class="form-control" disabled>
+                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
+                                <p id="fullname"></p>
+                            </div>
                         </div>
 
                         <div class="col-lg-12 col-md-12 mb-2" >
                             <label >Tanggal Lahir</label>
-                            <input type="text" value="" id="birth_date" name="birth_date" class="form-control" disabled>
+                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
+                                <p id="birth_date"></p>
+                            </div>
                         </div>
 
                         <div class="col-lg-12 col-md-12 mb-2">
                             <label >Nomor Telepon</label>
-                            <input type="text" value="" id="phone" name="phone" class="form-control" disabled>
+                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
+                                <p id="phone"></p>
+                            </div>
                         </div>
 
                         <div class="col-lg-12 col-md-12 mb-2">
                             <label >Jenis Kelamin</label>
-                            <input type="text" value="" id="gender" name="gender" class="form-control" disabled>
+                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
+                                <p id="gender"></p>
+                            </div>
                         </div>
 
                         <div class="col-lg-12 col-md-12 mb-2">
                             <label >Member Id</label>
-                            <input type="text" value="" id="member_id" name="member_id" class="form-control" disabled>
+                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
+                                <p id="member_id"></p>
+                            </div>
                         </div>
 
                         <div class="col-lg-12 col-md-12 mb-2">
                             <label >Tanggal Aktif</label>
-                            <input type="text" value="" id="start_member" name="start_member" class="form-control" disabled>
+                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
+                                <p id="start_member"></p>
+                            </div>
                         </div>
                     </div>
 

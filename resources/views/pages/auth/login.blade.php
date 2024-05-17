@@ -13,7 +13,7 @@
                         <div class="text-center text-md-center mb-4 mt-md-0">
                             <h1 class="mb-3 h3">Welcome back</h1>
                         </div>
-                        <form action="{{route('store')}}" class="mt-4" method="POST">
+                        <form action="{{route('store')}}" id="loginForm" class="mt-4" method="POST">
                             <!-- Form -->
                             <div class="form-group mb-4">
                                 <label for="email">Your Email</label>
@@ -27,10 +27,9 @@
                                             <path d="M18 8.118l-8 4-8-4V14a2 2 0 002 2h12a2 2 0 002-2V8.118z"></path>
                                         </svg></span>
                                     <input type="email" class="form-control"
-                                           placeholder="example@gmail.com" id="email" name="email" autocomplete="email" autofocus required>
+                                           placeholder="example@gmail.com" id="email" name="email" autocomplete="email" autofocus>
+                                    <div class="invalid-feedback"></div>
                                 </div>
-                                @error('email') <div class="invalid-feedback"> {{$message}} </div>
-                                @enderror
                             </div>
                             <!-- End of Form -->
                             <div class="form-group">
@@ -46,14 +45,14 @@
                                                       clip-rule="evenodd"></path>
                                             </svg></span>
                                         <input type="password" placeholder="Password"
-                                               class="form-control" id="password" name="password" required>
+                                               class="form-control" id="password" name="password">
+                                        <div class="invalid-feedback"></div>
                                     </div>
-                                    @error('password') <div class="invalid-feedback"> {{ $message }} </div> @enderror
                                 </div>
                                 <!-- End of Form -->
-                                <div class="d-flex justify-content-end align-items-top mb-4">
+                                <div class="d-flex justify-content-center align-items-top mb-2" style="margin-top: 0px">
                                     <div>
-                                        <a href="" class="small text-right">Lost password?</a>
+                                        <a href="" class="small text-right">Lupa password?</a>
                                     </div>
                                 </div>
                             </div>
@@ -74,4 +73,31 @@
         </div>
     </section>
 @endsection
+
+@push('script')
+    <script>
+        document.getElementById('loginForm').addEventListener('submit', function (e){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: '/store',
+                data: $(this).serialize(),
+                success(res) {
+                    if(res.status == 'success') {
+                        window.location.href = res.redirect;
+                    } else {
+                        const input = $(`#password`);
+                        input.addClass('is-invalid');
+                        input.next().html(res.password);
+                    }
+                },
+                error(err) {
+                    if(err.status == 422) {
+                        displayFormErrors(err.responseJSON.data);
+                    }
+                }
+            });
+        });
+    </script>
+@endpush
 

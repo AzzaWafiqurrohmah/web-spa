@@ -31,13 +31,26 @@ class AuthController extends Controller
     public function store(AuthRequest $request)
     {
         if (Auth::guard('web')->attempt($request->validated()))
-            return to_route('dashboard');
+        {
+            return response()->json([
+                'status' => 'success',
+                'redirect' => 'dashboard'
+            ]);
+        }
 
         if (Auth::guard('therapist')->attempt($request->validated()))
-            return to_route('therapist.dashboard');
+        {
+            return response()->json([
+                'status' => 'success',
+                'redirect' => 'therapist.dashboard'
+            ]);
+        }
 
-        return redirect()
-            ->route('login')->withErrors('invalid password');
+        return response()->json([
+            'status' => 'false',
+            'redirect' => 'login',
+            'password' => 'invalid Password'
+        ]);
     }
 
     /**

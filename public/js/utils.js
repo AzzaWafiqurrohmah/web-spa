@@ -1,14 +1,23 @@
 function fillFormdata(data) {
     for(const [key, value] of Object.entries(data)) {
-        const inputElement = $(`#${key}`);
+        const inputElement = document.getElementById(key);
 
-        if(inputElement.attr('type') == 'file') {
-            inputElement.parent().css('background-image', `url(/storage/${value})`);
-        } else {
-            inputElement.val(value);
+        if (inputElement !== null) {
+            if(inputElement.tagName !== 'INPUT'){
+                inputElement.textContent = value;
+            }
+
+            if(inputElement.getAttribute('type') === 'file') {
+                inputElement.parentElement.style.backgroundImage = `url(/storage/${value})`;
+            }
+
+            if(inputElement.tagName === 'INPUT' && inputElement.getAttribute('type') !== 'file'){
+                inputElement.value = value;
+            }
         }
     }
 }
+
 
 function removeFormErrors() {
     $('.form-control').removeClass('is-invalid');

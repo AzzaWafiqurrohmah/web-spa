@@ -15,11 +15,12 @@ class CustomerResource extends JsonResource
      */
     public function toArray(Request $request): array
     {
+        $user = Auth::user();
         return [
-            'id' => $this->id,
+            'id' => format_id('customer', $user->franchise->raw_id, $this->gender, $this->id),
             'fullname' => $this->fullname,
             'phone' => $this->phone,
-            'member_id' => $this->member_id,
+            'member_id' => format_member(format_id('customer', $user->franchise->raw_id, $this->gender, $this->id)),
             'start_member' => $this->start_member,
             'address' => $this->address,
             'gender' => $this->gender,

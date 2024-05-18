@@ -9,6 +9,7 @@ use App\Http\Controllers\admin\TreatmentCategoriesController;
 use App\Http\Controllers\admin\TreatmentController;
 use App\Http\Controllers\Owner\FranchiseController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\ReservationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -126,6 +127,21 @@ Route::middleware('auth')->group(function () {
             Route::get('datatables', 'datatables')->name('datatables');
             Route::get('{therapist}', 'show')->name('show');
             Route::delete('{therapist}', 'destroy')->name('destroy');
+        });
+
+    //treatment
+    Route::prefix('reservations')
+        ->name('reservations.')
+        ->controller(ReservationController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('/{reservation}/edit', 'edit')->name('edit');
+            Route::match(['PUT', 'PATCH'], '{reservation}/update', 'update')->name('update');
+
+            Route::get('datatables', 'datatables')->name('datatables');
+            Route::get('{reservation}', 'show')->name('show');
+            Route::delete('{reservation}', 'destroy')->name('destroy');
         });
 
 });

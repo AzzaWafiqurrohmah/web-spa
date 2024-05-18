@@ -120,7 +120,7 @@ class CustomerController extends Controller
         return datatables($customers)
             ->addIndexColumn()
             ->addColumn('id', fn($customer) => format_id('customer' ,$user->franchise->raw_id, $customer->gender, $customer->id))
-            ->addColumn('birth_date', fn($customer) => format_birthdate($customer->birth_date))
+            ->addColumn('birth_date', fn($customer) => format_date($customer->birth_date))
             ->addColumn('member', fn($customer) => view('pages.customer.member', compact('customer')))
             ->addColumn('action', fn($customer) => view('pages.customer.action', compact('customer')))
             ->toJson();

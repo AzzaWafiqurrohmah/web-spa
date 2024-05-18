@@ -21,9 +21,9 @@ if(!function_exists('format_member'))
     }
 }
 
-if(!function_exists('format_birthdate'))
+if(!function_exists('format_date'))
 {
-    function format_birthdate($date)
+    function format_date($date)
     {
         $date = \Illuminate\Support\Carbon::createFromFormat("Y-m-d", $date);
         return $date->format('d F Y');

@@ -94,7 +94,7 @@ class TherapistController extends Controller
         return datatables(Therapist::query())
             ->addIndexColumn()
             ->addColumn('id', fn($therapist) => format_id('therapist', $user->franchise->raw_id, $therapist->gender, $therapist->id))
-            ->addColumn('birth_date', fn($therapist) => format_birthdate($therapist->birth_date))
+            ->addColumn('birth_date', fn($therapist) => format_date($therapist->birth_date))
             ->addColumn('action', fn($therapist) => view('pages.therapist.main.action', compact('therapist')))
             ->toJson();
     }

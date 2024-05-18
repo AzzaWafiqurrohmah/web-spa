@@ -37,6 +37,7 @@
             </div>
         </div>
     </div>
+    @include('components.treatmentModal')
 @endsection
 
 @push('script')
@@ -54,6 +55,25 @@
             ],
         });
 
+        const treatmentModal = new bootstrap.Modal('#treatment-modal');
+
+        let ID = 0;
+        function fillForm() {
+            $.ajax({
+                url: `/treatments/${ID}`,
+                success: (res) =>
+                    fillFormdata(res.data),
+            });
+        }
+
+        $('#treatment-modal').on('show.bs.modal', function (event) {
+            fillForm();
+        });
+
+        $('#treatments-table').on('click', '.btn-detail', function(e) {
+            ID = this.dataset.id;
+            treatmentModal.show();
+        });
 
         $('#newTreatment').on('click', function (e) {
             treatmentModal.show();

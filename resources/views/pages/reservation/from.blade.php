@@ -2,84 +2,163 @@
     $reservation = $reservation ?? null;
 @endphp
 @csrf
-<div class="card">
-    <div class="card-body">
-        <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Detail Reservasi</h4>
-{{--        <div class="row">--}}
-{{--            <div class="col-lg-5" style="margin-right: 30px;">--}}
-{{--                <div class="mb-4">--}}
-{{--                    <label for="fullname">Nama Lengkap</label>--}}
-{{--                    <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror"  value="{{old('fullname', $therapist?->fullname)}}" autofocus>--}}
-{{--                    @error('fullname')--}}
-{{--                    <div class="invaid-feedback">--}}
-{{--                        <small class="text-danger">{{ $message }}</small>--}}
-{{--                    </div>--}}
-{{--                    @enderror--}}
-{{--                </div>--}}
-{{--                <div class="mb-4">--}}
-{{--                    <label for="birth_date">Tanggal lahir</label>--}}
-{{--                    <div class="input-group">--}}
-{{--                        <input id="birth_date" type="date"  class="form-control @error('birth_date') is-invalid @enderror" name="birth_date" value="{{old('birth_date', $therapist?->birth_date)}}" autofocus>--}}
-{{--                    </div>--}}
-{{--                    @error('birth_date')--}}
-{{--                    <div class="invaid-feedback">--}}
-{{--                        <small class="text-danger">{{ $message }}</small>--}}
-{{--                    </div>--}}
-{{--                    @enderror--}}
-{{--                </div>--}}
-{{--                <div class="mb-3">--}}
-{{--                    <fieldset style=" flex-direction: row; align-items: center;">--}}
-{{--                        <legend class="h6" >Jenis Kelamin</legend>--}}
-{{--                        @foreach (App\Enums\Gender::values() as $cat => $val)--}}
-{{--                            <div class="form-check-inline" style="margin-right: 20px;">--}}
-{{--                                <input class="form-check-input" type="radio" name="gender" id="{{$cat}}" value="{{$cat}}"--}}
-{{--                                    @checked($cat == $therapist?->gender || old('gender') == $cat)>--}}
-{{--                                <label class="form-check-label" for="{{$cat}}">{{$val}}</label>--}}
-{{--                            </div>--}}
-{{--                        @endforeach--}}
-{{--                    </fieldset>--}}
-{{--                    @error('gender')--}}
-{{--                    <div class="invaid-feedback">--}}
-{{--                        <small class="text-danger">{{ $message }}</small>--}}
-{{--                    </div>--}}
-{{--                    @enderror--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--            <div class="col-lg-6">--}}
-{{--                <div class="mb-4">--}}
-{{--                    <label for="address">Alamat Lengkap</label>--}}
-{{--                    <textarea class="form-control" placeholder="Alamat anda ..." id="address" name="address" style="width: 100%;" rows="4"> {{ old('address',$therapist? $therapist->address : '' )}}</textarea>--}}
-{{--                    @error('address')--}}
-{{--                    <div class="invaid-feedback">--}}
-{{--                        <small class="text-danger">{{ $message }}</small>--}}
-{{--                    </div>--}}
-{{--                    @enderror--}}
-{{--                </div>--}}
-{{--                <div class="mb-4 row">--}}
-{{--                    <div class="col-lg-6">--}}
-{{--                        <div>--}}
-{{--                            <label for="fbody_weight">Berat badan</label>--}}
-{{--                            <input type="number" name="body_weight" class="form-control @error('body_weight') is-invalid @enderror"  value="{{old('body_weight', $therapist?->body_weight)}}">--}}
-{{--                            @error('body_weight')--}}
-{{--                            <div class="invaid-feedback">--}}
-{{--                                <small class="text-danger">{{ $message }}</small>--}}
-{{--                            </div>--}}
-{{--                            @enderror--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                    <div class="col-lg-6">--}}
-{{--                        <div >--}}
-{{--                            <label for="body_height">Tinggi badan</label>--}}
-{{--                            <input type="number" name="body_height" class="form-control @error('body_height') is-invalid @enderror"  value="{{old('body_height', $therapist?->body_height)}}">--}}
-{{--                            @error('body_height')--}}
-{{--                            <div class="invaid-feedback">--}}
-{{--                                <small class="text-danger">{{ $message }}</small>--}}
-{{--                            </div>--}}
-{{--                            @enderror--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
-{{--                </div>--}}
-{{--            </div>--}}
-{{--        </div>--}}
+
+<div class="row">
+    <div class="col-lg-7" style="">
+        <div class="card">
+            <div class="card-body">
+                <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Detail Reservasi</h4>
+                <div class="mb-3">
+                    <label for="fullname">Customer</label>
+                    <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror"  value="{{old('fullname', $reservation?->fullname)}}" autofocus>
+                    @error('fullname')
+                        <div class="invaid-feedback">
+                            <small class="text-danger">{{ $message }}</small>
+                        </div>
+                    @enderror
+                </div>
+                <div class="row mb-3">
+                    <div class="col-lg-6">
+                        <label for="fullname">Tanggal</label>
+                        <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror"  value="{{old('fullname', $reservation?->fullname)}}" autofocus>
+                    </div>
+                    <div class="col-lg-6">
+                        <label for="fullname">Waktu</label>
+                        <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror"  value="{{old('fullname', $reservation?->fullname)}}" autofocus>
+                    </div>
+                </div>
+                <div class="mb-3">
+                    <label for="fullname">Pilih Treatment: </label>
+                    <input type="text" name="fullname" class="form-control @error('fullname') is-invalid @enderror"  value="{{old('fullname', $reservation?->fullname)}}" autofocus>
+                    @error('fullname')
+                    <div class="invaid-feedback">
+                        <small class="text-danger">{{ $message }}</small>
+                    </div>
+                    @enderror
+                </div>
+
+                <div class="row" style="margin-left: 0px; margin-right: 0px">
+                    <label style="margin-left: -10px" for="">Treatment yang dipilih: </label>
+                    <div class="card col-lg-6" >
+                        <div class="row" style=" margin-top: 7px; margin-bottom: 7px; margin-left: -8px; margin-right: 0px">
+                            <div class="col-lg-2">
+                                <i class="bi bi-cart-check" style="font-size: 2rem"></i>
+                            </div>
+                            <div class="col-lg-7" style="">
+                                <p style="font-weight: bold; font-size: 16px; margin-bottom: 0px">Hair Spa</p>
+                                <p style="color: #5E5E5E; font-size: 12px; margin-bottom: 0px">Rp 25.000</p>
+                            </div>
+                            <div class="col-lg-3 text-lg-end" style="display: flex; align-items: center;">
+                                <button type="button" class="btn btn-outline-danger" style="padding: 7px 12px;" >
+                                    <i class="bi bi-trash3-fill" style=""></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card col-lg-6" >
+                        <div class="row" style=" margin-top: 7px; margin-bottom: 7px; margin-left: -8px; margin-right: 0px">
+                            <div class="col-lg-2">
+                                <i class="bi bi-cart-check" style="font-size: 2rem"></i>
+                            </div>
+                            <div class="col-lg-7" style="">
+                                <p style="font-weight: bold; font-size: 16px; margin-bottom: 0px">Creambath</p>
+                                <p style="color: #5E5E5E; font-size: 12px; margin-bottom: 0px">Rp 10.000</p>
+                            </div>
+                            <div class="col-lg-3 text-lg-end" style="display: flex; align-items: center;">
+                                <button type="button" class="btn btn-outline-danger" style="padding: 7px 12px;" >
+                                    <i class="bi bi-trash3-fill" style=""></i>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-5" style="">
+        <div class="card">
+            <div class="card-body">
+                <h4 style="margin-bottom: 10px; margin-left: -8px; font-size: 20px">Reservation Summary</h4>
+                <div class="row">
+                    <div class="col-lg-12 card" style="">
+                        <p style="font-size: 13px; margin-bottom: 0px; margin-top: 8px; color: #5E5E5E"> Tanggal dan Waktu </p>
+                        <p style="font-size: 16px; font-weight: bold; margin-top: 0px; margin-bottom: 0px"> Sabtu, 18 Mei 2024 </p>
+                        <p style="font-size: 16px; margin-top: -5px;"> 22:23 </p>
+
+                        <div style="margin-top: 10px; margin-bottom: 10px">
+                            <p style="margin-bottom: 3px" >Metode Pembayaran</p>
+                            <div class="row" style="margin-left: 0px; margin-bottom: 10px">
+                                <div class="card col-lg-5" style="margin-right: 10px">
+                                    <p style="margin-bottom: 0px; padding: 10px 0px"> Cash </p>
+                                </div>
+                                <div class="card col-lg-5">
+                                    <p style="margin-bottom: 0px; padding: 10px 0px" > Transfer </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h4 style="margin-top: 30px;margin-bottom: 5px; margin-left: -8px; font-size: 20px; font-weight: bold">Price Summary</h4>
+                <div style="margin-left: -8px; margin-right: -8px; margin-bottom: 0px">
+                    <div class="row">
+                        <div class="col-lg-6" style="margin-left: 0px; margin-bottom: 0px">
+                            <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 15px">Total Harga Treatment</p>
+                        </div>
+                        <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
+                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 15px">Rp 120.000</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-left: -8px; margin-right: -8px; margin-top: 0px">
+                    <div class="row">
+                        <div class="col-lg-6" style="margin-left: 0px; margin-bottom: 0px">
+                            <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 15px">Diskon Treatment</p>
+                        </div>
+                        <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
+                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 15px">Rp 30.000</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-left: -8px; margin-right: -8px; margin-top: 0px">
+                    <div class="row">
+                        <div class="col-lg-6" style="margin-left: 0px; margin-bottom: 0px">
+                            <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 15px">Tarif Transportasi</p>
+                        </div>
+                        <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
+                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 15px">Rp 10.000</p>
+                        </div>
+                    </div>
+                </div>
+                <div style="margin-left: -8px; margin-right: -8px; margin-top: 0px">
+                    <div class="row">
+                        <div class="col-lg-6" style="margin-left: 0px; margin-bottom: 0px">
+                            <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 15px">Biaya Ekstra</p>
+                        </div>
+                        <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
+                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 15px">Rp 20.000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-left: -8px; margin-right: -8px; margin-top: 0px">
+                    <div class="row">
+                        <div class="col-lg-6" style="margin-left: 0px; margin-bottom: 0px">
+                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 18px; color: #5377D5">Total Biaya</p>
+                        </div>
+                        <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
+                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 18px; color: #5377D5">Rp 180.000</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="d-grid gap-2" style="margin-top: 20px; margin-left: -8px; margin-right: -8px">
+                    <button type="button" class="btn btn-success" style="color: white">Konfirmasi</button>
+                </div>
+
+            </div>
+        </div>
     </div>
 </div>
+

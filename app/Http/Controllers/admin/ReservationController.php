@@ -7,7 +7,7 @@ use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
-class reservationController extends Controller
+class ReservationController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -30,7 +30,7 @@ class reservationController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
     }
 
     /**
@@ -69,13 +69,11 @@ class reservationController extends Controller
     {
         return datatables(Reservation::query())
             ->addIndexColumn()
-            ->addColumn('id', fn($reservation) => Carbon::now()->format('dmY') . $reservation->id)
-            ->addColumn('date', fn($reservation) => format_date($reservation->date))
-            ->addColumn('totals', fn($reservation) => "Rp " . $reservation->totals)
-            ->addColumn('customer_name', fn($reservation) => $reservation->customer->fullname)
-            ->addColumn('action', fn($reservation) => view('pages.reservation.action', compact('reservation')))
+            ->addColumn('id', fn ($reservation) => Carbon::now()->format('dmY') . $reservation->id)
+            ->addColumn('date', fn ($reservation) => format_date($reservation->date))
+            ->addColumn('totals', fn ($reservation) => "Rp " . $reservation->totals)
+            ->addColumn('customer_name', fn ($reservation) => $reservation->customer->fullname)
+            ->addColumn('action', fn ($reservation) => view('pages.reservation.action', compact('reservation')))
             ->toJson();
     }
-
-
 }

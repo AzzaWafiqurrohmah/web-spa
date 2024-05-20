@@ -201,6 +201,10 @@
             }
         });
 
+        $('#picture-container').on('click', '.btn-outline-danger', function() {
+            alert('clicked');
+        });
+
         document.addEventListener('click', function(event) {
             const target = event.target;
             if (target && (target.matches('button[name="delete"]') || event.target.id === 'deleteIcon')) {

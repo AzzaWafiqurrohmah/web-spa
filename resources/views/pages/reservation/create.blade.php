@@ -15,7 +15,7 @@
                 </nav>
             </div>
             <form action="{{ route('reservations.store') }}"  enctype="multipart/form-data" id="therapistForm" name="therapistForm" method="POST">
-                @include('pages.reservation.from')
+                @include('pages.reservation.form')
             </form>
         </div>
     </div>

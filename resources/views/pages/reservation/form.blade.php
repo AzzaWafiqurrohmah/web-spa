@@ -4,7 +4,25 @@
 @csrf
 
 <div class="row">
-    <div class="col-lg-7" style="">
+    <div class="col-md-7">
+        <div class="card">
+            <div class="card-body">
+                <h4>Tambah Reservasi</h4>
+
+                <h6>Treatment yang Dipilih:</h6>
+                <div class="row" id="treatment-container">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class="card">
+            <div class="card-body">
+                <button type="submit" class="btn btn-success text-white">Simpan</button>
+            </div>
+        </div>
+    </div>
+    {{-- <div class="col-lg-7" style="">
         <div class="card">
             <div class="card-body">
                 <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Detail Reservasi</h4>
@@ -156,9 +174,38 @@
                 <div class="d-grid gap-2" style="margin-top: 20px; margin-left: -8px; margin-right: -8px">
                     <button type="button" class="btn btn-success" style="color: white">Konfirmasi</button>
                 </div>
-
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 
+@push('script')
+<script>
+    let counter = 0;
+
+    function addTreatment(treatment) {
+        $('#treatment-container').append(`
+            <div class="col-md-6 mb-2">
+                <input type="hidden" name="treatments[]" value="${treatment.id}">
+                <div class="card">
+                    <div class="card-body d-flex gap-4 align-items-center">
+                        <i class="bi bi-clipboard-check-fill" style="font-size: 2rem;"></i>
+                        <div>
+                            <h6 class="m-0" style="font-size: 1.2rem;;">${treatment.name}</h6>
+                            <p class="m-0">Rp ${treatment.price}</p>
+                        </div>
+
+                        <span class="position-absolute top-0 end-0 me-2 btn-delete" style="font-size: 1.4rem; cursor: pointer;">
+                            <i class="bi bi-x"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+        `);
+    }
+
+    $('#treatment-container').on('click', '.btn-delete', function() {
+        $(this).parent().parent().parent().remove();
+    });
+</script>
+@endpush

@@ -13,9 +13,8 @@ return new class extends Migration
     {
         Schema::create('reservation_details', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('treatment_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('reservation_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('extra_cost')->default(0)->nullable();
+            $table->foreignId('treatment_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->integer('discount')->default(0)->nullable();
         });
     }

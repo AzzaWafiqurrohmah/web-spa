@@ -11,8 +11,8 @@ class Reservation extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'customer_id', 'therapist_id', 'date', 'payment_type',
-        'transfer_cost', 'discount', 'totals'
+        'customer_id', 'therapist_id', 'date', 'time','payment_type',
+        'transport_cost', 'extra_cost', 'discount', 'totals'
     ];
 
     public function customer() :BelongsTo

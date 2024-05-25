@@ -13,8 +13,13 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->foreignId('user_id')
+                ->constrained()
+                ->cascadeOnDelete()
+                ->cascadeOnUpdate();
             $table->integer('extra_cost');
             $table->integer('birth_disc');
+            $table->integer('transport_cost');
         });
     }
 

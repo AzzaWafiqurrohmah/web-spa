@@ -9,6 +9,6 @@ class Setting extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'extra_cost', 'birth_disc'
+        'user_id', 'extra_cost', 'birth_disc', 'transport_cost'
     ];
 }

@@ -18,8 +18,8 @@ class UserSeeder extends Seeder
         Franchise::create([
             'name' => 'jember',
             'raw_id' => '35.74',
-            'latitude' => '0',
-            'longitude' => '0'
+            'latitude' => '-8.158757309001139',
+            'longitude' => '113.72444211779218'
         ]);
 
         User::create([

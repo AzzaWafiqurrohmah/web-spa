@@ -1,28 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    @if(env('IS_DEMO'))
-        <link rel="canonical" href="https://themesberg.com/product/laravel/volt-admin-dashboard-template">
-        <meta  name="keywords" content="themesberg, updivision, html dashboard, laravel, livewire, laravel livewire, alpine.js, html css dashboard laravel, Volt Laravel Admin Dashboard, livewire volt dashboard, volt admin, livewire dashboard, livewire admin, web dashboard, bootstrap 5 dashboard laravel, bootstrap 5, css3 dashboard, bootstrap 5 admin laravel, volt dashboard bootstrap 5 laravel, frontend, responsive bootstrap 5 dashboard, volt dashboard, volt laravel bootstrap 5 dashboard"></meta>
-        <meta  name="description" content="Volt Laravel Admin Dashboard features dozens of UI components and a Laravel backend with Livewire & Alpine.js"></meta>
-        <meta  itemprop="name" content="Volt Laravel Admin Dashboard by Themesberg & UPDIVISION"></meta>
-        <meta  itemprop="description" content="Volt Laravel Admin Dashboard features dozens of UI components and a Laravel backend with Livewire & Alpine.js"></meta>
-        <meta  itemprop="image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/volt-laravel-dashboard/volt-free-laravel-dashboard.jpg"></meta>
-        <meta  name="twitter:card" content="product"></meta>
-        <meta  name="twitter:site" content="@themesberg"></meta>
-        <meta  name="twitter:title" content="Volt Laravel Admin Dashboard by Themesberg & UPDIVISION"></meta>
-        <meta  name="twitter:description" content="Volt Laravel Admin Dashboard features dozens of UI components and a Laravel backend with Livewire & Alpine.js"></meta>
-        <meta  name="twitter:creator" content="@themesberg"></meta>
-        <meta  name="twitter:image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/volt-laravel-dashboard/volt-free-laravel-dashboard.jpg"></meta>
-        <meta  property="fb:app_id" content="655968634437471"></meta>
-        <meta  property="og:title" content="Volt Laravel Admin Dashboard by Themesberg & UPDIVISION"></meta>
-        <meta  property="og:type" content="article"></meta>
-        <meta  property="og:url" content="https://themesberg.com/product/laravel/volt-admin-dashboard-template/preview"></meta>
-        <meta  property="og:image" content="https://themesberg.s3.us-east-2.amazonaws.com/public/products/volt-laravel-dashboard/volt-free-laravel-dashboard.jpg"></meta>
-        <meta  property="og:description" content="Volt Laravel Admin Dashboard features dozens of UI components and a Laravel backend with Livewire & Alpine.js"></meta>
-        <meta  property="og:site_name" content="Themesberg"></meta>
-    @endif
-
     <!-- Favicons -->
     <link rel="apple-touch-icon" href="../../assets/img/favicon/apple-touch-icon.png" sizes="180x180">
     <link rel="icon" href="../../assets/img/favicon/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -36,13 +14,11 @@
 
     <!-- Apex Charts -->
     <link type="text/css" href="/vendor/apexcharts/apexcharts.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.7/css/dataTables.bootstrap5.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-{{--    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">--}}
-    <!-- Datepicker -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker.min.css">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/css/datepicker-bs4.min.css">
+    <!-- boxicon -->
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
     <!-- Fontawesome -->
     <link type="text/css" href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
@@ -50,106 +26,22 @@
     <!-- Sweet Alert -->
     <link type="text/css" href="/vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet">
 
-    <!-- Notyf -->
-    <link type="text/css" href="/vendor/notyf/notyf.min.css" rel="stylesheet">
 
     <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" integrity="sha512-nMNlpuaDPrqlEls3IX/Q56H36qvBASwb3ipuo3MxeWbsQB1881ox0cRv7UPTgBlriqoynt35KjEwgGUeUXIPnw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-
-
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 
     <!-- map -->
-        <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-              integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-              crossorigin=""/>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+          integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+          crossorigin=""/>
 
     <!-- Volt CSS -->
     <link type="text/css" href="/css/volt.css" rel="stylesheet">
-        <style>
-            .image-preview {
-                aspect-ratio: 15/9;
-                border: 2px dashed #ccc;
-                border-radius: .5rem;
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                cursor: pointer;
-                background-position: center;
-                background-size: cover;
-
-                & small {
-                    background-color: rgba(255, 255, 255, .9);
-                    padding: 5px 10px;
-                    border-radius: .5rem;
-                    color: #999999;
-                    display: flex;
-                    flex-direction: column;
-                    align-items: center;
-                }
-            }
-
-            .image-preview .btn {
-                position: absolute; /* Mengatur posisi tombol absolut */
-                top: 5px; /* Menjadikan posisi tombol sedikit dari atas */
-                right: 2px; /* Menjadikan posisi tombol sedikit dari kanan */
-            }
-
-
-
-            /* Style untuk masing-masing elemen di dalam small */
-            .image-preview small > * {
-                margin-bottom: 5px; /* Memberi jarak antara ikon dan teks */
-            }
-
-
-            .select2-container--default .select2-selection--multiple .select2-selection__choice {
-                background-color: #f2f2f2;
-                border: 0.5px solid #f2f2f2;
-                /*border-radius: 4px;*/
-                cursor: default;
-                float: left;
-                margin-right: 5px;
-                padding: 0px 7px 3px 7px;
-                color: #000000;
-                border-radius: 5px;
-                align-items: center;
-            }
-
-            .select2-container--default .select2-selection--multiple .select2-selection__choice__remove {
-                color: #6B7280;
-                cursor: pointer;
-                display: inline-block;
-                font-weight: bold;
-                margin-right: 5px;
-                border-radius: 100px;
-            }
-
-            .select2-container--default.select2-container--focus .select2-selection--multiple {
-                border: solid #999999 1px;
-                outline: 0;
-            }
-
-
-            #map { height: 300px; width: 95%; margin-left: 10px; margin-bottom: 10px }
-        </style>
-
-{{--    @livewireStyles--}}
 </head>
 
 <body>
-    @if(env('IS_DEMO'))
-        <!-- Google Tag Manager (noscript) -->
-        <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-THQTXJ7" height="0" width="0"
-            style="display:none;visibility:hidden"></iframe></noscript>
-        <!-- End Google Tag Manager (noscript) -->
-    @endif
-
     @yield('app')
-
-
-{{--    @livewireScripts--}}
 
     <!-- map -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
@@ -158,7 +50,6 @@
 
     <!-- Core -->
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
-{{--    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js" integrity="sha384-Atwg2Pkwv9vp0ygtn1JAojH0nYbwNJLPhwyoVbhoPwBhjQPR5VtM2+xf0Uwh9KtT" crossorigin="anonymous"></script>--}}
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 
     <!-- Vendor JS -->
@@ -177,17 +68,12 @@
     <script src="/assets/js/chartist.min.js"></script>
     <script src="/assets/js/chartist-plugin-tooltip.min.js"></script>
 
-    <!-- Datepicker -->
-    <script src="https://cdn.jsdelivr.net/npm/vanillajs-datepicker@1.1.4/dist/js/datepicker.min.js"></script>
-
     <!-- Sweet Alerts 2 -->
     <script src="/assets/js/sweetalert2.all.min.js"></script>
 
     <!-- Moment JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.27.0/moment.min.js"></script>
 
-    <!-- Notyf -->
-    <script src="/vendor/notyf/notyf.min.js"></script>
 
     <!-- Simplebar -->
     <script src="/assets/js/simplebar.min.js"></script>
@@ -204,29 +90,8 @@
     <script src="https://cdn.datatables.net/1.13.7/js/dataTables.bootstrap5.min.js"></script>
     <script src="{{ asset('js/utils.js') }}"></script>
 
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js" integrity="sha512-2ImtlRlf2VVmiGZsjm9bEyhjGW4dU7B6TNwh/hx/iSByxNENtj3WVE6o/9Lj4TJeVXPi4bnOIMXFIJJAeufa0A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
-    @if(env('IS_DEMO'))
-        <!-- Global site tag (gtag.js) - Google Analytics -->
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-141734189-6"></script>
-        <script>
-            window.dataLayer = window.dataLayer || [];
-            function gtag() { dataLayer.push(arguments); }
-            gtag('js', new Date());
-            gtag('config', 'UA-141734189-6');
-        </script>
-        <!-- Google Tag Manager -->
-        <script>(function (w, d, s, l, i) {
-                w[l] = w[l] || []; w[l].push({
-                    'gtm.start':
-                        new Date().getTime(), event: 'gtm.js'
-                }); var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                    'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-THQTXJ7');</script>
-        <!-- End Google Tag Manager -->
-    @endif
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
     <script>
         $.ajaxSetup({
@@ -247,5 +112,4 @@
 @stack('script')
 @include('components.sweetalert')
 </body>
-
 </html>

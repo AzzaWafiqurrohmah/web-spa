@@ -3,7 +3,7 @@
     <title>Customer</title>
     <div class="row">
         <div class="col-md-8">
-            <div class="mt-5 mb-3" >
+            <div class="mt-5 mb-3">
                 <h1>Daftar Kategori Treatment</h1>
                 <nav>
                     <ol class="breadcrumb">
@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    @include('components.treatmentCategoryModal')
+    @include('components.modal.treatmentCategory')
 @endsection
 
 @push('script')
@@ -86,7 +86,7 @@
                     });
                 },
                 error(err) {
-                    if(err.status == 422) {
+                    if (err.status == 422) {
                         displayFormErrors(err.responseJSON.data);
                         return;
                     }
@@ -125,7 +125,7 @@
 
         $('#treatmentCategory-modal').on('show.bs.modal', function (event) {
             $('#treatmentCategory-modal-title').text(editID ? 'Edit Kategori' : 'Tambah Kategori');
-            if(editID != 0)
+            if (editID != 0)
                 fillForm();
         });
 
@@ -136,14 +136,14 @@
             $('#treatmentCategory-form').trigger('reset');
         });
 
-        $('#treatmentCategory-form').submit(function(e) {
+        $('#treatmentCategory-form').submit(function (e) {
             e.preventDefault();
 
             removeFormErrors();
             saveItem();
         });
 
-        $('#treatmentCategories-table').on('click', '.btn-edit', function(e) {
+        $('#treatmentCategories-table').on('click', '.btn-edit', function (e) {
             editID = this.dataset.id;
             categoryModal.show();
         });
@@ -153,14 +153,14 @@
         });
 
 
-        $('#treatmentCategories-table').on('click', '.btn-delete', function(e) {
+        $('#treatmentCategories-table').on('click', '.btn-delete', function (e) {
             Swal.fire({
                 icon: 'question',
                 text: 'Apakah anda yakin?',
                 showCancelButton: true,
                 cancelButtonText: 'Batal',
             }).then((res) => {
-                if(res.isConfirmed)
+                if (res.isConfirmed)
                     deleteItem(this.dataset.id);
             });
         });

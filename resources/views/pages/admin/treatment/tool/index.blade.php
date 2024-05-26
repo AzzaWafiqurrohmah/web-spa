@@ -3,7 +3,7 @@
     <title>Treatment</title>
     <div class="row">
         <div class="col-md-8">
-            <div class="mt-5 mb-3" >
+            <div class="mt-5 mb-3">
                 <h1>Daftar Alat Treatment</h1>
                 <nav>
                     <ol class="breadcrumb">
@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    @include('components.toolModal')
+    @include('components.modal.tool')
 @endsection
 
 @push('script')
@@ -84,7 +84,7 @@
                     });
                 },
                 error(err) {
-                    if(err.status == 422) {
+                    if (err.status == 422) {
                         displayFormErrors(err.responseJSON.data);
                         return;
                     }
@@ -123,7 +123,7 @@
 
         $('#tool-modal').on('show.bs.modal', function (event) {
             $('#tool-modal-title').text(editID ? 'Edit Alat Treatment' : 'Tambah Alat Treatment');
-            if(editID != 0)
+            if (editID != 0)
                 fillForm();
         });
 
@@ -134,14 +134,14 @@
             $('#tool-form').trigger('reset');
         });
 
-        $('#tool-form').submit(function(e) {
+        $('#tool-form').submit(function (e) {
             e.preventDefault();
 
             removeFormErrors();
             saveItem();
         });
 
-        $('#tools-table').on('click', '.btn-edit', function(e) {
+        $('#tools-table').on('click', '.btn-edit', function (e) {
             editID = this.dataset.id;
             toolModal.show();
         });
@@ -151,14 +151,14 @@
         });
 
 
-        $('#tools-table').on('click', '.btn-delete', function(e) {
+        $('#tools-table').on('click', '.btn-delete', function (e) {
             Swal.fire({
                 icon: 'question',
                 text: 'Apakah anda yakin?',
                 showCancelButton: true,
                 cancelButtonText: 'Batal',
             }).then((res) => {
-                if(res.isConfirmed)
+                if (res.isConfirmed)
                     deleteItem(this.dataset.id);
             });
         });

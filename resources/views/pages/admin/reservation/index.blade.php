@@ -3,7 +3,7 @@
     <title>Reservation</title>
     <div class="row">
         <div class="col-md-10">
-            <div class="mt-5 mb-3" >
+            <div class="mt-5 mb-3">
                 <h3>Daftar Reservasi</h3>
                 <nav>
                     <ol class="breadcrumb">
@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    @include('components.treatmentModal')
+    @include('components.modal.treatment')
 @endsection
 
 @push('script')
@@ -58,6 +58,7 @@
         const treatmentModal = new bootstrap.Modal('#treatment-modal');
 
         let ID = 0;
+
         function fillForm() {
             $.ajax({
                 url: `/treatments/${ID}`,
@@ -70,7 +71,7 @@
             fillForm();
         });
 
-        $('#treatments-table').on('click', '.btn-detail', function(e) {
+        $('#treatments-table').on('click', '.btn-detail', function (e) {
             ID = this.dataset.id;
             treatmentModal.show();
         });
@@ -79,7 +80,7 @@
             treatmentModal.show();
         });
 
-        $('#treatments-table').on('click', '.btn-edit', function(e) {
+        $('#treatments-table').on('click', '.btn-edit', function (e) {
             window.location.href = "{{ route('treatments.edit', 'VALUE') }}".replace('VALUE', $(this).data('id'));
         });
 
@@ -99,21 +100,21 @@
                 error(err) {
                     Swal.fire({
                         icon: 'error',
-                        text: err ,
+                        text: err,
                         timer: 1500,
                     });
                 },
             });
         }
 
-        $('#treatments-table').on('click', '.btn-delete', function (e){
+        $('#treatments-table').on('click', '.btn-delete', function (e) {
             Swal.fire({
                 icon: 'question',
                 text: 'Apakah anda yakin?',
                 showCancelButton: true,
                 cancelButtonText: 'Batal',
             }).then((res) => {
-                if(res.isConfirmed)
+                if (res.isConfirmed)
                     deleteItem(this.dataset.id);
             });
         });

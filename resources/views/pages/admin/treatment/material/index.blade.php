@@ -3,7 +3,7 @@
     <title>Treatment</title>
     <div class="row">
         <div class="col-md-8">
-            <div class="mt-5 mb-3" >
+            <div class="mt-5 mb-3">
                 <h1>Daftar Bahan Treatment</h1>
                 <nav>
                     <ol class="breadcrumb">
@@ -35,7 +35,7 @@
             </div>
         </div>
     </div>
-    @include('components.materialModal')
+    @include('components.modal.material')
 @endsection
 
 @push('script')
@@ -84,7 +84,7 @@
                     });
                 },
                 error(err) {
-                    if(err.status == 422) {
+                    if (err.status == 422) {
                         displayFormErrors(err.responseJSON.data);
                         return;
                     }
@@ -123,7 +123,7 @@
 
         $('#material-modal').on('show.bs.modal', function (event) {
             $('#material-modal-title').text(editID ? 'Edit Bahan Treatment' : 'Tambah Bahan Treatment');
-            if(editID != 0)
+            if (editID != 0)
                 fillForm();
         });
 
@@ -134,14 +134,14 @@
             $('#material-form').trigger('reset');
         });
 
-        $('#material-form').submit(function(e) {
+        $('#material-form').submit(function (e) {
             e.preventDefault();
 
             removeFormErrors();
             saveItem();
         });
 
-        $('#materials-table').on('click', '.btn-edit', function(e) {
+        $('#materials-table').on('click', '.btn-edit', function (e) {
             editID = this.dataset.id;
             materialModal.show();
         });
@@ -151,14 +151,14 @@
         });
 
 
-        $('#materials-table').on('click', '.btn-delete', function(e) {
+        $('#materials-table').on('click', '.btn-delete', function (e) {
             Swal.fire({
                 icon: 'question',
                 text: 'Apakah anda yakin?',
                 showCancelButton: true,
                 cancelButtonText: 'Batal',
             }).then((res) => {
-                if(res.isConfirmed)
+                if (res.isConfirmed)
                     deleteItem(this.dataset.id);
             });
         });

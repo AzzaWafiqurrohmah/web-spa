@@ -4,11 +4,17 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Setting extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'user_id', 'extra_cost', 'birth_disc', 'transport_cost'
+        'user_id', 'key', 'value'
     ];
+
+    protected function user(): BelongsTo
+    {
+        return $this->belongsTo(User::class);
+    }
 }

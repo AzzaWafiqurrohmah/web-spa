@@ -17,9 +17,8 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->integer('extra_cost');
-            $table->integer('birth_disc');
-            $table->integer('transport_cost');
+            $table->integer('key');
+            $table->integer('value');
         });
     }
 

@@ -24,7 +24,6 @@ class UserSeeder extends Seeder
 
         User::create([
             'name' => 'Owner',
-            'franchise_id' => '1',
             'email' => 'owner@mail.com',
             'password' => Hash::make('owner123'),
         ])->assignRole('owner');

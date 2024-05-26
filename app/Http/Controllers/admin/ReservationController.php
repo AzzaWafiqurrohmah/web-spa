@@ -3,12 +3,18 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\CustomerResource;
+use App\Http\Resources\TreatmentResource;
+use App\Models\Customer;
 use App\Models\Reservation;
+use App\Models\Treatment;
+use App\Traits\ApiResponser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReservationController extends Controller
 {
+    use ApiResponser;
     /**
      * Display a listing of the resource.
      */
@@ -36,9 +42,11 @@ class ReservationController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Reservation $reservation)
     {
-        //
+        return $this->success(
+            'Berhasil mengambil data'
+        );
     }
 
     /**
@@ -75,5 +83,37 @@ class ReservationController extends Controller
             ->addColumn('customer_name', fn ($reservation) => $reservation->customer->fullname)
             ->addColumn('action', fn ($reservation) => view('pages.reservation.action', compact('reservation')))
             ->toJson();
+    }
+
+//    public function treatments(){
+//        $treatments = Treatment::all();
+//        return $this->success(
+//            TreatmentResource::collection($treatments),
+//            'Berhasil mengambil data Treatment'
+//        );
+//    }
+
+    public function treatments(Request $request)
+    {
+        $q =  $request->input('q');
+        $treatment = Treatment::query()
+            ->where('name', 'like', '%' . $q . '%')
+            ->orWhere('price', 'like', '%' . $q . '%')
+            ->get();
+        return response()->json([
+            'data' => TreatmentResource::collection($treatment)
+        ]);
+    }
+
+    public function customers(Request $request)
+    {
+        $q =  $request->input('q');
+        $customer = Customer::query()
+            ->where('fullname', 'like', '%' . $q . '%')
+            ->orWhere('phone', 'like', '%' . $q . '%')
+            ->get();
+        return response()->json([
+            'data' => CustomerResource::collection($customer)
+        ]);
     }
 }

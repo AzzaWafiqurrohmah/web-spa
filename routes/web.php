@@ -133,6 +133,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('reservations')
         ->name('reservations.')
         ->controller(ReservationController::class)->group(function () {
+            Route::get('/customers', 'customers')->name('customers');
             Route::get('/', 'index')->name('index');
             Route::get('create', 'create')->name('create');
             Route::post('store', 'store')->name('store');
@@ -140,8 +141,10 @@ Route::middleware('auth')->group(function () {
             Route::match(['PUT', 'PATCH'], '{reservation}/update', 'update')->name('update');
 
             Route::get('datatables', 'datatables')->name('datatables');
-            Route::get('{reservation}', 'show')->name('show');
+            Route::get('{reservation}', 'treatments')->name('show');
             Route::delete('{reservation}', 'destroy')->name('destroy');
+            Route::get('/treatments', 'treatments')->name('treatments');
+
         });
 
 });

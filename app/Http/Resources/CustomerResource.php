@@ -17,7 +17,7 @@ class CustomerResource extends JsonResource
     {
         $user = Auth::user();
         return [
-            'id' => format_id('customer', $user->franchise->raw_id, $this->gender, $this->id),
+            'id' => $this->id,
             'fullname' => $this->fullname,
             'phone' => $this->phone,
             'member_id' => format_member(format_id('customer', $user->franchise->raw_id, $this->gender, $this->id)),

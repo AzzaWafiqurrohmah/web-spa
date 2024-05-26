@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TherapistRequest;
-use App\Http\Resources\TherapistResource;
+use App\Http\Requests\admin\TherapistRequest;
+use App\Http\Resources\admin\TherapistResource;
 use App\Models\Therapist;
-use App\Repository\TherapistRepository;
+use App\Repository\admin\TherapistRepository;
 use App\Traits\ApiResponser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -27,7 +27,7 @@ class TherapistController extends Controller
         $therapist = Therapist::query();
         if ($date = $request->month)
             $therapist->whereMonth('birth_date', $date);
-        return view('pages.therapist.main.index', [
+        return view('pages.admin.therapist.main.index', [
             'months' => $months
         ]);
     }
@@ -37,7 +37,7 @@ class TherapistController extends Controller
      */
     public function create()
     {
-        return view('pages.therapist.main.create');
+        return view('pages.admin.therapist.main.create');
     }
 
     /**
@@ -62,7 +62,7 @@ class TherapistController extends Controller
      */
     public function edit(Therapist $therapist)
     {
-        return view('pages.therapist.main.edit', [
+        return view('pages.admin.therapist.main.edit', [
             'therapist' => $therapist
         ]);
     }
@@ -95,7 +95,7 @@ class TherapistController extends Controller
             ->addIndexColumn()
             ->addColumn('id', fn($therapist) => format_id('therapist', $user->franchise->raw_id, $therapist->gender, $therapist->id))
             ->addColumn('birth_date', fn($therapist) => format_date($therapist->birth_date))
-            ->addColumn('action', fn($therapist) => view('pages.therapist.main.action', compact('therapist')))
+            ->addColumn('action', fn($therapist) => view('pages.admin.therapist.main.action', compact('therapist')))
             ->toJson();
     }
 

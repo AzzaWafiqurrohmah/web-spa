@@ -3,10 +3,10 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\CustomerRequest;
-use App\Http\Resources\CustomerResource;
+use App\Http\Requests\admin\CustomerRequest;
+use App\Http\Resources\admin\CustomerResource;
 use App\Models\Customer;
-use App\Repository\CustomerRepository;
+use App\Repository\admin\CustomerRepository;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -29,7 +29,7 @@ class CustomerController extends Controller
         if ($date = $request->month)
             $customer->whereMonth('birth_date', $date);
 
-        return view('pages.customer.index', [
+        return view('pages.admin.customer.index', [
             'date' => $request->month,
             'months' => $months
         ]);
@@ -40,7 +40,7 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        return view('pages.customer.create');
+        return view('pages.admin.customer.create');
     }
 
     /**
@@ -70,7 +70,7 @@ class CustomerController extends Controller
      */
     public function edit(Customer $customer)
     {
-        return view('pages.customer.edit', [
+        return view('pages.admin.customer.edit', [
             'customer' => $customer
         ]);
     }
@@ -134,8 +134,8 @@ class CustomerController extends Controller
             ->addIndexColumn()
             ->addColumn('id', fn($customer) => format_id('customer' ,$user->franchise->raw_id, $customer->gender, $customer->id))
             ->addColumn('birth_date', fn($customer) => format_date($customer->birth_date))
-            ->addColumn('member', fn($customer) => view('pages.customer.member', compact('customer')))
-            ->addColumn('action', fn($customer) => view('pages.customer.action', compact('customer')))
+            ->addColumn('member', fn($customer) => view('pages.admin.customer.member', compact('customer')))
+            ->addColumn('action', fn($customer) => view('pages.admin.customer.action', compact('customer')))
             ->toJson();
     }
 

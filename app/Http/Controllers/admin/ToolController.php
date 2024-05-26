@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\ToolRequest;
-use App\Http\Resources\ToolResource;
+use App\Http\Requests\admin\ToolRequest;
+use App\Http\Resources\admin\ToolResource;
 use App\Models\Tool;
 use App\Traits\ApiResponser;
 
@@ -16,7 +16,7 @@ class ToolController extends Controller
      */
     public function index()
     {
-        return view('pages.treatment.tool.index');
+        return view('pages.admin.treatment.tool.index');
     }
 
     /**
@@ -70,7 +70,7 @@ class ToolController extends Controller
     {
         return datatables(Tool::query())
             ->addIndexColumn()
-            ->addColumn('action', fn($tool) => view('pages.treatment.tool.action', compact('tool')) )
+            ->addColumn('action', fn($tool) => view('pages.admin.treatment.tool.action', compact('tool')) )
             ->toJson();
     }
 

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\MaterialRequest;
-use App\Http\Resources\MaterialResource;
+use App\Http\Requests\admin\MaterialRequest;
+use App\Http\Resources\admin\MaterialResource;
 use App\Models\Material;
 use App\Traits\ApiResponser;
 
@@ -16,7 +16,7 @@ class MaterialController extends Controller
      */
     public function index()
     {
-        return view('pages.treatment.material.index');
+        return view('pages.admin.treatment.material.index');
     }
 
     /**
@@ -69,7 +69,7 @@ class MaterialController extends Controller
     {
         return datatables(Material::query())
             ->addIndexColumn()
-            ->addColumn('action', fn($material) => view('pages.treatment.material.action', compact('material')))
+            ->addColumn('action', fn($material) => view('pages.admin.treatment.material.action', compact('material')))
             ->toJson();
     }
 

@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TreatmentRequest;
-use App\Http\Resources\TreatmentResource;
+use App\Http\Requests\admin\TreatmentRequest;
+use App\Http\Resources\admin\TreatmentResource;
 use App\Models\Material;
 use App\Models\Tool;
 use App\Models\Treatment;
 use App\Models\TreatmentCategory;
-use App\Repository\TreatmentRepository;
+use App\Repository\admin\TreatmentRepository;
 use App\Traits\ApiResponser;
 
 class TreatmentController extends Controller
@@ -20,7 +20,7 @@ class TreatmentController extends Controller
      */
     public function index()
     {
-        return view('pages.treatment.main.index');
+        return view('pages.admin.treatment.main.index');
     }
 
     public function create()
@@ -28,7 +28,7 @@ class TreatmentController extends Controller
         $treatmentCategories = TreatmentCategory::all();
         $tools = Tool::all();
         $materials = Material::all();
-        return view('pages.treatment.main.create', [
+        return view('pages.admin.treatment.main.create', [
             'treatmentCategories' => $treatmentCategories,
             'tools' => $tools,
             'materials' => $materials
@@ -40,7 +40,6 @@ class TreatmentController extends Controller
      */
     public function store(TreatmentRequest $request)
     {
-//        dd($request->all());
         TreatmentRepository::save($request->all());
         return to_route('treatments.index')->with('alert_s', "Berhasil menambahkan data Treatment");
     }
@@ -64,7 +63,7 @@ class TreatmentController extends Controller
         $treatmentCategories = TreatmentCategory::all();
         $tools = Tool::all();
         $materials = Material::all();
-        return view('pages.treatment.main.edit', [
+        return view('pages.admin.treatment.main.edit', [
             'treatmentCategories' => $treatmentCategories,
             'tools' => $tools,
             'materials' => $materials,
@@ -99,7 +98,7 @@ class TreatmentController extends Controller
             ->addIndexColumn()
             ->addColumn('duration', fn($treatment) => $treatment->duration . " menit")
             ->addColumn('price', fn($treatment) => "Rp " . $treatment->price)
-            ->addColumn('action', fn($treatment) => view('pages.treatment.main.action', compact('treatment')))
+            ->addColumn('action', fn($treatment) => view('pages.admin.treatment.main.action', compact('treatment')))
             ->toJson();
     }
 

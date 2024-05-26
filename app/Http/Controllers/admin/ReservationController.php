@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Resources\CustomerResource;
-use App\Http\Resources\TreatmentResource;
+use App\Http\Resources\admin\CustomerResource;
+use App\Http\Resources\admin\TreatmentResource;
 use App\Models\Customer;
 use App\Models\Reservation;
 use App\Models\Treatment;
@@ -20,7 +20,7 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return view('pages.reservation.index');
+        return view('pages.admin.reservation.index');
     }
 
     /**
@@ -28,7 +28,7 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        return view('pages.reservation.create');
+        return view('pages.admin.reservation.create');
     }
 
     /**
@@ -84,14 +84,6 @@ class ReservationController extends Controller
             ->addColumn('action', fn ($reservation) => view('pages.reservation.action', compact('reservation')))
             ->toJson();
     }
-
-//    public function treatments(){
-//        $treatments = Treatment::all();
-//        return $this->success(
-//            TreatmentResource::collection($treatments),
-//            'Berhasil mengambil data Treatment'
-//        );
-//    }
 
     public function treatments(Request $request)
     {

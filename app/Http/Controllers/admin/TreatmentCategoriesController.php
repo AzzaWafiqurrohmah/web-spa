@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\TreatmentCategoryRequest;
-use App\Http\Resources\TreatmentCategoryResource;
+use App\Http\Requests\admin\TreatmentCategoryRequest;
+use App\Http\Resources\admin\TreatmentCategoryResource;
 use App\Models\TreatmentCategory;
 use App\Traits\ApiResponser;
 
@@ -16,7 +16,7 @@ class TreatmentCategoriesController extends Controller
      */
     public function index()
     {
-        return view('pages.treatment.category.index');
+        return view('pages.admin.treatment.category.index');
     }
 
     /**
@@ -70,7 +70,7 @@ class TreatmentCategoriesController extends Controller
     {
         return datatables(TreatmentCategory::query())
             ->addIndexColumn()
-            ->addColumn('action', fn($treatmentCategory) => view('pages.treatment.category.action', compact('treatmentCategory')))
+            ->addColumn('action', fn($treatmentCategory) => view('pages.admin.treatment.category.action', compact('treatmentCategory')))
             ->toJson();
     }
 

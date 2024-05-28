@@ -166,8 +166,8 @@
 
         @role('owner')
 
-        <li class="nav-item {{ Request::segment(1) == 'franchise' ? 'active' : '' }}">
-            <a href="" class="nav-link">
+        <li class="nav-item {{ Request::segment(1) == 'franchises' ? 'active' : '' }}">
+            <a href="{{ route('franchises.index') }}" class="nav-link">
                 <i class="bx bx-home sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 <span class="sidebar-text ms-1">Franchise</span>
             </a>

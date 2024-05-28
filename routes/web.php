@@ -55,8 +55,6 @@ Route::middleware('auth')->group(function () {
             Route::post('{month}/birthdate', 'birthdate')->name('birthdate');
         });
 
-    //franchise owner
-    Route::resource('franchises', FranchiseController::class);
 
     //category treatment
     Route::prefix('treatmentCategories')
@@ -144,7 +142,22 @@ Route::middleware('auth')->group(function () {
             Route::get('{reservation}', 'treatments')->name('show');
             Route::delete('{reservation}', 'destroy')->name('destroy');
             Route::get('/treatments', 'treatments')->name('treatments');
+        });
 
+    //franchise owner
+    Route::prefix('franchises')
+        ->name('franchises.')
+        ->controller(FranchiseController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+            Route::get('/{franchise}/edit', 'edit')->name('edit');
+            Route::match(['PUT', 'PATCH'], '{franchise}/update', 'update')->name('update');
+
+            Route::get('datatables', 'datatables')->name('datatables');
+            Route::get('{franchise}', 'show')->name('show');
+            Route::delete('{franchise}', 'destroy')->name('destroy');
+            Route::get('{city}/latLng', 'latLng');
         });
 
 });

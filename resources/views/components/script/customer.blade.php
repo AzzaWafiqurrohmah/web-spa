@@ -17,7 +17,7 @@
             let month = this.value;
             customersTable.settings()[0].ajax = {
                 url: `/customers/${month}/birthdate`,
-                type: 'POST' // Set the method here
+                type: 'POST'
             };
             customersTable.ajax.reload();
         });

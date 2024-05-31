@@ -5,6 +5,7 @@ namespace App\Http\Requests;
 use App\Exceptions\Api\FailedValidation;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class AuthRequest extends FormRequest
 {
@@ -23,10 +24,20 @@ class AuthRequest extends FormRequest
      */
     public function rules(): array
     {
-        return [
-            'email' => 'required|email|exists:users,email',
+        $rules = [
             'password' => 'required',
         ];
+        if (Auth::guard('web'))
+        {
+            $rules['email'] = 'required|email|exists:users,email';
+        }
+
+        if (Auth::guard('therapist'))
+        {
+            $rules['email'] = 'required|email|exists:therapists,email';
+        }
+
+        return $rules;
     }
 
     protected function failedValidation(Validator $validator)

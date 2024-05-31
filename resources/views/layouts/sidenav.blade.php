@@ -195,6 +195,23 @@
         </li>
       @endrole
 
+
+        @role('therapist')
+        <li class="nav-item {{ Request::segment(1) == 'treatment' ? 'active' : '' }}">
+            <a href="" class="nav-link">
+                <i class="bx bx-buildings sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                <span class="sidebar-text ms-1">Treatment</span>
+            </a>
+        </li>
+
+        <li class="nav-item {{ Request::segment(1) == 'customer' ? 'active' : '' }}">
+            <a href="" class="nav-link">
+                <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                <span class="sidebar-text ms-1">Customer</span>
+            </a>
+        </li>
+        @endrole
+
       <li class="nav-item">
         <a href="/upgrade-to-pro"
           class="btn btn-secondary d-flex align-items-center justify-content-center btn-upgrade-pro">

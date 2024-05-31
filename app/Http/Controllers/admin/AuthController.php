@@ -42,7 +42,7 @@ class AuthController extends Controller
         {
             return response()->json([
                 'status' => 'success',
-                'redirect' => 'therapist.dashboard'
+                'redirect' => 'dashboard'
             ]);
         }
 

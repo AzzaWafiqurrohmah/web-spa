@@ -27,9 +27,11 @@
                                 </select>
                             </form>
                         </div>
-                        <div>
-                            <a href="{{route('customers.create')}}" class="btn btn-primary">Tambah Pelanggan</a>
-                        </div>
+                        @can('crud customers')
+                            <div>
+                                <a href="{{route('customers.create')}}" class="btn btn-primary">Tambah Pelanggan</a>
+                            </div>
+                        @endcan
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover" id="customers-table">

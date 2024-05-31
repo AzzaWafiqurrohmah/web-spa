@@ -1,9 +1,13 @@
 @push('script')
     <script>
+        let url = '/therapist/customers/datatables';
+        @can('crud customers')
+            url = '{{ route('customers.datatables') }}';
+        @endcan
         const customersTable = $('#customers-table').DataTable({
             serverSide: true,
             rendering: true,
-            ajax: '{{ route('customers.datatables') }}',
+            ajax: url,
             columns: [
                 {data: 'id'},
                 {data: 'fullname', name: 'fullname'},

@@ -47,6 +47,6 @@ class UserSeeder extends Seeder
             'body_weight' => '50',
             'start_working' => now(),
             'franchise_id' => '1'
-        ])->assignRole('therapist');
+        ])->assignRole('therapist')->givePermissionTo(['show treatments', 'show customers']);
     }
 }

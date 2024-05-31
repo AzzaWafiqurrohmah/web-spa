@@ -5,7 +5,7 @@ namespace App\Http\Resources\owner;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class FranchiseResource extends JsonResource
+class AdminResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,10 @@ class FranchiseResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'raw_id' => $this->raw_id,
             'name' => $this->name,
-            'latitude' => $this->latitude,
-            'longitude' => $this->longitude
+            'franchise_id' => $this->franchise_id,
+            'email' => $this->email,
+            'password' => $this->password
         ];
     }
 }

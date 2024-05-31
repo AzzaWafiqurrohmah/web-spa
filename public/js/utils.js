@@ -2,6 +2,7 @@ function fillFormdata(data) {
     for(const [key, value] of Object.entries(data)) {
         const inputElement = document.getElementById(key);
 
+
         if (inputElement !== null) {
             if(inputElement.tagName !== 'INPUT'){
                 inputElement.textContent = value;
@@ -11,7 +12,15 @@ function fillFormdata(data) {
                 inputElement.parentElement.style.backgroundImage = `url(/storage/${value})`;
             }
 
-            if(inputElement.tagName === 'INPUT' && inputElement.getAttribute('type') !== 'file'){
+            if(inputElement.getAttribute('type') === 'password') {
+                inputElement.value = null;
+            }
+
+            if(inputElement.tagName === 'INPUT' &&
+                inputElement.getAttribute('type') !== 'file' &&
+                inputElement.tagName !== 'SELECT' &&
+                inputElement.getAttribute('type') !== 'password'){
+
                 inputElement.value = value;
             }
         }

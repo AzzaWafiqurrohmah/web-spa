@@ -10,6 +10,7 @@ use App\Http\Controllers\admin\TreatmentController;
 use App\Http\Controllers\Owner\FranchiseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\ReservationController;
+use App\Http\Controllers\Owner\AdminController;
 
 /*
 |--------------------------------------------------------------------------
@@ -155,9 +156,23 @@ Route::middleware('auth')->group(function () {
             Route::match(['PUT', 'PATCH'], '{franchise}/update', 'update')->name('update');
 
             Route::get('datatables', 'datatables')->name('datatables');
+            Route::get('json', 'json')->name('json');
             Route::get('{franchise}', 'show')->name('show');
             Route::delete('{franchise}', 'destroy')->name('destroy');
             Route::get('{city}/latLng', 'latLng');
+        });
+
+    //admin in owner
+    Route::prefix('admin')
+        ->name('admin.')
+        ->controller(AdminController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('store', 'store')->name('store');
+            Route::match(['PUT', 'PATCH'], '{user}/update', 'update')->name('update');
+
+            Route::get('datatables', 'datatables')->name('datatables');
+            Route::get('{user}', 'show')->name('show');
+            Route::delete('{user}', 'destroy')->name('destroy');
         });
 
 });

@@ -168,14 +168,14 @@
 
         <li class="nav-item {{ Request::segment(1) == 'franchises' ? 'active' : '' }}">
             <a href="{{ route('franchises.index') }}" class="nav-link">
-                <i class="bx bx-home sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                <i class="bx bx-buildings sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 <span class="sidebar-text ms-1">Franchise</span>
             </a>
         </li>
 
         <li class="nav-item {{ Request::segment(1) == 'admin' ? 'active' : '' }}">
-            <a href="" class="nav-link">
-                <i class="bx bx-home sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+            <a href="{{ route('admin.index') }}" class="nav-link">
+                <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 <span class="sidebar-text ms-1">Admin</span>
             </a>
         </li>

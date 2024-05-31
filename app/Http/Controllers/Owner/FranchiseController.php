@@ -51,9 +51,12 @@ class FranchiseController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Franchise $franchise)
     {
-        //
+        return $this->success(
+            FranchiseResource::make($franchise),
+            'Berhasil mengambil data'
+        );
     }
 
     /**

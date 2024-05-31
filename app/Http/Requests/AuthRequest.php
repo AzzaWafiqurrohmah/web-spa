@@ -24,20 +24,10 @@ class AuthRequest extends FormRequest
      */
     public function rules(): array
     {
-        $rules = [
+        return [
+            'email' => 'required|email',
             'password' => 'required',
         ];
-        if (Auth::guard('web'))
-        {
-            $rules['email'] = 'required|email|exists:users,email';
-        }
-
-        if (Auth::guard('therapist'))
-        {
-            $rules['email'] = 'required|email|exists:therapists,email';
-        }
-
-        return $rules;
     }
 
     protected function failedValidation(Validator $validator)

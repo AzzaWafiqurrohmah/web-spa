@@ -14,11 +14,13 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between mb-4">
-                        <div>
-                            <a href="{{route('treatments.create')}}" class="btn btn-primary">Tambah Treatment</a>
+                    @can('crud treatments')
+                        <div class="d-flex justify-content-between mb-4">
+                            <div>
+                                <a href="{{route('treatments.create')}}" class="btn btn-primary">Tambah Treatment</a>
+                            </div>
                         </div>
-                    </div>
+                    @endcan
                     <div class="table-responsive">
                         <table class="table table-striped table-hover" id="treatments-table">
                             <thead>
@@ -42,10 +44,15 @@
 
 @push('script')
     <script>
+        let url = '/therapist/treatments/datatables';
+        @can('crud treatments')
+            url = '{{ route('treatments.datatables') }}';
+        @endcan
+
         const treatmentTable = $('#treatments-table').DataTable({
             serverSide: true,
             rendering: true,
-            ajax: '{{ route('treatments.datatables') }}',
+            ajax: url,
             columns: [
                 {data: 'id', name: 'id'},
                 {data: 'name', name: 'name'},

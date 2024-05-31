@@ -197,8 +197,8 @@
 
 
         @role('therapist')
-        <li class="nav-item {{ Request::segment(1) == 'treatment' ? 'active' : '' }}">
-            <a href="" class="nav-link">
+        <li class="nav-item {{ Request::segment(1) == 'therapist/treatments' ? 'active' : '' }}">
+            <a href="/therapist/treatments" class="nav-link">
                 <i class="bx bx-buildings sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 <span class="sidebar-text ms-1">Treatment</span>
             </a>

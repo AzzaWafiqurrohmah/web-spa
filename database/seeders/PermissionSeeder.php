@@ -13,7 +13,7 @@ class PermissionSeeder extends Seeder
      */
     public function run(): void
     {
-        Permission::create(['name' => 'show treatments']);
-        Permission::create(['name' => 'show customers']);
+        Permission::create(['name' => 'crud treatments']);
+        Permission::create(['name' => 'crud customers']);
     }
 }

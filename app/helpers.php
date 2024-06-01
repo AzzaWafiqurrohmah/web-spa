@@ -30,6 +30,16 @@ if(!function_exists('format_date'))
     }
 }
 
+if(!function_exists('format_reservation'))
+{
+    function format_reservation($date)
+    {
+        $date = \Illuminate\Support\Carbon::createFromFormat("Y-m-d", $date);
+        return $date->format('dmY');
+    }
+}
+
+
 if(!function_exists('parseDateParam')) {
     function parseDateParam(?string $date) {
         if(is_null($date)) return null;

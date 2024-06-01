@@ -2,7 +2,7 @@
 @section('content')
     <title>Reservation</title>
     <div class="row">
-        <div class="col-md-10">
+        <div class="col-md-11">
             <div class="mt-5 mb-3">
                 <h3>Daftar Reservasi</h3>
                 <nav>
@@ -25,6 +25,7 @@
                             <tr>
                                 <th>ID Reservasi</th>
                                 <th>Tanggal Reservasi</th>
+                                <th>Nama Terapis</th>
                                 <th>Nama Pelanggan</th>
                                 <th>Total Biaya</th>
                                 <th>Aksi</th>
@@ -49,7 +50,8 @@
             columns: [
                 {data: 'id'},
                 {data: 'date', name: 'date'},
-                {data: 'customer_name'},
+                {data: 'therapist', name: 'therapist.fullname'},
+                {data: 'customer', name: 'customer.fullname'},
                 {data: 'totals', name: 'totals'},
                 {data: 'action', orderable: false, searchable: false},
             ],

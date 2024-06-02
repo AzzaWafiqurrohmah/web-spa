@@ -4168,13 +4168,15 @@ textarea.form-control-lg {
     background-color: transparent; }
 
 .btn-outline-danger {
-    border-radius: 70px
+    border-radius: 70px;
+    color: #E11D48;
+    border-color: #E11D48;
   }
   .btn-outline-danger:hover {
     color: #ffffff;
     background-color: #E11D48;
     border-color: #E11D48;
-    border-radius: 70px}
+    }
   .btn-check:focus + .btn-outline-danger, .btn-outline-danger:focus {
     box-shadow: 0 0 0 0.18rem rgba(225, 29, 72, 0.5); }
   .btn-check:checked + .btn-outline-danger,

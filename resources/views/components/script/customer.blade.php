@@ -11,7 +11,7 @@
             columns: [
                 {data: 'id'},
                 {data: 'fullname', name: 'fullname'},
-                {data: 'birth_date', orderable: false},
+                {data: 'birth_date'},
                 {data: 'member'},
                 {data: 'action', orderable: false, searchable: false},
             ],

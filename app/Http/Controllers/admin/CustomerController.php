@@ -21,11 +21,12 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
+        $user = Auth::user();
         $months = [];
         for ($i = 0; $i <= 2; $i++)
             $months[] = Carbon::now()->addMonths($i);
 
-        $customer = Customer::query();
+        $customer = Customer::query()->where('franchise_id', $user->franchise_id);
         if ($date = $request->month)
             $customer->whereMonth('birth_date', $date);
 
@@ -114,15 +115,23 @@ class CustomerController extends Controller
 
     public function birthdate(string $month)
     {
-        $customers = Customer::whereMonth('birth_date', $month)->get();
+        $user = Auth::user();
+        $customers = Customer::whereMonth('birth_date', $month)->where('franchise_id', $user->franchise_id);
 
         $user = Auth::user();
         return datatables($customers)
             ->addIndexColumn()
             ->addColumn('id', fn($customer) => format_id('customer' ,$user->franchise->raw_id, $customer->gender, $customer->id))
             ->addColumn('birth_date', fn($customer) => format_date($customer->birth_date))
-            ->addColumn('member', fn($customer) => view('pages.customer.member', compact('customer')))
-            ->addColumn('action', fn($customer) => view('pages.customer.action', compact('customer')))
+            ->addColumn('member', fn($customer) => view('pages.admin.customer.member', compact('customer')))
+            ->addColumn('action', fn($customer) => view('pages.admin.customer.action', compact('customer')))
+            ->filterColumn('birth_date', function($query, $keyword) {
+                $sql = "DATE_FORMAT(birth_date, '%d %M %Y') LIKE ?";
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
+            ->orderColumn('birth_date', function ($query, $order) {
+                $query->orderBy('birth_date', $order);
+            })
             ->toJson();
 
     }
@@ -130,18 +139,26 @@ class CustomerController extends Controller
     public function datatables()
     {
         $user = Auth::user();
-        return datatables(Customer::query())
+        return datatables(Customer::query()->where('franchise_id', $user->franchise_id))
             ->addIndexColumn()
             ->addColumn('id', fn($customer) => format_id('customer' ,$user->franchise->raw_id, $customer->gender, $customer->id))
             ->addColumn('birth_date', fn($customer) => format_date($customer->birth_date))
             ->addColumn('member', fn($customer) => view('pages.admin.customer.member', compact('customer')))
             ->addColumn('action', fn($customer) => view('pages.admin.customer.action', compact('customer')))
+            ->filterColumn('birth_date', function($query, $keyword) {
+                $sql = "DATE_FORMAT(birth_date, '%d %M %Y') LIKE ?";
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
+            ->orderColumn('birth_date', function ($query, $order) {
+                $query->orderBy('birth_date', $order);
+            })
             ->toJson();
     }
 
     public function json()
     {
-        $customers = Customer::all();
+        $user = Auth::user();
+        $customers = Customer::all()->where('franchise_id', $user->franchise_id);
 
         return $this->success(
             CustomerResource::collection($customers),

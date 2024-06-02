@@ -197,14 +197,14 @@
 
 
         @role('therapist')
-        <li class="nav-item {{ Request::segment(1) == 'therapist/treatments' ? 'active' : '' }}">
+        <li class="nav-item {{ Request::segment(2) == 'treatments' ? 'active' : '' }}">
             <a href="/therapist/treatments" class="nav-link">
                 <i class="bx bx-buildings sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 <span class="sidebar-text ms-1">Treatment</span>
             </a>
         </li>
 
-        <li class="nav-item {{ Request::segment(1) == 'customer' ? 'active' : '' }}">
+        <li class="nav-item {{ Request::segment(2) == 'customers' ? 'active' : '' }}">
             <a href="/therapist/customers" class="nav-link">
                 <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 <span class="sidebar-text ms-1">Customer</span>

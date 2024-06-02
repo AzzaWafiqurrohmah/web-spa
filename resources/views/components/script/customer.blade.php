@@ -72,8 +72,12 @@
         let ID = 0;
 
         function fillForm() {
+            let action = `/therapist/customers/${ID}`;
+            @can('crud treatments')
+                url = '/customers/${ID}';
+            @endcan
             $.ajax({
-                url: `/customers/${ID}`,
+                url: action,
                 success: (res) => fillFormdata(res.data),
             });
         }

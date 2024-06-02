@@ -7,7 +7,7 @@ use App\Http\Controllers\admin\CustomerController;
 Route::get('dashboard', fn () => view('pages.dashboard'))->name('dashboard');
 
 Route::prefix('/treatments')
-    ->name('/treatments.')
+    ->name('therapist.treatments.')
     ->controller(TreatmentController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('create', 'create')->name('create');
@@ -20,8 +20,8 @@ Route::prefix('/treatments')
         Route::delete('{treatment}', 'destroy')->name('destroy');
     });
 
-Route::prefix('customers')
-    ->name('customers.')
+Route::prefix('/customers')
+    ->name('therapist.customers.')
     ->controller(CustomerController::class)->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('create', 'create')->name('create');

@@ -99,6 +99,20 @@ class TreatmentController extends Controller
             ->addColumn('duration', fn($treatment) => $treatment->duration . " menit")
             ->addColumn('price', fn($treatment) => "Rp " . $treatment->price)
             ->addColumn('action', fn($treatment) => view('pages.admin.treatment.main.action', compact('treatment')))
+            ->filterColumn('price', function($query, $keyword) {
+                $sql = "price LIKE ?";
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
+            ->filterColumn('duration', function($query, $keyword) {
+                $sql = "CONCAT(duration, ' menit' ) LIKE ?";
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
+            ->orderColumn('price', function ($query, $order) {
+                $query->orderBy('price', $order);
+            })
+            ->orderColumn('duration', function ($query, $order) {
+                $query->orderBy('duration', $order);
+            })
             ->toJson();
     }
 

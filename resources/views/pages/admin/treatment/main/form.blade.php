@@ -86,7 +86,7 @@
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="mb-4">
                     <label for="tools">Alat Treatment</label>
-                    <select class="tags selected-options-new form-control" id="tools" name="tools[]" multiple>
+                    <select style="padding-left: 12px" class="tags selected-options-new form-control" id="tools" name="tools[]" multiple>
                         @foreach($tools as $tool)
                             <option value="{{ $tool->id }}" @selected(in_array($tool->id, $idTools) || in_array($tool->id, old('tools', [])))>{{ $tool->name }}</option>
                         @endforeach
@@ -130,9 +130,9 @@
                             <span>Klik untuk {{ $treatment ? 'mengganti' : 'mengunggah' }}</span>
                         </small>
                         <input type="hidden" name="deletePict[ {{ $key }} ]" value="{{ $key }}" disabled>
-                        <button type="button" class="btn btn-outline-danger {{ $treatment? '' : 'd-none' }}" id="delete" name="delete">
-                            <i id="deleteIcon" class="bi bi-trash3" style="font-size: 15px;"></i>
-                        </button>
+                        <span class="position-absolute top-0 end-0 me-2 {{ $treatment? '' : 'd-none' }}" id="delete" name="delete" style="font-size: 1.4rem; cursor: pointer">
+                          <i class="bx bx-x"></i>
+                        </span>
                     </label>
                     @error('pictures')
                     <small class="text-danger">{{ $message }}</small>
@@ -172,19 +172,39 @@
             })
         })
 
+        function getSecond() {
+            let now = new Date();
+            let second = now.getSeconds();
 
-
-        $('#addPict').on("click", function(event){
-            if (event.target && (event.target.id === 'addPict' || event.target.id === 'addIcon')) {
-                const pictureContainer = document.getElementById('picture-container');
-                const newContainer = createElement(getSecond());
-
-                pictureContainer.insertBefore(newContainer.cloneNode(true), document.getElementById('addLabel'));
+            if (second < 10) {
+                second = "0" + second;
             }
+            return second;
+        }
+
+        function createGambar(code)
+        {
+            return `<div class="col-lg-4 mb-3" id="container">
+                <label class="image-preview" for="pictures${code}" style="background-image: none; position: relative; aspect-ratio: 11/8;">
+                    <input type="file" name="pictures[${code}]" id="pictures${code}" class="d-none" accept="image/*">
+                    <small>
+                        <i class="bi bi-image-fill" id="iconImage" style="font-size: 40px;"></i>
+                        <span>klik untuk {{ $treatment ? 'mengganti' : 'mengunggah' }}</span>
+                    </small>
+                    <span class="position-absolute top-0 end-0 me-2" id="delete" name="delete" style="font-size: 1.4rem; cursor: pointer">
+                          <i class="bx bx-x"></i>
+                    </span>
+                    <input type="hidden" disabled>
+                </label>
+            </div>`;
+        }
+
+        //for add label picture
+        $('#addPict').on("click", function(){
+            $(createGambar(getSecond())).insertBefore($('#addLabel'));
         })
 
-
-        const pictures = [];
+        // for picture on change
         document.addEventListener('change', function(event) {
             const target = event.target;
             if (target && target.matches('input[type="file"]')) {
@@ -201,99 +221,20 @@
             }
         });
 
-        $('#picture-container').on('click', '.btn-outline-danger', function() {
-            alert('clicked');
-        });
-
-        document.addEventListener('click', function(event) {
+        //for delete picture
+        $('#picture-container').on('click', '#delete', function(event) {
             const target = event.target;
-            if (target && (target.matches('button[name="delete"]') || event.target.id === 'deleteIcon')) {
-                const container = target.closest('#container');
-                const deleteInput = container.querySelector('input[type="hidden"]'); // Mendapatkan input hidden terkait
+            const container = target.closest('#container');
+            const deleteInput = container.querySelector('input[type="hidden"]');
 
-                deleteInput.removeAttribute('disabled');
-                container.disabled = true;
+            deleteInput.removeAttribute('disabled');
+            container.disabled = true;
 
-                const  inputFile = target.closest('#container');
-                inputFile.querySelector('input[type="file"]').remove();
-                $(target).closest('#container').addClass('d-none');
+            const  inputFile = target.closest('#container');
+            inputFile.querySelector('input[type="file"]').remove();
+            $(target).closest('#container').addClass('d-none');
 
-            }
         });
-
-        function createElement(code)
-        {
-            const container = document.createElement("div");
-            container.classList.add("col-lg-4");
-            container.id = "container";
-
-            const label = document.createElement("label");
-            label.classList.add("image-preview");
-            label.setAttribute("for", "pictures" + code);
-            label.style.backgroundImage = "none";
-            label.style.position = "relative";
-            label.style.aspectRatio = '11/8';
-
-            const button = document.createElement('button');
-            button.type = "button";
-            button.classList.add("btn");
-            button.classList.add("btn-outline-danger");
-            button.id = "delete";
-            button.name = "delete";
-
-            const trash = document.createElement("i");
-            trash.style.fontSize = '15px';
-            trash.classList.add("bi");
-            trash.classList.add("bi-trash3");
-
-            button.appendChild(trash);
-
-            const small = document.createElement("small");
-
-            const icon = document.createElement("i");
-            icon.style.fontSize = '40px';
-            icon.classList.add("bi");
-            icon.classList.add("bi-image-fill");
-            icon.id = "iconImage";
-
-            const span = document.createElement("span");
-            span.innerText = "klik untuk {{ $treatment ? 'mengganti' : 'mengunggah' }}";
-
-            small.appendChild(icon);
-            small.appendChild(span);
-
-
-            const inputFile = document.createElement("input");
-            inputFile.type = "file";
-            inputFile.name = "pictures[" + code + "]";
-            inputFile.id = "pictures" + code;
-            inputFile.classList.add("d-none");
-            inputFile.accept = "image/*";
-
-            const inputHidden = document.createElement("input");
-            inputHidden.type = "hidden";
-            inputHidden.disabled = true;
-
-            label.appendChild(inputFile);
-            label.appendChild(small);
-            label.appendChild(button);
-            label.appendChild(inputHidden);
-            container.appendChild(label);
-
-            return container;
-        }
-
-        function getSecond() {
-            let now = new Date();
-            let second = now.getSeconds();
-
-            if (second < 10) {
-                second = "0" + second;
-            }
-            return second;
-        }
-
-
 
     </script>
 @endpush

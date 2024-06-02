@@ -155,8 +155,8 @@
             </a>
         </li>
 
-        <li class="nav-item {{ Request::segment(1) == 'pengaturan' ? 'active' : '' }}">
-            <a href="" class="nav-link">
+        <li class="nav-item {{ Request::segment(1) == 'setting' ? 'active' : '' }}">
+            <a href="{{ route('setting.index') }}" class="nav-link">
                 <i class="bx bxs-cog sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 <span class="sidebar-text ms-1">Pengaturan</span>
             </a>

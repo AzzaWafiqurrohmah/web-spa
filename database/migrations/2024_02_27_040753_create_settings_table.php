@@ -17,7 +17,7 @@ return new class extends Migration
                 ->constrained()
                 ->cascadeOnDelete()
                 ->cascadeOnUpdate();
-            $table->integer('key');
+            $table->string('key');
             $table->integer('value');
         });
     }

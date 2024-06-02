@@ -11,6 +11,7 @@ use App\Http\Controllers\Owner\FranchiseController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\ReservationController;
 use App\Http\Controllers\Owner\AdminController;
+use App\Http\Controllers\admin\SettingController;
 
 /*
 |--------------------------------------------------------------------------
@@ -144,6 +145,8 @@ Route::middleware('auth')->group(function () {
             Route::delete('{reservation}', 'destroy')->name('destroy');
             Route::get('/treatments', 'treatments')->name('treatments');
         });
+
+    Route::resource('setting', SettingController::class);
 
     //franchise owner
     Route::prefix('franchises')

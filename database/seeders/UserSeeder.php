@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Franchise;
+use App\Models\Setting;
 use App\Models\Therapist;
 use App\Models\User;
 use Illuminate\Database\Seeder;
@@ -34,6 +35,24 @@ class UserSeeder extends Seeder
             'email' => 'admin@gmail.com',
             'password' => Hash::make('admin123')
         ])->assignRole('admin');
+
+        Setting::insert([
+            [
+                'user_id' => 2,
+                'key' => 'diskon_member',
+                'value' => '15'
+            ],
+            [
+                'user_id' => 2,
+                'key' => 'biaya_transport',
+                'value' => '10000'
+            ],
+            [
+                'user_id' => 2,
+                'key' => 'biaya_ekstra_malam',
+                'value' => '10000'
+            ]
+        ]);
 
         Therapist::create([
             'email' => 'therapist@mail.com',

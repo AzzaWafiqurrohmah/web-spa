@@ -10,7 +10,7 @@ class ReservationDetail extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'treatment_id', 'reservation_id', 'discount'
+        'treatment_id', 'reservation_id', 'disc_treatment', 'disc_member'
     ];
     public function reservation() :BelongsTo
     {

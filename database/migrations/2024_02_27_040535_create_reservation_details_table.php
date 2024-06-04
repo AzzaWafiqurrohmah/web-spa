@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('reservation_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('treatment_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->integer('discount')->default(0)->nullable();
+            $table->integer('disc_treatment')->default(0)->nullable();
+            $table->integer('disc_member')->default(0)->nullable();
         });
     }
 

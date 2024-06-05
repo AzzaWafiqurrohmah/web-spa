@@ -145,6 +145,7 @@ Route::middleware('auth')->group(function () {
             Route::get('{reservation}', 'treatments')->name('show');
             Route::delete('{reservation}', 'destroy')->name('destroy');
             Route::get('/treatments', 'treatments')->name('treatments');
+            Route::post('/treatmentTotal', 'treatmentTotal')->name('treatmentTotal');
         });
 
     Route::resource('setting', SettingController::class);

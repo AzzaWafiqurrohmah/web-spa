@@ -11,7 +11,7 @@ class ReservationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,13 @@ class ReservationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'customer_id' => 'required',
+            'therapist_id' => 'required',
+            'discountAdd' => 'required',
+            'date' => 'required',
+            'time' => 'required',
+//            'treatment' => 'required',
+            'payment_type' => 'required'
         ];
     }
 }

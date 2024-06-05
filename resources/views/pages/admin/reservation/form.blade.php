@@ -9,22 +9,57 @@
             <h4 class="ms-3 mb-0 mt-3">Detail Reservasi</h4>
             <div class="card-body">
                 <div class="mb-3">
-                    <label for="fullname">Customer</label>
-                    <select class="customer-option form-control"></select>
+                    <label for="customer_id">Pelanggan</label>
+                    <select class="customer-option form-control @error('customer_id') is-invalid @enderror" id="customer_id" name="customer_id" autofocus></select>
+                    @error("customer_id")
+                    <small class="text-danger mb-3">{{ $message }}</small>
+                    @enderror
+                </div>
+                <div class="mb-3">
+                    <label for="therapist_id">Terapis</label>
+                    <select name="therapist_id"
+                            class="form-control @error('therapist_id') is-invalid @enderror"  aria-label="Small select example" id="therapist_id">
+                        <option disabled selected>-- Pilih Terapis --</option>
+                        @foreach($therapists as $therapist)
+                            <option value="{{$therapist->id}}" @selected($therapist->id == $reservation?->therapist->id|| old('therapist_id') == $therapist->id) >{{$therapist->fullname}}</option>
+                        @endforeach
+                    </select>
+                    @error("therapist_id")
+                    <small class="text-danger mb-3">{{ $message }}</small>
+                    @enderror
+                </div>
+                <label for="discountAdd">Diskon Tambahan </label>
+                <div class="mb-3">
+                    <div class="input-group mb-1">
+                        <span class="input-group-text">Rp</span>
+                        <input type="number" name="discountAdd" id="discountAdd" aria-describedby="basic-addon1" class="form-control @error('discountAdd') is-invalid @enderror" value="{{ old('discount', $reservation?->discount ?? 0) }}">
+                    </div>
+                    @error("discountAdd")
+                    <small class="text-danger mb-3">{{ $message }}</small>
+                    @enderror
                 </div>
                 <div class="row mb-3">
                     <div class="col-lg-6">
                         <label for="date">Tanggal</label>
-                        <input type="date" name="date" class="form-control"  value="{{old('date', $reservation?->fullname)}}" autofocus>
+                        <input type="date" name="date" id="date" class="form-control @error('date') is-invalid @enderror"  value="{{old('date', $reservation?->date)}}">
+                        @error('date')
+                        <small class="text-danger mb-3">{{ $message }}</small>
+                        @enderror
                     </div>
                     <div class="col-lg-6">
                         <label for="time">Waktu</label>
-                        <input type="time" name="time" id="time" class="form-control"  value="{{old('fullname', $reservation?->fullname)}}" autofocus>
+                        <input type="time" name="time" id="time" class="form-control @error('time') is-invalid @enderror"  value="{{old('time', $reservation?->time)}}" >
+                        @error("time")
+                        <small class="text-danger mb-3">{{ $message }}</small>
+                        @enderror
                     </div>
                 </div>
                 <div class="mb-3">
-                    <label for="fullname">Pilih Treatment: </label>
-                    <select class="treatment-option form-control"></select>
+                    <label for="treatment">Pilih Treatment: </label>
+                    <select class="treatment-option form-control @error('treatment') is-invalid @enderror"></select>
+                    @error("treatment")
+                    <small class="text-danger mb-3">{{ $message }}</small>
+                    @enderror
                 </div>
 
                 <p id="treatment">Treatment yang dipilih: </p>
@@ -41,24 +76,30 @@
                 <div class="row">
                     <div class="col-lg-12 card m-1">
                         <p class="mb-0 mt-1" style="color: #5E5E5E; font-size: 13px"> Tanggal dan Waktu :</p>
-                        <h4 class="mb-0 mt-1" style="font-size: 1.17rem"> Sabtu, 18 Mei 2024 </h4>
-                        <p style="font-size: 14px;"> 22:23 </p>
+                        <h4 id="dateString" class="mb-0 mt-1" style="font-size: 1.17rem"> dd/mm/yyyy </h4>
+                        <p id="timeString" style="font-size: 14px;"> --:-- </p>
 
-                        <h6 class="mb-0 mt-3" >Metode Pembayaran :</h6>
-                        <div class="mt-1 mb-3">
-                            <div class="row">
-                                <div class="col-md-5">
-                                    <div class="card" style="cursor: pointer">
-                                        <h6 class="p-2 mb-0"> Cash </h6>
-                                    </div>
-                                </div>
-                                <div class="col-md-5">
-                                    <div class="card" style="cursor: pointer">
-                                        <h6 class="p-2 mb-0"> Transfer </h6>
+                        <legend class="h6" >Metode Pembayaran</legend>
+                            <div class="form-check-inline" style="margin-right: 20px;">
+                                <div class="mb-3">
+                                    <div class="row">
+                                        @foreach (App\Enums\PaymentMethod::values() as $method => $val)
+                                            <div class="col-md-5">
+                                                <div class="card p-2 d-flex align-items-center" style="cursor: pointer; width: 100%; display: flex; justify-content: center;" onclick="selectPayment('{{ $method }}')">
+                                                    <div style="display: flex; align-items: center;">
+                                                        <input class="form-check-input mt-0 " type="radio" name="payment_type" id="{{$method}}" value="{{$method}}" style="margin-right: 10px;"
+                                                            @checked($method == $reservation?->payment_type || old('payment_type') == $method)>
+                                                        <label class="form-check-label m-0" for="{{ $method }}" >{{ $val }}</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                            @error("payment_type")
+                                            <small class="text-danger mb-0 mt-1">{{ $message }}</small>
+                                            @enderror
                                     </div>
                                 </div>
                             </div>
-                        </div>
                     </div>
                 </div>
 
@@ -69,7 +110,7 @@
                             <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 14px">Total Harga Treatment</p>
                         </div>
                         <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
-                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 14px">Rp 120.000</p>
+                            <p id="totalTreatmentString" style="margin-bottom: 2px; font-weight: bold; font-size: 14px">Rp 0</p>
                         </div>
                     </div>
                 </div>
@@ -79,7 +120,8 @@
                             <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 14px">Diskon Treatment</p>
                         </div>
                         <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
-                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 14px">Rp 30.000</p>
+                            <p id="discString" style="margin-bottom: 2px; font-weight: bold; font-size: 14px">Rp 0</p>
+                            <input type="hidden" name="discount" id="discount">
                         </div>
                     </div>
                 </div>
@@ -89,7 +131,8 @@
                             <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 14px">Tarif Transportasi</p>
                         </div>
                         <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
-                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 14px" id="transport_cost">Rp 10.000</p>
+                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 14px" id="transport_cost_string">Rp 0</p>
+                            <input type="hidden" name="transport_cost" id="transport_cost">
                         </div>
                     </div>
                 </div>
@@ -99,7 +142,8 @@
                             <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 14px">Biaya Ekstra</p>
                         </div>
                         <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
-                            <p id="extra_cost" style="margin-bottom: 2px; font-weight: bold; font-size: 14px">Rp 20.000</p>
+                            <p id="extra_cost_string" style="margin-bottom: 2px; font-weight: bold; font-size: 14px">Rp 0</p>
+                            <input type="hidden" name="extra_cost" id="extra_cost">
                         </div>
                     </div>
                 </div>
@@ -110,7 +154,8 @@
                             <p style="margin-bottom: 2px; font-weight: bold; font-size: 17px;">Total Biaya</p>
                         </div>
                         <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
-                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 17px">Rp 180.000</p>
+                            <p id="totalString" style="margin-bottom: 2px; font-weight: bold; font-size: 17px">Rp 0</p>
+                            <input type="hidden" name="total" id="total">
                         </div>
                     </div>
                 </div>
@@ -125,18 +170,81 @@
 
 @push('script')
 <script>
-    let transport_cost = 0;
-    let extra_cost = 0;
-    let reservation = [];
+
+    function selectPayment(id) {
+        document.getElementById(id).checked = true;
+    }
+
+    function parseVal(val)
+    {
+        return parseInt(val.replace(/[^0-9]/g,''));
+    }
+
+    let ekstra_malam = {{ $setting['biaya_ekstra_malam'] }};
+    let date = new Date();
+    let treatments = [];
+    let customer;
+    let discAdd = 0;
+
+    $('#discountAdd').on('change', function (){
+        discAdd = $(this).val();
+        updateTotal();
+    })
+
     function updateTotal()
     {
-        // const totalReservation = 0;
-        // var totalReservation = arrayData.map(function(obj) {
-        //     return obj.cost;
-        // }).reduce(function(total, cost) {
-        //     return total + cost;
-        // }, 0);
-        // const total = transport_cost + extra_cost + totalReservation;
+        $.ajax({
+            url: `/reservations/treatmentTotal`,
+            dataType: 'JSON',
+            method: 'POST',
+            data: {
+                cust: customer,
+                treatment: treatments
+            },
+            success(res) {
+                var totalEkstra = setEkstraMalam(res.data.duration);
+                total = parseVal($('#transport_cost_string').text()) + res.data.totalTreatment + totalEkstra + parseInt(discAdd);
+                var totalDisc = res.data.disc + parseInt(discAdd);
+
+                $('#extra_cost_string').text(`Rp ${totalEkstra}`);
+                $('#extra_cost').val(totalEkstra);
+                $('#discString').text(`Rp ${ totalDisc }`);
+                $('#discount').val(totalDisc);
+                $('#totalTreatmentString').text(`Rp ${ res.data.totalTreatment }`)
+                $('#totalString').text(`Rp ${total}`);
+                $('#total').val(total);
+            }
+        });
+    }
+
+
+    function setEkstraMalam($totalDuration)
+    {
+        let deadline = new Date($('#date').val());
+        let hour, minute;
+        deadline.setHours('18');
+        deadline.setMinutes('00');
+
+        if(date.getHours() < deadline.getHours())
+        {
+            date.setMinutes(date.getMinutes() + $totalDuration);
+
+            let difference = date - deadline;
+            hour = Math.floor(difference / (1000 * 60 * 60));
+            minute = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+
+            if(hour >= 0 && minute > 30){
+                hour += 1;
+            }
+            if(hour < 0)
+            {
+                hour = 0;
+            }
+        } else {
+            hour = Math.floor($totalDuration / 60);
+        }
+
+        return hour * ekstra_malam;
     }
 
     function addTreatment(treatment) {
@@ -150,7 +258,7 @@
                                 <h6 class="m-0" style="font-size: 1.2rem">${treatment.name}</h6>
                                 <p class="m-0">${treatment.price}</p>
                               </div>
-                              <span class="position-absolute top-0 end-0 me-2 btn-delete" style="font-size: 1.4rem; cursor: pointer">
+                              <span class="position-absolute top-0 end-0 me-2 btn-delete" data-id="${treatment.id}" style="font-size: 1.4rem; cursor: pointer">
                                  <i class="bi bi-x"></i>
                               </span>
                        </div>
@@ -161,20 +269,13 @@
 
 
     $('#treatment-container').on('click', '.btn-delete', function() {
+        id = $(this).data('id')
+        treatments = treatments.filter(val => val !== id);
+        updateTotal();
+
         $(this).parent().parent().parent().remove();
     });
 
-    function distance(latitude, longitude, latOffice, lngOffice)
-    {
-        var point1 = L.latLng(latOffice, lngOffice);
-        var point2 = L.latLng(latitude, longitude);
-        var distance = point1.distanceTo(point2);
-        var val =  distance/1000;
-        if(val % 1 < 0.5)
-            return Math.floor(val);
-
-        return Math.ceil(val);
-    }
 
 
     //select2 customer
@@ -228,8 +329,10 @@
             url: `/customers/${id}`,
             dataType: 'JSON',
             success(res) {
-                let val = distance(res.data.latitude, res.data.longitude, res.data.latOffice, res.data.lngOffice);
-               document.getElementById('transport_cost').textContent = "Rp " + (val * 1000);
+                customer = res.data.id;
+                $('#transport_cost_string').text(`Rp ${res.data.transport_cost}`);
+                $('#transport_cost').val(res.data.transport_cost);
+                updateTotal();
             }
         });
     });
@@ -285,18 +388,31 @@
             dataType: 'JSON',
             success(res) {
                 addTreatment(res.data);
+
+                treatments.push(res.data.id);
+                updateTotal();
             }
         });
     });
 
     document.getElementById('treatment-container').addEventListener('change', function (){
         const hidden = document.getElementById('treatments');
-        console.log(hidden.value);
     });
 
     $('#time').on('change', function() {
-        const time = $(this).val();
-        // if(time)
+        let time = $(this).val()
+        date.setHours(time.substring(0, 2));
+        date.setMinutes(time.substring(3,5));
+        document.getElementById('timeString').textContent = $(this).val();
+        updateTotal();
+    });
+
+    $('#date').on('change', function (){
+        date = new Date($(this).val());
+        let dateString = new Date($(this).val());
+        let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+        let formattedDate = dateString.toLocaleDateString('id-ID', options);
+        document.getElementById('dateString').textContent = formattedDate;
     });
 
 

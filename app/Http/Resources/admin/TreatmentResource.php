@@ -19,12 +19,12 @@ class TreatmentResource extends JsonResource
             'category_id' => $this->category_id,
             'franchise_id' => $this->franchise_id,
             'name' => $this->name,
-            'duration' => $this->duration . " menit",
+            'duration' => $this->duration,
             'pictures' => $this->pictures,
             'period_start' => $this->period_start,
             'period_end' => $this->period_end,
-            'price' => "Rp " . $this->price,
-            'discount' => $this->discount . " %"
+            'price' => $this->price,
+            'discount' => $this->discount
         ];
     }
 }

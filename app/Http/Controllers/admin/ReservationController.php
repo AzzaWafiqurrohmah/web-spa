@@ -3,11 +3,17 @@
 namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\ReservationRequest;
 use App\Http\Resources\admin\CustomerResource;
 use App\Http\Resources\admin\TreatmentResource;
 use App\Models\Customer;
 use App\Models\Reservation;
+use App\Models\ReservationDetail;
+use App\Models\Setting;
+use App\Models\Therapist;
 use App\Models\Treatment;
+use App\Repository\admin\ReservationRepository;
+use App\Service\ReservationService;
 use App\Traits\ApiResponser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -30,15 +36,27 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        return view('pages.admin.reservation.create');
+        $user = Auth::user();
+
+        $data = Setting::where('user_id', $user->id)->get(['key', 'value']);
+        $setting = $data->pluck(null, 'key')->map(function ($item) {
+            return $item['value'];
+        })->toArray();
+
+        $therapists = Therapist::where('franchise_id', $user->franchise_id)->get();
+        return view('pages.admin.reservation.create', [
+            'therapists' => $therapists,
+            'setting' => $setting
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ReservationRequest $request)
     {
-        dd($request->all());
+        ReservationRepository::save($request->all());
+        return to_route('reservations.index')->with('alert_s', 'Berhasil menambahkan Reservasi baru');
     }
 
     /**
@@ -130,4 +148,22 @@ class ReservationController extends Controller
             'data' => CustomerResource::collection($customer)
         ]);
     }
+
+    public function treatmentTotal(Request $request)
+    {
+        $customer = Customer::find($request->cust);
+        $treatments = [];
+        if(isset($request->treatment)){
+            foreach ($request->treatment as $treatment){
+                $treatments[] = $treatment;
+            }
+        }
+        $treatments = ReservationService::treatmentCost($treatments, $customer);
+        return response()->json([
+            'data' => $treatments
+        ]);
+    }
+
+
+
 }

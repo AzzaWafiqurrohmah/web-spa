@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class ReservationDetail extends Model
 {
     use HasFactory;
+    public $timestamps = false;
     protected $fillable = [
         'treatment_id', 'reservation_id', 'disc_treatment', 'disc_member'
     ];

@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\admin;
 
+use App\Service\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Auth;
@@ -16,10 +17,12 @@ class CustomerResource extends JsonResource
     public function toArray(Request $request): array
     {
         $user = Auth::user();
+        $transport_cost = ReservationService::transport_cost($this->resource);
         return [
             'id' => $this->id,
             'fullname' => $this->fullname,
             'phone' => $this->phone,
+            'is_member' => $this->is_member,
             'member_id' => format_member(format_id('customer', $user->franchise->raw_id, $this->gender, $this->id)),
             'start_member' => $this->start_member,
             'address' => $this->address,
@@ -30,7 +33,8 @@ class CustomerResource extends JsonResource
             'latitude' => $this->latitude,
             'longitude' => $this->longitude,
             'latOffice' => Auth::user()->franchise->latitude,
-            'lngOffice' => Auth::user()->franchise->longitude
+            'lngOffice' => Auth::user()->franchise->longitude,
+            'transport_cost' => $transport_cost
         ];
     }
 }

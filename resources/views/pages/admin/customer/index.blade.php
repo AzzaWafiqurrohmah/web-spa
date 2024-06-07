@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-11">
             <div class="mt-5 mb-3">
-                <h1>Data pelanggan</h1>
+                <h2>Data pelanggan</h2>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>

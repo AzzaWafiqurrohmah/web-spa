@@ -5,7 +5,7 @@
     <div class="row mt-4">
         <div class="col-md-12">
             <div class="mb-3">
-                <h2 style="font-family: 'Times New Roman', Times, serif; font-weight: bold">Tambah Reservasi</h2>
+                <h2>Tambah Reservasi</h2>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>

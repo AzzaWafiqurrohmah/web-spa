@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-10">
             <div class="mt-5 mb-3">
-                <h3>Daftar Treatment</h3>
+                <h2>Daftar Treatment</h2>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>

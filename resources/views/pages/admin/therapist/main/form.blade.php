@@ -4,7 +4,7 @@
 @csrf
 <div class="card">
     <div class="card-body">
-        <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Detail Terapis</h4>
+        <h5 class="mb-2" style="font-weight: 500; margin-left: -10px; margin-top: -8px; color: #A2A2A2">Detail Terapis</h5>
         <div class="row">
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="mb-4">
@@ -57,26 +57,30 @@
                 </div>
                 <div class="mb-4 row">
                     <div class="col-lg-6">
-                        <div>
-                            <label for="fbody_weight">Berat badan</label>
-                            <input type="number" name="body_weight" class="form-control @error('body_weight') is-invalid @enderror"  value="{{old('body_weight', $therapist?->body_weight)}}">
-                            @error('body_weight')
-                            <div class="invaid-feedback">
-                                <small class="text-danger">{{ $message }}</small>
+                        <label for="body_weight"> Berat badan </label>
+                        <div class="mb-3">
+                            <div class="input-group mb-1">
+                                <input type="number" name="body_weight" id="body_weight" aria-describedby="basic-addon1" class="form-control @error('body_weight') is-invalid @enderror"  value="{{old('body_weight', $therapist?->body_weight)}}">
+                                <span class="input-group-text"> Kg </span>
                             </div>
+                            @error("body_weight")
+                            <small class="text-danger mb-3">{{ $message }}</small>
                             @enderror
                         </div>
+
                     </div>
                     <div class="col-lg-6">
-                        <div >
-                            <label for="body_height">Tinggi badan</label>
-                            <input type="number" name="body_height" class="form-control @error('body_height') is-invalid @enderror"  value="{{old('body_height', $therapist?->body_height)}}">
-                            @error('body_height')
-                            <div class="invaid-feedback">
-                                <small class="text-danger">{{ $message }}</small>
+                        <label for="body_height"> Tinggi badan </label>
+                        <div class="mb-3">
+                            <div class="input-group mb-1">
+                                <input type="number" name="body_height" id="body_height" aria-describedby="basic-addon1" class="form-control @error('body_height') is-invalid @enderror"  value="{{old('body_height', $therapist?->body_height)}}">
+                                <span class="input-group-text"> cm </span>
                             </div>
+                            @error("body_height")
+                            <small class="text-danger mb-3">{{ $message }}</small>
                             @enderror
                         </div>
+
                     </div>
                 </div>
             </div>
@@ -86,7 +90,7 @@
 
 <div class="card" style="margin-top: 20px">
     <div class="card-body">
-        <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Detail Lainnya</h4>
+        <h5 class="mb-2" style="font-weight: 500; margin-left: -10px; margin-top: -8px; color: #A2A2A2">Detail Lainnya</h5>
         <div class="row">
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="mb-4">

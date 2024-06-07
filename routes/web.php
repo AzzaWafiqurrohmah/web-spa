@@ -24,12 +24,9 @@ use App\Http\Controllers\admin\SettingController;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
 
 Route::middleware('guest')->controller(AuthController::class)->group(function () {
-    Route::get('/login', 'index')->name('login');
+    Route::get('/', 'index')->name('login');
     Route::post('/store', 'store')->name('store');
 });
 

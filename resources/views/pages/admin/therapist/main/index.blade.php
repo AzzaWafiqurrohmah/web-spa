@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-md-8">
             <div class="mt-5 mb-3" >
-                <h3>Daftar Terapis</h3>
+                <h2>Daftar Terapis</h2>
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item"><a href="/dashboard">Home</a></li>
@@ -26,7 +26,7 @@
                             </form>
                         </div>
                         <div>
-                            <a href="{{route('therapists.create')}}" class="btn btn-primary">New Therapist</a>
+                            <a href="{{route('therapists.create')}}" class="btn btn-primary">Tambah Terapis</a>
                         </div>
                     </div>
                     <div class="table-responsive">

@@ -4,7 +4,7 @@
 @csrf
 <div class="card">
     <div class="card-body">
-        <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Detail Pelanggan</h4>
+        <h5 class="mb-2" style="font-weight: 500; margin-left: -10px; margin-top: -8px; color: #A2A2A2">Detail Pelanggan</h5>
         <div class="row">
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="mb-4">
@@ -57,7 +57,7 @@
 
 <div class="card" style="margin-top: 15px">
     <div class="card-body">
-        <h4 style="margin-bottom: 10px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Detail Alamat</h4>
+        <h5 class="mb-2" style="font-weight: 500; margin-left: -10px; margin-top: -8px; color: #A2A2A2">Detail Alamat</h5>
         <div class="row">
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="mb-4">
@@ -103,7 +103,7 @@
 
 <div class="card" style="margin-top: 15px">
     <div class="card-body">
-        <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Keterangan Member</h4>
+        <h5 class="mb-2" style="font-weight: 500; margin-left: -10px; margin-top: -8px; color: #A2A2A2">Keterangan Member</h5>
         <div class="row">
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="form-check">

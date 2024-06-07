@@ -8,13 +8,13 @@
 
 <div class="card mb-3">
     <div class="card-body">
-        <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Detail Treatment</h4>
+        <h5 class="mb-2" style="font-weight: 500; margin-left: -10px; margin-top: -8px; color: #A2A2A2">Detail Treatment</h5>
         <div class="row">
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="mb-4">
                     <label for="category_id">Kategori</label>
-                    <select name="treatment_category_id" class="form-control @error('treatment_category_id') is-invalid @enderror"  aria-label="Small select example" id="treatmentCategory_id">
-                        <option disabled selected>-- Pilih --</option>
+                    <select name="treatment_category_id" class="form-control @error('treatment_category_id') is-invalid @enderror"  aria-label="Small select example" id="treatmentCategory_id" autofocus>
+                        <option disabled selected>-- Pilih Kategori --</option>
                         @foreach($treatmentCategories as $category)
                             <option value="{{$category->id}}" @selected($category->id == $treatment?->treatmentCategory->id|| old('treatment_category_id') == $category->id) >{{$category->name}}</option>
                         @endforeach
@@ -27,42 +27,47 @@
                 </div>
                 <div class="mb-4">
                     <label for="fullname">Nama Treatment</label>
-                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"  value="{{old('name', $treatment?->name)}}" autofocus>
+                    <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"  value="{{old('name', $treatment?->name)}}">
                     @error('name')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>
                     </div>
                     @enderror
                 </div>
-                <div class="mb-4">
-                    <label for="duration">Durasi</label>
-                    <input type="number" name="duration" class="form-control @error('duration') is-invalid @enderror"  value="{{old('duration', $treatment?->duration)}}" autofocus>
-                    @error('duration')
-                    <div class="invaid-feedback">
-                        <small class="text-danger">{{ $message }}</small>
+                <label for="duration">Durasi </label>
+                <div class="mb-3">
+                    <div class="input-group mb-1">
+                        <input type="number" name="duration" id="duration" aria-describedby="basic-addon1" class="form-control @error('duration') is-invalid @enderror"value="{{old('duration', $treatment?->duration)}}">
+                        <span class="input-group-text"> Menit </span>
                     </div>
+                    @error("duration")
+                    <small class="text-danger mb-3">{{ $message }}</small>
                     @enderror
                 </div>
             </div>
             <div class="col-lg-6">
-                <div class="mb-4">
-                    <label for="price">Harga</label>
-                    <input type="number" name="price" value="{{old('price', $treatment?->price)}}" class="form-control @error('price') is-invalid @enderror">
-                    @error('price')
-                    <div class="invaid-feedback">
-                        <small class="text-danger">{{ $message }}</small>
+                <label for="price"> Harga </label>
+                <div class="mb-3">
+                    <div class="input-group mb-1">
+                        <span class="input-group-text"> Rp </span>
+                        <input type="number" name="price" id="price" aria-describedby="basic-addon1" class="form-control @error('price') is-invalid @enderror" value="{{old('price', $treatment?->price)}}">
                     </div>
+                    @error("price")
+                    <small class="text-danger mb-3">{{ $message }}</small>
                     @enderror
                 </div>
-                <div class="mb-4">
-                    <label for="discount">Diskon</label>
-                    <input type="number" name="discount" value="{{old('discount', $treatment?->discount)}}" class="form-control @error('discount') is-invalid @enderror">
-                    @error('discount')
-                    <div class="invaid-feedback">
-                        <small class="text-danger">{{ $message }}</small>
+
+                <label for="discount"> Diskon </label>
+                <div class="mb-3">
+                    <div class="input-group mb-1">
+                        <span class="input-group-text"> Rp </span>
+                        <input type="number" name="discount" id="discount" aria-describedby="basic-addon1" class="form-control @error('discount') is-invalid @enderror" value="{{old('discount', $treatment?->discount)}}">
                     </div>
+                    @error("discount")
+                    <small class="text-danger mb-3">{{ $message }}</small>
                     @enderror
                 </div>
+
                 <div class="mb-4">
                     <label for="period_start">Mulai Berlaku</label>
                     <div class="input-group">
@@ -81,7 +86,7 @@
 
 <div class="card mb-3">
     <div class="card-body">
-        <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Alat dan Bahan</h4>
+        <h5 class="mb-2" style="font-weight: 500; margin-left: -10px; margin-top: -8px; color: #A2A2A2">Alat dan Bahan</h5>
         <div class="row">
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="mb-4">
@@ -119,7 +124,7 @@
 
 <div class="card mb-3">
     <div class="card-body">
-        <h4 style="margin-bottom: 20px; margin-left: -5px; font-family: 'Times New Roman', Times, serif; font-weight: bold">Foto terkait</h4>
+        <h5 class="mb-2" style="font-weight: 500; margin-left: -10px; margin-top: -8px; color: #A2A2A2">Foto terkait</h5>
         <div class="row" id="picture-container">
             @foreach($pictures as $key => $pict)
                 <div class="col-lg-4"  id="container">

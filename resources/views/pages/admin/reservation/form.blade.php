@@ -10,7 +10,12 @@
             <div class="card-body">
                 <div class="mb-3">
                     <label for="customer_id">Pelanggan</label>
-                    <select class="customer-option form-control @error('customer_id') is-invalid @enderror" id="customer_id" name="customer_id" autofocus></select>
+                    <select class="customer-option form-control @error('customer_id') is-invalid @enderror" id="customer_id" name="customer_id" autofocus>
+                        @if(old('customer_id'))
+                            @php( $customer = \App\Models\Customer::find(old('customer_id')))
+                            <option value="{{old('customer_id')}}">{{ $customer->fullname  }}</option>
+                        @endif
+                    </select>
                     @error("customer_id")
                     <small class="text-danger mb-3">{{ $message }}</small>
                     @enderror
@@ -48,6 +53,7 @@
                     </div>
                     <div class="col-lg-6">
                         <label for="time">Waktu</label>
+                        <input type="hidden" name="duration" id="duration">
                         <input type="time" name="time" id="time" class="form-control @error('time') is-invalid @enderror"  value="{{old('time', $reservation?->time)}}" >
                         @error("time")
                         <small class="text-danger mb-3">{{ $message }}</small>
@@ -76,8 +82,9 @@
                 <div class="row">
                     <div class="col-lg-12 card m-1">
                         <p class="mb-0 mt-1" style="color: #5E5E5E; font-size: 13px"> Tanggal dan Waktu :</p>
-                        <h4 id="dateString" class="mb-0 mt-1" style="font-size: 1.17rem"> dd/mm/yyyy </h4>
-                        <p id="timeString" style="font-size: 14px;"> --:-- </p>
+                        <h4 id="dateString" class="mb-0 mt-1" style="font-size: 1.17rem"> {{ old('dateHidden') ?? 'dd/mm/yyyy' }} </h4>
+                        <input type="hidden" name="dateHidden" id="dateHidden">
+                        <p id="timeString" style="font-size: 14px;"> {{ old('time') ?? '--:--' }} </p>
 
                         <legend class="h6" >Metode Pembayaran</legend>
                             <div class="form-check-inline" style="margin-right: 20px;">
@@ -110,18 +117,8 @@
                             <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 14px">Total Harga Treatment</p>
                         </div>
                         <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
-                            <p id="totalTreatmentString" style="margin-bottom: 2px; font-weight: bold; font-size: 14px">Rp 0</p>
-                        </div>
-                    </div>
-                </div>
-                <div style="margin-left: -8px; margin-right: -8px; margin-top: 0px">
-                    <div class="row">
-                        <div class="col-lg-6" style="margin-left: 0px; margin-bottom: 0px">
-                            <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 14px">Diskon Treatment</p>
-                        </div>
-                        <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
-                            <p id="discString" style="margin-bottom: 2px; font-weight: bold; font-size: 14px">Rp 0</p>
-                            <input type="hidden" name="discount" id="discount">
+                            <p id="totalTreatmentString" style="margin-bottom: 2px; font-weight: bold; font-size: 14px">Rp {{ old('totalTreatment') ?? '0' }}</p>
+                            <input type="hidden" name="totalTreatment" id="totalTreatment" value="{{ old('totalTreatment') }}">
                         </div>
                     </div>
                 </div>
@@ -131,8 +128,8 @@
                             <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 14px">Tarif Transportasi</p>
                         </div>
                         <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
-                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 14px" id="transport_cost_string">Rp 0</p>
-                            <input type="hidden" name="transport_cost" id="transport_cost">
+                            <p style="margin-bottom: 2px; font-weight: bold; font-size: 14px" id="transport_cost_string">Rp {{ old('transport_cost') ?? '0' }}</p>
+                            <input type="hidden" name="transport_cost" value="{{ old('transport_cost') }}" id="transport_cost">
                         </div>
                     </div>
                 </div>
@@ -142,8 +139,20 @@
                             <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 14px">Biaya Ekstra</p>
                         </div>
                         <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
-                            <p id="extra_cost_string" style="margin-bottom: 2px; font-weight: bold; font-size: 14px">Rp 0</p>
-                            <input type="hidden" name="extra_cost" id="extra_cost">
+                            <p id="extra_cost_string" style="margin-bottom: 2px; font-weight: bold; font-size: 14px">Rp {{ old('extra_cost') ?? '0' }}</p>
+                            <input type="hidden" name="extra_cost" id="extra_cost" value="{{ old('extra_cost') }}" >
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-left: -8px; margin-right: -8px; margin-top: 0px">
+                    <div class="row">
+                        <div class="col-lg-6" style="margin-left: 0px; margin-bottom: 0px">
+                            <p style="margin-bottom: 2px; color: #5E5E5E; font-size: 14px">Diskon Treatment</p>
+                        </div>
+                        <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
+                            <p id="discString" style="margin-bottom: 2px; font-weight: bold; font-size: 14px">Rp {{ old('discount') ?? '0' }}</p>
+                            <input type="hidden" name="discount" id="discount" value="{{old('discount')}}">
                         </div>
                     </div>
                 </div>
@@ -154,8 +163,8 @@
                             <p style="margin-bottom: 2px; font-weight: bold; font-size: 17px;">Total Biaya</p>
                         </div>
                         <div class="col-lg-6 text-lg-end" style="margin-bottom: 0px">
-                            <p id="totalString" style="margin-bottom: 2px; font-weight: bold; font-size: 17px">Rp 0</p>
-                            <input type="hidden" name="total" id="total">
+                            <p id="totalString" style="margin-bottom: 2px; font-weight: bold; font-size: 17px">Rp {{ old('total') ?? '0' }}</p>
+                            <input type="hidden" name="total" id="total" value="{{ old('total') }}">
                         </div>
                     </div>
                 </div>
@@ -193,6 +202,7 @@
 
     function updateTotal()
     {
+        customer = $('#customer_id').val();
         $.ajax({
             url: `/reservations/treatmentTotal`,
             dataType: 'JSON',
@@ -202,15 +212,18 @@
                 treatment: treatments
             },
             success(res) {
+                date = setTime($('#time').val(), $('#date').val());
+                console.log(date);
                 var totalEkstra = setEkstraMalam(res.data.duration);
-                total = parseVal($('#transport_cost_string').text()) + res.data.totalTreatment + totalEkstra + parseInt(discAdd);
                 var totalDisc = res.data.disc + parseInt(discAdd);
+                total = (parseVal($('#transport_cost_string').text()) + res.data.totalTreatment + totalEkstra ) - totalDisc;
 
                 $('#extra_cost_string').text(`Rp ${totalEkstra}`);
                 $('#extra_cost').val(totalEkstra);
                 $('#discString').text(`Rp ${ totalDisc }`);
                 $('#discount').val(totalDisc);
                 $('#totalTreatmentString').text(`Rp ${ res.data.totalTreatment }`)
+                $('#totalTreatment').val(res.data.totalTreatment);
                 $('#totalString').text(`Rp ${total}`);
                 $('#total').val(total);
             }
@@ -400,20 +413,27 @@
     });
 
     $('#time').on('change', function() {
-        let time = $(this).val()
-        date.setHours(time.substring(0, 2));
-        date.setMinutes(time.substring(3,5));
+        date = setTime($(this).val(), $('#date').val());
         document.getElementById('timeString').textContent = $(this).val();
         updateTotal();
     });
 
     $('#date').on('change', function (){
-        date = new Date($(this).val());
+        // date = new Date($(this).val());
         let dateString = new Date($(this).val());
         let options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         let formattedDate = dateString.toLocaleDateString('id-ID', options);
+        $('#dateHidden').val(formattedDate);
         document.getElementById('dateString').textContent = formattedDate;
     });
+
+    function setTime(time, dateString)
+    {
+        let dateVal = new Date(dateString);
+        dateVal.setHours(time.substring(0, 2));
+        dateVal.setMinutes(time.substring(3,5));
+        return dateVal;
+    }
 
 
 </script>

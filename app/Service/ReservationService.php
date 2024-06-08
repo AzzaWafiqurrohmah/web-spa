@@ -51,7 +51,8 @@ class ReservationService
         $disc = 0;
         $duration = 0;
         for ($i = 0; $i < count($treatments); $i++) {
-            $totalTreatments += ($treatments[$i]['price'] - $treatments[$i]['disc_member'] - $treatments[$i]['discount']);
+//            $totalTreatments += ($treatments[$i]['price'] - $treatments[$i]['disc_member'] - $treatments[$i]['discount']);
+            $totalTreatments += $treatments[$i]['price'];
             $disc += ($treatments[$i]['disc_member'] + $treatments[$i]['discount']);
             $duration += $treatments[$i]['duration'];
         }

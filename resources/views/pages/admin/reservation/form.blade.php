@@ -213,7 +213,6 @@
             },
             success(res) {
                 date = setTime($('#time').val(), $('#date').val());
-                console.log(date);
                 var totalEkstra = setEkstraMalam(res.data.duration);
                 var totalDisc = res.data.disc + parseInt(discAdd);
                 total = (parseVal($('#transport_cost_string').text()) + res.data.totalTreatment + totalEkstra ) - totalDisc;
@@ -246,17 +245,25 @@
             hour = Math.floor(difference / (1000 * 60 * 60));
             minute = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
 
-            if(hour >= 0 && minute > 30){
-                hour += 1;
-            }
-            if(hour < 0)
-            {
+            if (hour < 0) {
                 hour = 0;
+            } else {
+                if (hour < 1 && minute > 0) {
+                    hour = 1;
+                }
+
+                if (hour >= 1 && minute > 30) {
+                    hour += 1;
+                }
             }
+
         } else {
             hour = Math.floor($totalDuration / 60);
+            if(hour == 0)
+            {
+                hour = 1;
+            }
         }
-
         return hour * ekstra_malam;
     }
 

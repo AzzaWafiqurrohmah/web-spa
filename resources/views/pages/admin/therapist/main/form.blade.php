@@ -133,9 +133,9 @@
                     </div>
                     @enderror
                 </div>
-                <div class="mb-2 text-end">
-                    <button type="submit" class="btn btn-primary">Simpan</button>
-                </div>
+            </div>
+            <div class="mb-2 text-end">
+                <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </div>
     </div>

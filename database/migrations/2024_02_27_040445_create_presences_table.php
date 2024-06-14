@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('presences', function (Blueprint $table) {
             $table->id();
             $table->foreignId('therapist_id')->constrained()->cascadeOnDelete();
-            $table->enum('status', ['absent', 'full', 'half']);
+            $table->enum('status', ['absent', 'full', 'half', 'empty']);
             $table->timestamp('date')->useCurrent();
         });
     }

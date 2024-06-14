@@ -12,6 +12,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\ReservationController;
 use App\Http\Controllers\Owner\AdminController;
 use App\Http\Controllers\admin\SettingController;
+use App\Http\Controllers\admin\PresenceController;
 
 /*
 |--------------------------------------------------------------------------
@@ -146,6 +147,21 @@ Route::middleware('auth')->group(function () {
         });
 
     Route::resource('setting', SettingController::class);
+
+    //presence admin
+    Route::prefix('presences')
+        ->name('presences.')
+        ->controller(PresenceController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::post('store', 'store')->name('store');
+            Route::match(['PUT', 'PATCH'], '{presence}/update', 'update')->name('update');
+
+            Route::get('datatables', 'datatables')->name('datatables');
+            Route::get('presenceDatatables', 'presenceDatatables')->name('presenceDatatables');
+            Route::get('{presence}', 'show')->name('show');
+
+            Route::delete('{presence}', 'destroy')->name('destroy');
+        });
 
     //franchise owner
     Route::prefix('franchises')

@@ -139,8 +139,8 @@
                     <span class="sidebar-text">Jadwal Terapis</span>
                   </a>
                 </li>
-                <li class="nav-item {{ Request::segment(1) == 'forms' ? 'active' : '' }}">
-                  <a class="nav-link" href="/forms">
+                <li class="nav-item {{ Request::segment(1) == 'presence' ? 'active' : '' }}">
+                  <a class="nav-link" href="{{ route('presences.index') }}">
                     <span class="sidebar-text">Presensi Terapis</span>
                   </a>
                 </li>

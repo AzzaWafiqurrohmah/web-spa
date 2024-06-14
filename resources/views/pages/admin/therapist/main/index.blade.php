@@ -2,7 +2,7 @@
 @section('content')
     <title>Therapist</title>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-9">
             <div class="mt-5 mb-3" >
                 <h2>Daftar Terapis</h2>
                 <nav>

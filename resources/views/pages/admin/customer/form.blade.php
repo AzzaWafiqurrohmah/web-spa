@@ -75,7 +75,8 @@
             <div class="col-lg-6">
                 <div class="mb-4">
                     <label for="home_details">Detail Rumah</label>
-                    <textarea class="form-control" placeholder="Detail rumah anda ..." id="home_details" name="home_details" style="width: 100%;" rows="4" >{{ $customer? $customer->home_details : '' }}</textarea>
+                    <textarea class="form-control" placeholder="Detail rumah anda ..." id="home_details" name="home_details" style="width: 100%;" rows="4" >
+                    </textarea>
                     @error('home_details')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>

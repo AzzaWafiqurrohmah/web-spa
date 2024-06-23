@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\admin\TreatmentController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\AuthController;
+use App\Http\Controllers\admin\ProfileController;
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', fn () => view('pages.dashboard'))->name('dashboard');
@@ -41,4 +42,17 @@ Route::middleware('auth')->group(function () {
             Route::post('{id}/member', 'member')->name('member');
             Route::post('{month}/birthdate', 'birthdate')->name('birthdate');
         });
+
+//    Route::resource('profiles', ProfileController::class);
+    Route::prefix('/profiles')
+        ->name('profiles.')
+        ->controller(ProfileController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::match(['PUT', 'PATCH'], '{customer}/update', 'update')->name('update');
+        });
+
+
+    Route::get('coba', function (){
+        return 'hai';
+    });
 });

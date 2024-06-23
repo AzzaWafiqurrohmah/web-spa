@@ -6,9 +6,10 @@
         @include('layouts.nav')
         @include('layouts.sidenav')
         <main class="content">
-            @if(in_array(request()->route()->getName(), ['dashboard']))
-                @include('layouts.topbar')
-            @endif
+{{--            @if(in_array(request()->route()->getName(), ['dashboard']))--}}
+{{--                @include('layouts.topbar')--}}
+{{--            @endif--}}
+            @include('layouts.topbar')
             @yield('content')
             @include('layouts.footer')
         </main>

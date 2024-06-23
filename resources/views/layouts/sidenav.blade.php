@@ -210,6 +210,12 @@
                 <span class="sidebar-text ms-1">Customer</span>
             </a>
         </li>
+{{--        <li class="nav-item {{ Request::segment(2) == 'profiles' ? 'active' : '' }}">--}}
+{{--            <a href="/therapist/profiles" class="nav-link">--}}
+{{--                <i class="bx bxs-user sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>--}}
+{{--                <span class="sidebar-text ms-1">Profile</span>--}}
+{{--            </a>--}}
+{{--        </li>--}}
         @endrole
 
       <li class="nav-item" id="signOut">

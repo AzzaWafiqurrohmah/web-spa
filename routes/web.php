@@ -13,6 +13,7 @@ use App\Http\Controllers\admin\ReservationController;
 use App\Http\Controllers\Owner\AdminController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\PresenceController;
+use App\Http\Controllers\admin\ProfileController;
 
 /*
 |--------------------------------------------------------------------------
@@ -159,7 +160,6 @@ Route::middleware('auth')->group(function () {
             Route::get('datatables', 'datatables')->name('datatables');
             Route::get('presenceDatatables', 'presenceDatatables')->name('presenceDatatables');
             Route::get('{presence}', 'show')->name('show');
-
             Route::delete('{presence}', 'destroy')->name('destroy');
         });
 

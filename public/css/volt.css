@@ -15,6 +15,10 @@
 
 */
 
+.font-poppins{
+    font-family: 'Poppins',sans-serif
+}
+
 .dropdown-custom{
     /*display: inline-block;*/
     min-width: 10em;
@@ -102,9 +106,12 @@
     opacity: 1;
 }
 
-
+.bg-hover-primary:hover {
+    color: #f3c78e !important;
+}
 
 .image-preview {
+
     aspect-ratio: 15/9;
     border: 2px dashed #ccc;
     border-radius: .5rem;
@@ -5015,7 +5022,7 @@ textarea.form-control-lg {
     cursor: default; }
 
 .nav-tabs {
-  border-bottom: 0.0625rem solid #9CA3AF; }
+  border-bottom: 0.0625rem solid #E5E7EB; }
   .nav-tabs .nav-link {
     margin-bottom: -0.0625rem;
     background: none;
@@ -8909,6 +8916,9 @@ textarea.form-control-lg {
 
 .fw-bolder {
   font-weight: 600 !important; }
+.fw-semibold {
+    font-weight: 600 !important;
+}
 
 .fw-extrabold {
   font-weight: 700 !important; }

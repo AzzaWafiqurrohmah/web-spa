@@ -16,6 +16,7 @@ class Therapist extends Authenticatable
     public $timestamps = false;
 
     protected $fillable = [
+        'image',
         'body_weight',
         'body_height',
         'start_working',

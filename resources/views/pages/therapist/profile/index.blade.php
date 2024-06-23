@@ -23,10 +23,9 @@
                             <div class="card shadow border-0 text-center p-0">
                                 <div class="card-body pb-0 mb-4">
                                     <div class="border-bottom">
-                                        <img src="../assets/img/team/profile-picture-1.jpg"
-                                             class="avatar-xl rounded-circle mx-auto mb-4" width="80"
-                                             height="40" alt="Neil Portrait">
-                                        <h4 class=" mb-0" style="font-family: 'Poppins',sans-serif">{{ $therapist->fullname }}</h4>
+                                        <img src="{{ $therapist->image ? Storage::url($therapist->image) : 'https://apsensi.my.id/img/profile/noimage.jpg' }}"
+                                             class="rounded-circle mx-auto mb-2" width="100" height="100" alt="Neil Portrait">
+                                        <h5 class=" mb-0" style="font-family: 'Poppins',sans-serif">{{ $therapist->fullname }}</h5>
                                         <p class="text-gray mb-2" style="color: #A2A2A2; font-family: 'Poppins',sans-serif">Terapis</p>
                                     </div>
                                     <div class="mb-3 mt-4" style="text-align: left">
@@ -93,13 +92,13 @@
                                         <div class="row">
                                             <div class="col-lg-5" style="margin-right: 30px;">
                                                 <div class="mb-4">
-                                                    <label for="home_pict" class="form-label">Foto Profil</label>
-                                                    <label class="image-preview" for="home_pict">
+                                                    <label for="image" class="form-label">Foto Profil</label>
+                                                    <label class="image-preview" for="image" style="background-image: url('{{ Storage::url($therapist ? $therapist->image : old('image')) }}')">
                                                         <small>Klik untuk {{ $therapist ? 'mengganti' : 'mengunggah' }}</small>
-                                                        <input type="file" name="home_pict" id="home_pict" class="d-none" accept="image/*">
+                                                        <input type="file" name="image" id="image" class="d-none" accept="image/*">
                                                     </label>
 
-                                                    @error('home_pict')
+                                                    @error('image')
                                                     <small class="text-danger">{{ $message }}</small>
                                                     @enderror
                                                 </div>
@@ -197,23 +196,14 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            {{--                                            <div class="mb-3">--}}
-                                            {{--                                                <label for="address">Alamat Lengkap</label>--}}
-                                            {{--                                                <textarea class="form-control" placeholder="Alamat anda ..." id="address" name="address" style="width: 100%;" rows="4"> {{ old('address',$therapist? $therapist->address : '' )}}</textarea>--}}
-                                            {{--                                                @error('address')--}}
-                                            {{--                                                <div class="invaid-feedback">--}}
-                                            {{--                                                    <small class="text-danger">{{ $message }}</small>--}}
-                                            {{--                                                </div>--}}
-                                            {{--                                                @enderror--}}
-                                            {{--                                            </div>--}}
                                         </div>
                                         <div style="text-align: right;">
-                                            <button type="submit" class="btn btn-primary" style="font-size: 14px; margin-bottom: 10px;" id="changePassword" name="changePassword" >Simpan</button>
+                                            <button type="submit" class="btn btn-primary" style="font-size: 14px; margin-bottom: 10px;" >Simpan</button>
                                         </div>
                                     </form>
                                 </div>
                                 <div class="tab-pane fade" id="profile-change-password">
-                                    <form class="needs-validation" method="POST" action="" novalidate>
+                                    <form class="needs-validation" method="POST" id="passwordForm" novalidate>
                                         @method('PUT')
                                         @csrf
 
@@ -221,29 +211,19 @@
                                             <label for="password" class="form-label">Masukkan password baru</label>
                                             <div class="password-input-container input-group mb-0">
                                                 <input type="password" name="password" class="form-control" id="password">
-                                                <span class="input-group-text" id="toggleContainer" style="cursor: pointer"><i id="togglePassword" class="toggle-password bi bi-eye-fill"></i></span>
+                                                <div class="invalid-feedback"></div>
                                             </div>
-                                            @error('password')
-                                            <div class="invaid-feedback">
-                                                <small class="text-danger">{{ $message }}</small>
-                                            </div>
-                                            @enderror
                                         </div>
 
 
                                         <label for="password_confirmation" class="form-label">Ulangi Password</label>
                                         <div class="password-input-container input-group mb-4">
                                             <input type="password" name="password_confirmation" class="form-control" id="password_confirmation">
-                                            <span class="input-group-text" id="toggleContainer2" style="cursor:pointer;"><i id="togglePassword2" class="toggle-password bi bi-eye-fill"></i></span>
-                                            @error('password_confirmation')
-                                            <div class="invaid-feedback">
-                                                <small class="text-danger">{{ $message }}</small>
-                                            </div>
-                                            @enderror
+                                            <div class="invalid-feedback"></div>
                                         </div>
 
                                         <div style="text-align: right;">
-                                            <button type="submit" class="btn btn-primary" style="font-size: 14px; margin-bottom: 10px;" id="changePassword" name="changePassword" >Simpan</button>
+                                            <button type="submit" class="btn btn-primary" style="font-size: 14px; margin-bottom: 10px;" >Simpan</button>
                                         </div>
                                     </form>
                                 </div>
@@ -255,3 +235,43 @@
         </div>
     </div>
 @endsection
+
+@push('script')
+    <script>
+        $('#image').on('change', function() {
+            const preview = $(this).parent();
+            const file = this.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                preview.css('background-image', `url('${e.target.result}')`);
+            }
+
+            reader.readAsDataURL(file);
+            console.log($(this).value);
+        });
+
+        document.getElementById('passwordForm').addEventListener('submit', function (e){
+            e.preventDefault();
+            $.ajax({
+                type: 'POST',
+                url: 'profiles/{{$therapist->id}}/updatePassword',
+                data: $(this).serialize(),
+                success(res) {
+                    Swal.fire({
+                        icon: 'success',
+                        text: res.meta.message,
+                        timer: 1500,
+                    }).then(function() {
+                        location.reload();
+                    });
+                },
+                error(err) {
+                    if(err.status == 422) {
+                        displayFormErrors(err.responseJSON.data);
+                    }
+                }
+            });
+        });
+    </script>
+@endpush

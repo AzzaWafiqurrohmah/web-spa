@@ -48,7 +48,8 @@ Route::middleware('auth')->group(function () {
         ->name('profiles.')
         ->controller(ProfileController::class)->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::match(['PUT', 'PATCH'], '{customer}/update', 'update')->name('update');
+            Route::match(['PUT', 'PATCH'], '{therapist}/update', 'update')->name('update');
+            Route::put('/{therapist}/updatePassword', 'updatePassword')->name('updatePassword');
         });
 
 

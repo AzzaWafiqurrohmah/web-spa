@@ -4,12 +4,18 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\TherapistRequest;
+use App\Http\Requests\Therapist\PasswordRequest;
+use App\Http\Requests\Therapist\ProfileRequest;
 use App\Models\Therapist;
+use App\Repository\Therapist\ProfileRepository;
+use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class ProfileController extends Controller
 {
+    use ApiResponser;
     /**
      * Display a listing of the resource.
      */
@@ -46,19 +52,23 @@ class ProfileController extends Controller
     }
 
     /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        'hai';
-    }
-
-    /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Therapist $therapist)
+    public function update(ProfileRequest $request, Therapist $therapist)
     {
-        dd($request);
+        ProfileRepository::save($request->validated(), $therapist);
+        return back()->with('alert_s', 'Berhasil mengubah data');
+    }
+
+    public function updatePassword(PasswordRequest $request, Therapist $therapist){
+        $data = $request->validated();
+        $data['password'] = Hash::make($data['password']);
+        $therapist->update($data);
+
+//        return back()->with('alert_s', 'Berhasil mengubah Password');
+        return $this->success(
+            message: 'Berhasil mengubah Password'
+        );
     }
 
     /**

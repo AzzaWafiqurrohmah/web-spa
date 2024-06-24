@@ -149,6 +149,15 @@ Route::middleware('auth')->group(function () {
 
     Route::resource('setting', SettingController::class);
 
+    //profile
+    Route::prefix('/profiles')
+        ->name('profiles.')
+        ->controller(ProfileController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::match(['PUT', 'PATCH'], '/update', 'update')->name('update');
+            Route::put('/updatePassword', 'updatePassword')->name('updatePassword');
+        });
+
     //presence admin
     Route::prefix('presences')
         ->name('presences.')

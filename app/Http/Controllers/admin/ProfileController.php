@@ -10,6 +10,7 @@ use App\Models\Therapist;
 use App\Repository\Therapist\ProfileRepository;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -21,9 +22,9 @@ class ProfileController extends Controller
      */
     public function index()
     {
-        $therapist = Auth::user();
+        $user = Auth::user();
         return view('pages.therapist.profile.index', [
-            'therapist' => $therapist
+            'user' => $user
         ]);
     }
 
@@ -54,18 +55,14 @@ class ProfileController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(ProfileRequest $request, Therapist $therapist)
+    public function update(ProfileRequest $request)
     {
-        ProfileRepository::save($request->validated(), $therapist);
+        ProfileRepository::save($request->validated());
         return back()->with('alert_s', 'Berhasil mengubah data');
     }
 
-    public function updatePassword(PasswordRequest $request, Therapist $therapist){
-        $data = $request->validated();
-        $data['password'] = Hash::make($data['password']);
-        $therapist->update($data);
-
-//        return back()->with('alert_s', 'Berhasil mengubah Password');
+    public function updatePassword(PasswordRequest $request){
+        ProfileRepository::updatePassword($request->validated());
         return $this->success(
             message: 'Berhasil mengubah Password'
         );

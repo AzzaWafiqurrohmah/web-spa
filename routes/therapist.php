@@ -43,13 +43,12 @@ Route::middleware('auth')->group(function () {
             Route::post('{month}/birthdate', 'birthdate')->name('birthdate');
         });
 
-//    Route::resource('profiles', ProfileController::class);
     Route::prefix('/profiles')
         ->name('profiles.')
         ->controller(ProfileController::class)->group(function () {
             Route::get('/', 'index')->name('index');
-            Route::match(['PUT', 'PATCH'], '{therapist}/update', 'update')->name('update');
-            Route::put('/{therapist}/updatePassword', 'updatePassword')->name('updatePassword');
+            Route::match(['PUT', 'PATCH'], 'update', 'update')->name('update');
+            Route::put('/updatePassword', 'updatePassword')->name('updatePassword');
         });
 
 

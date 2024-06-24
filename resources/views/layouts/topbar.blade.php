@@ -50,7 +50,13 @@
                             </div>
                         </div>
                         <div class="message-body">
-                            <a href="/therapist/profiles" class="py-2 px-4 mt-2 d-flex align-items-center">
+                            @role('therapist')
+                                <a href="/therapist/profiles" class="py-2 px-4 mt-2 d-flex align-items-center">
+                            @endrole
+
+                            @role(['admin', 'owner'])
+                                <a href="{{ route('profiles.index') }}" class="py-2 px-4 mt-2 d-flex align-items-center">
+                            @endrole
                                 <span class="d-flex align-items-center justify-content-center bg-light rounded-1 p-2">
                                     <i class="bx bx-cog"></i>
                                 </span>

@@ -1,3 +1,6 @@
+@php
+    $user = \Illuminate\Support\Facades\Auth::user();
+@endphp
 <nav class="navbar navbar-top navbar-expand navbar-dashboard navbar-dark ps-0 pe-2 pb-0">
     <div class="container-fluid px-0">
         <div class="d-flex justify-content-between w-100" id="navbarSupportedContent">
@@ -5,7 +8,7 @@
             <div class="btn-group ms-auto">
                 <div class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer">
                     <img
-                        src="/assets/img/team/profile-picture-1.jpg"
+                        src="{{ $user->image ? Storage::url($user->image) : 'https://apsensi.my.id/img/profile/noimage.jpg' }}"
                         class="rounded-circle"
                         width="40"
                         height="40"
@@ -19,17 +22,30 @@
                         </div>
                         <div class="d-flex align-items-center py-3 mx-4 border-bottom">
                             <img
-                                src="/assets/img/team/profile-picture-1.jpg"
+                                src="{{ $user->image ? Storage::url($user->image) : 'https://apsensi.my.id/img/profile/noimage.jpg' }}"
                                 class="rounded-circle"
                                 width="80"
                                 height="80"
                                 alt=""
                             />
                             <div class="ms-3">
-                                <h6 class="mb-1 fs-6">Azza Wafiqurrohmah</h6>
-                                <span class="mb-1 d-block text-dark">Terapis</span>
+                                @role('therapist')
+                                    <h6 class="mb-1 fs-6">{{ $user->fullname }}</h6>
+                                    <span class="mb-1 d-block text-dark">Terapis</span>
+                                @endrole
+
+                                @role('admin')
+                                    <h6 class="mb-1 fs-6">{{ $user->name }}</h6>
+                                    <span class="mb-1 d-block text-dark">Admin</span>
+                                @endrole
+
+                                @role('owner')
+                                    <h6 class="mb-1 fs-6">{{ $user->name }}</h6>
+                                    <span class="mb-1 d-block text-dark">Owner</span>
+                                @endrole
+
                                 <p class="mb-0 d-flex text-dark align-items-center gap-2">
-                                    <i class="bx bx-envelope fs-5"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbbabfb6b2b59bb6bab2b7f5b8b4b6">contoh@mail.com</a>
+                                    <i class="bx bx-envelope fs-5"></i> <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="dbbabfb6b2b59bb6bab2b7f5b8b4b6">{{ $user->email }}</a>
                                 </p>
                             </div>
                         </div>

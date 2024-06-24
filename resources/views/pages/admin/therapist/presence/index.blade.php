@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
     <title>Presensi</title>
-    <div class="mt-5 mb-3">
+    <div class="mt-0 mb-3">
         <h2>Daftar Kehadiran Terapis</h2>
         <nav>
             <ol class="breadcrumb">

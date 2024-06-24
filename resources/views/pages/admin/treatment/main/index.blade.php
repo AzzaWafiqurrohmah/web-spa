@@ -3,7 +3,7 @@
     <title>Treatment</title>
     <div class="row">
         <div class="col-md-10">
-            <div class="mt-5 mb-3">
+            <div class="mt-0 mb-3">
                 <h2>Daftar Treatment</h2>
                 <nav>
                     <ol class="breadcrumb">

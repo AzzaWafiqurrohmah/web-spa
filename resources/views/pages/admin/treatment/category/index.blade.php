@@ -3,7 +3,7 @@
     <title>Customer</title>
     <div class="row">
         <div class="col-md-8">
-            <div class="mt-5 mb-3">
+            <div class="mt-0 mb-3">
                 <h2>Daftar Kategori Treatment</h2>
                 <nav>
                     <ol class="breadcrumb">

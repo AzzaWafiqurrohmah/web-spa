@@ -15,7 +15,7 @@ class User extends Authenticatable
 
     public $timestamps = false;
     protected $fillable = [
-        'name', 'email', 'password', 'franchise_id'
+       'image', 'name', 'email', 'password', 'franchise_id'
     ];
 
     public function franchise(): BelongsTo

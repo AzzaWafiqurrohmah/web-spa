@@ -210,6 +210,14 @@
                 <span class="sidebar-text ms-1">Customer</span>
             </a>
         </li>
+
+        <li class="nav-item {{ Request::segment(2) == 'presences' ? 'active' : '' }}">
+            <a href="/therapist/presences" class="nav-link">
+                <i class="bx bxs-spreadsheet sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                <span class="sidebar-text ms-1">Presensi</span>
+            </a>
+        </li>
+
         @endrole
 
       <li class="nav-item" id="signOut">

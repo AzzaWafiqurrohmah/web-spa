@@ -5,6 +5,7 @@ use App\Http\Controllers\admin\TreatmentController;
 use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\Therapist\PresenceController;
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', fn () => view('pages.dashboard'))->name('dashboard');
@@ -49,6 +50,15 @@ Route::middleware('auth')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::match(['PUT', 'PATCH'], 'update', 'update')->name('update');
             Route::put('/updatePassword', 'updatePassword')->name('updatePassword');
+        });
+
+    //PRESENCE
+//    Route::resource('presences', PresenceController::class);
+    Route::prefix('/presences')
+        ->name('presences.')
+        ->controller(PresenceController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('show', 'show')->name('show');
         });
 
 

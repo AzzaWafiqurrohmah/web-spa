@@ -44,9 +44,11 @@
         <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
 
       <li class="nav-item {{ Request::segment(1) == 'dashboard' ? 'active' : '' }}">
-          <a href="/dashboard" class="nav-link">
-              <i class="bx bx-home sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-              <span class="sidebar-text ms-1">Dashboard</span>
+          <a href="/dashboard" class="nav-link d-flex">
+              <span class="d-flex align-items-center justify-content-center" >
+                <i class="bx bx-home sidebar-icon" style="font-size: 1.5rem; padding-bottom: 0px"></i>
+              </span>
+              <span class="sidebar-text ms-1 mt-0 d-block ">Dashboard</span>
           </a>
       </li>
 
@@ -54,25 +56,31 @@
 
     @role('admin')
         <li class="nav-item {{ Request::segment(1) == 'reservations' ? 'active' : '' }}">
-            <a href="{{ route('reservations.index') }}" class="nav-link">
-                <i class="bx bx-receipt sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text ms-1">Reservasi</span>
+            <a href="{{ route('reservations.index') }}" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bx-receipt sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Reservasi</span>
             </a>
         </li>
 
         <li class="nav-item {{ Request::segment(1) == 'customers' ? 'active' : '' }}">
-            <a href="{{route('customers.index')}}" class="nav-link">
-                <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text ms-1">Customer</span>
+            <a href="{{route('customers.index')}}" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Customer</span>
             </a>
         </li>
 
         <li class="nav-item" >
             <span class="nav-link collapsed d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
               data-bs-target="#submenu-pages">
-              <span>
-                <i class="bx bx-note sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text">Treatment</span>
+              <span class="d-flex">
+                  <span class="d-flex align-items-center justify-content-center" >
+                        <i class="bx bx-note sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                  </span>
+                <span class="sidebar-text mt-0 d-block">Treatment</span>
               </span>
               <span class="link-arrow">
                   <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -112,9 +120,11 @@
         <li class="nav-item">
             <span class="nav-link collapsed d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
               data-bs-target="#submenu-components">
-              <span>
-                <i class="bx bxs-user-detail sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text">Terapis</span>
+              <span class="d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bxs-user-detail sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text mt-0 d-block">Terapis</span>
               </span>
               <span class="link-arrow">
                   <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -149,48 +159,61 @@
         </li>
 
         <li class="nav-item {{ Request::segment(1) == 'laporan' ? 'active' : '' }}">
-            <a href="" class="nav-link">
-                <i class="bx bx-notepad sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text ms-1">Laporan</span>
+            <a href="" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bx-notepad sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Laporan</span>
             </a>
         </li>
 
         <li class="nav-item {{ Request::segment(1) == 'setting' ? 'active' : '' }}">
-            <a href="{{ route('setting.index') }}" class="nav-link">
-                <i class="bx bxs-cog sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text ms-1">Pengaturan</span>
+            <a href="{{ route('setting.index') }}" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bxs-cog sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Pengaturan</span>
             </a>
         </li>
+
         <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
         @endrole
 
         @role('owner')
 
         <li class="nav-item {{ Request::segment(1) == 'franchises' ? 'active' : '' }}">
-            <a href="{{ route('franchises.index') }}" class="nav-link">
-                <i class="bx bx-buildings sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text ms-1">Franchise</span>
+            <a href="{{ route('franchises.index') }}" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bx-buildings sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Franchise</span>
             </a>
         </li>
 
         <li class="nav-item {{ Request::segment(1) == 'admin' ? 'active' : '' }}">
-            <a href="{{ route('admin.index') }}" class="nav-link">
-                <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text ms-1">Admin</span>
+            <a href="{{ route('admin.index') }}" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Admin</span>
             </a>
         </li>
 
         <li class="nav-item {{ Request::segment(1) == 'transaction' ? 'active' : '' }}">
-            <a href="" class="nav-link">
-                <i class="bx bx-home sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text ms-1">Transaksi</span>
+            <a href="" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bx-receipt sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Transaksi</span>
             </a>
         </li>
 
         <li class="nav-item {{ Request::segment(1) == 'laporan' ? 'active' : '' }}">
-            <a href="" class="nav-link">
-                <i class="bx bx-home sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text ms-1">Laporan</span>
+            <a href="" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bx-notepad sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Laporan</span>
             </a>
         </li>
       @endrole
@@ -198,23 +221,29 @@
 
         @role('therapist')
         <li class="nav-item {{ Request::segment(2) == 'treatments' ? 'active' : '' }}">
-            <a href="/therapist/treatments" class="nav-link">
-                <i class="bx bx-buildings sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text ms-1">Treatment</span>
+            <a href="/therapist/treatments" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bx-buildings sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Treatment</span>
             </a>
         </li>
 
         <li class="nav-item {{ Request::segment(2) == 'customers' ? 'active' : '' }}">
-            <a href="/therapist/customers" class="nav-link">
-                <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text ms-1">Customer</span>
+            <a href="/therapist/customers" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Customer</span>
             </a>
         </li>
 
         <li class="nav-item {{ Request::segment(2) == 'presences' ? 'active' : '' }}">
-            <a href="/therapist/presences" class="nav-link">
-                <i class="bx bxs-spreadsheet sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
-                <span class="sidebar-text ms-1">Presensi</span>
+            <a href="/therapist/presences" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bxs-spreadsheet sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Presensi</span>
             </a>
         </li>
 

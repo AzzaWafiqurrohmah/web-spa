@@ -22,15 +22,6 @@
                 <div class="tab-content pt-2">
 
                 <div class="tab-pane fade show active profile-overview" id="profile-overview" style="text-align: center">
-{{--                    <div class="">--}}
-{{--                        <img src="https://apsensi.my.id/img/profile/noimage.jpg"--}}
-{{--                             class="rounded-circle mx-auto mb-2" width="80" height="80" alt="Neil Portrait">--}}
-
-{{--                        <h6 class=" mb-0" style="font-family: 'Poppins',sans-serif" id="name">Azza Wafiqurrohmah</h6>--}}
-{{--                        <small class="text-gray mb-2" style="color: #A2A2A2; font-family: 'Poppins',sans-serif; ">Pelanggan</small>--}}
-{{--                    </div>--}}
-
-{{--                    <div class="mt-0" style="text-align: left">--}}
                         <div class="modal-body p-1" style="text-align: left">
                             <div class="mb-3">
                                 <small for="nik" class="form-label">ID Pelanggan</small>
@@ -63,119 +54,6 @@
                                 </div>
                             </div>
                         </div>
-{{--                    </div>--}}
-
-
-{{--                        <div class="col-lg-6">--}}
-{{--                            <div class="mb-3 d-flex gap-3 ">--}}
-{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
-{{--                                <i class="bx bx-user fs-5" style="color: #FFA800"></i>--}}
-{{--                            </span>--}}
-{{--                                <div class="d-inline-block v-middle ps-0">--}}
-{{--                                    <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> ID pelanggan </h6>--}}
-{{--                                    <span class=" mt-0 d-block text-dark fw-bold" style="font-family: 'Poppins',sans-serif;font-size: 14px;" id="customer_id">35.32.1.1</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
-{{--                            <div class="mb-3 d-flex gap-3 ">--}}
-{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
-{{--                                <i class="bx bx-id-card fs-5" style="color: #FFA800"></i>--}}
-{{--                            </span>--}}
-{{--                                <div class="d-inline-block v-middle ps-0">--}}
-{{--                                    <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> ID member </h6>--}}
-{{--                                    <span class=" mt-0 d-block text-dark fw-bold" style="font-family: 'Poppins',sans-serif;font-size: 14px;" id="member_id">Tidak Aktif</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
-{{--                            <div class="mb-3 d-flex gap-3 ">--}}
-{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
-{{--                                <i class="bx bx-calendar-alt fs-5" style="color: #FFA800"></i>--}}
-{{--                            </span>--}}
-{{--                                <div class="d-inline-block v-middle ps-0">--}}
-{{--                                    <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> Tanggal Lahir </h6>--}}
-{{--                                    <span class=" mt-0 d-block text-dark fw-bold" id="birth_date" style="font-family: 'Poppins',sans-serif;font-size: 14px;">23 maret 2003</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="col-lg-6">--}}
-{{--                            <div class="mb-3 d-flex gap-3 ">--}}
-{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
-{{--                                <i class="bx bx-phone fs-5" style="color: #FFA800"></i>--}}
-{{--                            </span>--}}
-{{--                                <div class="d-inline-block v-middle ps-0">--}}
-{{--                                    <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> No Telp </h6>--}}
-{{--                                    <span class=" mt-0 d-block text-dark fw-bold" id="phone" style="font-family: 'Poppins',sans-serif;font-size: 14px;">089878765456</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-
-{{--                            <div class="mb-3 d-flex gap-3 ">--}}
-{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
-{{--                                <i class="bx bx-male-female fs-5" style="color: #FFA800"></i>--}}
-{{--                            </span>--}}
-{{--                                <div class="d-inline-block v-middle ps-0">--}}
-{{--                                    <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> Jenis kelamin </h6>--}}
-{{--                                    <span class=" mt-0 d-block text-dark fw-bold" id="gender" style="font-family: 'Poppins',sans-serif;font-size: 14px;">Perempuan</span>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                        </div>--}}
-
-
-
-
-
-{{--                    <div class="mt-4" style="text-align: left">--}}
-{{--                        <div class="mb-3 d-flex gap-3 ">--}}
-{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
-{{--                                <i class="bx bx-user fs-5" style="color: #FFA800"></i>--}}
-{{--                            </span>--}}
-{{--                            <div class="d-inline-block v-middle ps-0">--}}
-{{--                                <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> ID pelanggan </h6>--}}
-{{--                                <span class=" mt-0 d-block text-dark fw-bold" style="font-family: 'Poppins',sans-serif;font-size: 14px;" id="customer_id">35.32.1.1</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="mb-3 d-flex gap-3 ">--}}
-{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
-{{--                                <i class="bx bx-id-card fs-5" style="color: #FFA800"></i>--}}
-{{--                            </span>--}}
-{{--                            <div class="d-inline-block v-middle ps-0">--}}
-{{--                                <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> ID member </h6>--}}
-{{--                                <span class=" mt-0 d-block text-dark fw-bold" style="font-family: 'Poppins',sans-serif;font-size: 14px;" id="member_id">Tidak Aktif</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="mb-3 d-flex gap-3 ">--}}
-{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
-{{--                                <i class="bx bx-calendar-alt fs-5" style="color: #FFA800"></i>--}}
-{{--                            </span>--}}
-{{--                            <div class="d-inline-block v-middle ps-0">--}}
-{{--                                <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> Tanggal Lahir </h6>--}}
-{{--                                <span class=" mt-0 d-block text-dark fw-bold" id="birth_date" style="font-family: 'Poppins',sans-serif;font-size: 14px;">23 maret 2003</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="mb-3 d-flex gap-3 ">--}}
-{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
-{{--                                <i class="bx bx-phone fs-5" style="color: #FFA800"></i>--}}
-{{--                            </span>--}}
-{{--                            <div class="d-inline-block v-middle ps-0">--}}
-{{--                                <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> No Telp </h6>--}}
-{{--                                <span class=" mt-0 d-block text-dark fw-bold" id="phone" style="font-family: 'Poppins',sans-serif;font-size: 14px;">089878765456</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-
-{{--                        <div class="mb-3 d-flex gap-3 ">--}}
-{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
-{{--                                <i class="bx bx-male-female fs-5" style="color: #FFA800"></i>--}}
-{{--                            </span>--}}
-{{--                            <div class="d-inline-block v-middle ps-0">--}}
-{{--                                <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> Jenis kelamin </h6>--}}
-{{--                                <span class=" mt-0 d-block text-dark fw-bold" id="gender" style="font-family: 'Poppins',sans-serif;font-size: 14px;">Perempuan</span>--}}
-{{--                            </div>--}}
-{{--                        </div>--}}
-{{--                    </div>--}}
 
                 </div>
 

@@ -62,6 +62,14 @@
     </div>
 @endsection
 
+@push('style')
+    <style>
+        .nav-link.active {
+            background-color: #e5e7eb !important;
+        }
+    </style>
+@endpush
+
 @push('script')
     <script>
         let presenceTable;
@@ -78,7 +86,8 @@
                     {data: 'presence'}
                 ],
                 initComplete: function () {
-                    dropdown();
+                    const drdElements = document.querySelectorAll('.dropdown');
+                    const drdList = [...drdElements].map(drdToggle => new bootstrap.Dropdown(drdToggle));
                 }
             });
         }
@@ -99,6 +108,7 @@
                     ],
                     initComplete: function () {
                         dropdown();
+                        console.log('Init Dropdown gesss');
                     }
                 });
             }
@@ -108,40 +118,9 @@
             initAllPresence();
         });
 
-        function dropdown() {
-            const dropdowns = document.querySelectorAll('.dropdown-custom');
-            dropdowns.forEach(dropdown => {
-                const select = dropdown.querySelector('.select-custom');
-                const caret = dropdown.querySelector('.caret-custom');
-                const menu = dropdown.querySelector('.menu-custom');
-                const selected = dropdown.querySelector('.selected-custom');
-
-                select.addEventListener('click', () => {
-                    select.classList.toggle('select-clicked-custom');
-                    caret.classList.toggle('caret-rotate-custom');
-                    menu.classList.toggle('menu-open-custom');
-                });
-
-                menu.addEventListener('click', (event) => {
-                    if (event.target.classList.contains('option-custom')) {
-                        const option = event.target;
-                        selected.innerText = option.innerText;
-                        select.classList.remove('select-clicked-custom');
-                        caret.classList.remove('caret-rotate-custom');
-                        menu.classList.remove('menu-open-custom');
-                        const options = menu.querySelectorAll('.option-custom');
-                        options.forEach(opt => {
-                            opt.classList.remove('active-custom');
-                        });
-                        option.classList.add('active-custom');
-                        const dataValue = option.getAttribute('data-value');
-                        const dataId = option.getAttribute('data-id');
-                        update(dataId, dataValue);
-                    }
-                });
-            });
-        }
-
+        $('#presence-table, #presenceAll-table').on('click', '.presence-item', function(e) {
+            update($(this).data('id'), $(this).data('value'));
+        });
 
         function update(id, value)
         {
@@ -158,12 +137,11 @@
                         text: res.meta.message,
                         timer: 1500,
                     });
+
+                    presenceTable.ajax.reload();
+                    presenceAllTable.ajax.reload();
                 }
             });
         }
-
-
-
     </script>
 @endpush
-

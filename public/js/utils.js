@@ -1,27 +1,23 @@
 function fillFormdata(data) {
+    console.log('hai');
     for(const [key, value] of Object.entries(data)) {
         const inputElement = document.getElementById(key);
 
-
         if (inputElement !== null) {
-            if(inputElement.tagName !== 'INPUT'){
-                inputElement.textContent = value;
+            if(inputElement.tagName === 'INPUT' && inputElement.getAttribute('type') !== 'file'){
+                inputElement.value = value;
             }
 
             if(inputElement.getAttribute('type') === 'file') {
                 inputElement.parentElement.style.backgroundImage = `url(/storage/${value})`;
             }
 
-            if(inputElement.getAttribute('type') === 'password') {
-                inputElement.value = null;
-            }
-
-            if(inputElement.tagName === 'INPUT' &&
-                inputElement.getAttribute('type') !== 'file' &&
-                inputElement.tagName !== 'SELECT' &&
-                inputElement.getAttribute('type') !== 'password'){
-
-                inputElement.value = value;
+            if(inputElement.tagName !== 'INPUT' &&
+                inputElement.getAttribute('type') !== 'file'
+                // inputElement.tagName !== 'SELECT' &&
+                // inputElement.getAttribute('type') !== 'password'
+            ){
+                inputElement.textContent = value;
             }
         }
     }

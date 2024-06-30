@@ -75,8 +75,7 @@
             <div class="col-lg-6">
                 <div class="mb-4">
                     <label for="home_details">Detail Rumah</label>
-                    <textarea class="form-control" placeholder="Detail rumah anda ..." id="home_details" name="home_details" style="width: 100%;" rows="4" >
-                    </textarea>
+                    <textarea class="form-control" placeholder="Detail rumah anda ..." id="home_details" name="home_details" style="width: 100%;" rows="4" >{{ $customer? $customer->home_details : old('home_details') }}</textarea>
                     @error('home_details')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>
@@ -85,7 +84,7 @@
                 </div>
                 <div class="mb-4">
                     <label for="address">Alamat Lengkap</label>
-                    <textarea class="form-control" placeholder="Alamat anda ..." id="address" name="address" style="width: 100%;" rows="4"> {{ $customer? $customer->address : '' }}</textarea>
+                    <textarea class="form-control" placeholder="Alamat anda ..." id="address" name="address" style="width: 100%;" rows="4"> {{ $customer? $customer->address : old('address') }}</textarea>
                     @error('address')
                     <div class="invaid-feedback">
                         <small class="text-danger">{{ $message }}</small>
@@ -108,8 +107,8 @@
         <div class="row">
             <div class="col-lg-5" style="margin-right: 30px;">
                 <div class="form-check">
-                    <input class="form-check-input" type="checkbox" value="1" id="member" name="member" @checked($customer && $customer?->member_id != '0')
-                        @disabled($customer && $customer?->member_id != '0')>
+                    <input class="form-check-input" type="checkbox" value="1" id="member" name="member" @checked($customer && $customer?->is_member != '0')
+                        @disabled($customer && $customer?->is_member == '1')>
                     <label class="form-check-label" for="member">
                         Tambahkan sebagai member
                     </label>

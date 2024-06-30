@@ -21,74 +21,192 @@
                     </ul>
                 <div class="tab-content pt-2">
 
-                <div class="tab-pane fade show active profile-overview" id="profile-overview">
+                <div class="tab-pane fade show active profile-overview" id="profile-overview" style="text-align: center">
+{{--                    <div class="">--}}
+{{--                        <img src="https://apsensi.my.id/img/profile/noimage.jpg"--}}
+{{--                             class="rounded-circle mx-auto mb-2" width="80" height="80" alt="Neil Portrait">--}}
 
-                    <div >
-                        <div class="col-lg-12 col-md-12 mb-2">
-                        <label >Nama Lengkap</label>
-                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
-                                <p id="fullname"></p>
+{{--                        <h6 class=" mb-0" style="font-family: 'Poppins',sans-serif" id="name">Azza Wafiqurrohmah</h6>--}}
+{{--                        <small class="text-gray mb-2" style="color: #A2A2A2; font-family: 'Poppins',sans-serif; ">Pelanggan</small>--}}
+{{--                    </div>--}}
+
+{{--                    <div class="mt-0" style="text-align: left">--}}
+                        <div class="modal-body p-1" style="text-align: left">
+                            <div class="mb-3">
+                                <small for="nik" class="form-label">ID Pelanggan</small>
+                                <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
+                                    <small class="mb-1" id="customer_id"></small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <small for="nama" class="form-label">ID Member</small>
+                                <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
+                                    <small class="mb-1" id="member_id"></small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <small for="nama" class="form-label">Nama Lengkap</small>
+                                <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
+                                    <small class="mb-1" id="fullname"></small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <small for="nama" class="form-label">Tanggal Lahir</small>
+                                <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
+                                    <small class="mb-1" id="birth_date"></small>
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <small for="nama" class="form-label">Jenis Kelamin</small>
+                                <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
+                                    <small class="mb-1" id="gender"></small>
+                                </div>
                             </div>
                         </div>
+{{--                    </div>--}}
 
-                        <div class="col-lg-12 col-md-12 mb-2" >
-                            <label >Tanggal Lahir</label>
-                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
-                                <p id="birth_date"></p>
-                            </div>
-                        </div>
 
-                        <div class="col-lg-12 col-md-12 mb-2">
-                            <label >Nomor Telepon</label>
-                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
-                                <p id="phone"></p>
-                            </div>
-                        </div>
+{{--                        <div class="col-lg-6">--}}
+{{--                            <div class="mb-3 d-flex gap-3 ">--}}
+{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
+{{--                                <i class="bx bx-user fs-5" style="color: #FFA800"></i>--}}
+{{--                            </span>--}}
+{{--                                <div class="d-inline-block v-middle ps-0">--}}
+{{--                                    <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> ID pelanggan </h6>--}}
+{{--                                    <span class=" mt-0 d-block text-dark fw-bold" style="font-family: 'Poppins',sans-serif;font-size: 14px;" id="customer_id">35.32.1.1</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
-                        <div class="col-lg-12 col-md-12 mb-2">
-                            <label >Jenis Kelamin</label>
-                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
-                                <p id="gender"></p>
-                            </div>
-                        </div>
+{{--                            <div class="mb-3 d-flex gap-3 ">--}}
+{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
+{{--                                <i class="bx bx-id-card fs-5" style="color: #FFA800"></i>--}}
+{{--                            </span>--}}
+{{--                                <div class="d-inline-block v-middle ps-0">--}}
+{{--                                    <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> ID member </h6>--}}
+{{--                                    <span class=" mt-0 d-block text-dark fw-bold" style="font-family: 'Poppins',sans-serif;font-size: 14px;" id="member_id">Tidak Aktif</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
 
-                        <div class="col-lg-12 col-md-12 mb-2">
-                            <label >Member Id</label>
-                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
-                                <p id="member_id"></p>
-                            </div>
-                        </div>
+{{--                            <div class="mb-3 d-flex gap-3 ">--}}
+{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
+{{--                                <i class="bx bx-calendar-alt fs-5" style="color: #FFA800"></i>--}}
+{{--                            </span>--}}
+{{--                                <div class="d-inline-block v-middle ps-0">--}}
+{{--                                    <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> Tanggal Lahir </h6>--}}
+{{--                                    <span class=" mt-0 d-block text-dark fw-bold" id="birth_date" style="font-family: 'Poppins',sans-serif;font-size: 14px;">23 maret 2003</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
 
-                        <div class="col-lg-12 col-md-12 mb-2">
-                            <label >Tanggal Aktif</label>
-                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
-                                <p id="start_member"></p>
-                            </div>
-                        </div>
-                    </div>
+{{--                        <div class="col-lg-6">--}}
+{{--                            <div class="mb-3 d-flex gap-3 ">--}}
+{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
+{{--                                <i class="bx bx-phone fs-5" style="color: #FFA800"></i>--}}
+{{--                            </span>--}}
+{{--                                <div class="d-inline-block v-middle ps-0">--}}
+{{--                                    <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> No Telp </h6>--}}
+{{--                                    <span class=" mt-0 d-block text-dark fw-bold" id="phone" style="font-family: 'Poppins',sans-serif;font-size: 14px;">089878765456</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+
+{{--                            <div class="mb-3 d-flex gap-3 ">--}}
+{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
+{{--                                <i class="bx bx-male-female fs-5" style="color: #FFA800"></i>--}}
+{{--                            </span>--}}
+{{--                                <div class="d-inline-block v-middle ps-0">--}}
+{{--                                    <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> Jenis kelamin </h6>--}}
+{{--                                    <span class=" mt-0 d-block text-dark fw-bold" id="gender" style="font-family: 'Poppins',sans-serif;font-size: 14px;">Perempuan</span>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                        </div>--}}
+
+
+
+
+
+{{--                    <div class="mt-4" style="text-align: left">--}}
+{{--                        <div class="mb-3 d-flex gap-3 ">--}}
+{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
+{{--                                <i class="bx bx-user fs-5" style="color: #FFA800"></i>--}}
+{{--                            </span>--}}
+{{--                            <div class="d-inline-block v-middle ps-0">--}}
+{{--                                <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> ID pelanggan </h6>--}}
+{{--                                <span class=" mt-0 d-block text-dark fw-bold" style="font-family: 'Poppins',sans-serif;font-size: 14px;" id="customer_id">35.32.1.1</span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="mb-3 d-flex gap-3 ">--}}
+{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
+{{--                                <i class="bx bx-id-card fs-5" style="color: #FFA800"></i>--}}
+{{--                            </span>--}}
+{{--                            <div class="d-inline-block v-middle ps-0">--}}
+{{--                                <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> ID member </h6>--}}
+{{--                                <span class=" mt-0 d-block text-dark fw-bold" style="font-family: 'Poppins',sans-serif;font-size: 14px;" id="member_id">Tidak Aktif</span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="mb-3 d-flex gap-3 ">--}}
+{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
+{{--                                <i class="bx bx-calendar-alt fs-5" style="color: #FFA800"></i>--}}
+{{--                            </span>--}}
+{{--                            <div class="d-inline-block v-middle ps-0">--}}
+{{--                                <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> Tanggal Lahir </h6>--}}
+{{--                                <span class=" mt-0 d-block text-dark fw-bold" id="birth_date" style="font-family: 'Poppins',sans-serif;font-size: 14px;">23 maret 2003</span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="mb-3 d-flex gap-3 ">--}}
+{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
+{{--                                <i class="bx bx-phone fs-5" style="color: #FFA800"></i>--}}
+{{--                            </span>--}}
+{{--                            <div class="d-inline-block v-middle ps-0">--}}
+{{--                                <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> No Telp </h6>--}}
+{{--                                <span class=" mt-0 d-block text-dark fw-bold" id="phone" style="font-family: 'Poppins',sans-serif;font-size: 14px;">089878765456</span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+
+{{--                        <div class="mb-3 d-flex gap-3 ">--}}
+{{--                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >--}}
+{{--                                <i class="bx bx-male-female fs-5" style="color: #FFA800"></i>--}}
+{{--                            </span>--}}
+{{--                            <div class="d-inline-block v-middle ps-0">--}}
+{{--                                <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> Jenis kelamin </h6>--}}
+{{--                                <span class=" mt-0 d-block text-dark fw-bold" id="gender" style="font-family: 'Poppins',sans-serif;font-size: 14px;">Perempuan</span>--}}
+{{--                            </div>--}}
+{{--                        </div>--}}
+{{--                    </div>--}}
 
                 </div>
 
                 <div class="tab-pane fade profile-edit pt-2" id="profile-edit">
 
                     <div class="col-lg-12" style="">
-                        <div class="mb-4">
-                            <label for="address">Alamat Lengkap</label>
-                            <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
-                                <p id="address"></p>
-                            </div>
+                        <div class="p-2" style="text-align: center" >
+                            <label class="image-preview mb-0" for="home_pict">
+                                <input type="file" name="home_pict" id="home_pict" class="d-none" accept="image/*" disabled>
+                            </label>
+                            <small class="justify-content-center mt-1" style="color: #ADADAD">Gambar Rumah</small>
                         </div>
-                        <div class="row">
-                            <div class="col-lg-7" >
-                                <label for="home_pict" class="form-label">Foto Depan Rumah</label>
-                                <label class="image-preview" for="home_pict" style="background-image:none; aspect-ratio: 2/2;">
-                                    <input type="file" name="home_pict" id="home_pict" class="d-none" accept="image/*">
-                                </label>
+
+                        <div class="mt-2" style="text-align: left">
+                            <div class="mb-3 d-flex gap-3 ">
+                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >
+                                <i class="bx bx-home fs-5" style="color: #FFA800"></i>
+                            </span>
+                                <div class="d-inline-block v-middle ps-0">
+                                    <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> Detail Rumah </h6>
+                                    <span class=" mt-0 d-block text-dark fw-bold" style="font-family: 'Poppins',sans-serif;font-size: 14px;" id="home_details"></span>
+                                </div>
                             </div>
-                            <div class="col-lg-5" >
-                                <label for="home_details">Detail Rumah</label>
-                                <div class="card" style="padding-top: 5px; padding-left: 10px; padding-right: 10px">
-                                    <p id="home_details"></p>
+
+                            <div class="mb-3 d-flex gap-3 ">
+                                <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >
+                                    <i class="bx bx-map fs-5" style="color: #FFA800"></i>
+                                </span>
+                                <div class="d-inline-block v-middle ps-0">
+                                    <h6 class="mb-0" style="font-family: 'Poppins',sans-serif; font-size: 12px; color: #ADADAD"> Detail Alamat </h6>
+                                    <span class=" mt-0 d-block text-dark fw-bold" style="font-family: 'Poppins',sans-serif;font-size: 14px;" id="address"></span>
                                 </div>
                             </div>
                         </div>
@@ -96,8 +214,8 @@
 
                 </div>
 
-                <div class="tab-pane fade pt-2" id="profile-change-password">
-                    <label for="map" style="margin-bottom: 10px; margin-left: 5px">Detail lokasi rumah</label>
+                <div class="tab-pane fade pt-1" id="profile-change-password">
+                    <small style="display: block; text-align: center; color: #ADADAD" >Detail lokasi rumah</small>
                     <div id="map">
                         <input type="hidden" id="latitude" name="latitude">
                         <input type="hidden" name="longitude" id="longitude">
@@ -106,12 +224,16 @@
                     </div>
 
                     <div class="d-flex justify-content-between align-items-center" style="padding-left: 10px; padding-right: 10px">
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-person-fill" style="font-size: 1.5rem;"></i>
+                        <div class="mb-0 d-flex gap-3 ">
+                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >
+                                <i class="bx bx-user fs-5" style="color: #FFA800"></i>
+                            </span>
                         </div>
-                        <h5 class="text-center" id="distance"></h5>
-                        <div class="d-flex align-items-center">
-                            <i class="bi bi-building" style="font-size: 1.5rem;"></i>
+                        <small class="text-center" id="distance"></small>
+                        <div class="mb-0 d-flex gap-3 ">
+                            <span class="d-flex align-items-center justify-content-center bg-light rounded-3 p-2 m-0" >
+                                <i class="bx bx-building fs-5" style="color: #FFA800"></i>
+                            </span>
                         </div>
                     </div>
 

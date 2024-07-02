@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\admin;
 
+use App\Enums\Gender;
 use App\Service\ReservationService;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -18,8 +19,12 @@ class CustomerResource extends JsonResource
     {
         $user = Auth::user();
         $transport_cost = ReservationService::transport_cost($this->resource);
+
+
+
         return [
             'id' => $this->id,
+            'customer_id' => format_id('customer', $user->franchise->raw_id, $this->gender, $this->id),
             'fullname' => $this->fullname,
             'phone' => $this->phone,
             'is_member' => $this->is_member,
@@ -37,4 +42,5 @@ class CustomerResource extends JsonResource
             'transport_cost' => $transport_cost
         ];
     }
+
 }

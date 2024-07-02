@@ -14,19 +14,7 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between mb-4">
-                        <div style="">
-                            <form action="" method="GET">
-                                <select class="form-select float-left" id="month" name="month"
-                                        aria-label="Default select example">
-                                    <option selected>-- Pilih Bulan Lahir --</option>
-                                    @foreach($months as $month)
-                                        <option
-                                            value="{{$month->format('m')}}" {{ request('month') == $month->format('m') ? 'selected' : '' }} >{{$month->format('F')}}</option>
-                                    @endforeach
-                                </select>
-                            </form>
-                        </div>
+                    <div class="d-flex justify-content-end mb-4">
                         @can('crud customers')
                             <div>
                                 <a href="{{route('customers.create')}}" class="btn btn-primary">Tambah Pelanggan</a>

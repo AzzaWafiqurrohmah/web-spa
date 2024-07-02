@@ -52,3 +52,17 @@ if(!function_exists('parseDateParam')) {
         ];
     }
 }
+
+if(!function_exists('genderID')) {
+    function genderID(?string $gender) {
+        if($gender == 'male')
+
+
+        $exploded = explode('-', $date);
+        return (object) [
+            'year' => $exploded[0],
+            'month' => $exploded[1],
+            'day' => $exploded[2] ?? null,
+        ];
+    }
+}

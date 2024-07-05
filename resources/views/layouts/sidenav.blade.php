@@ -145,7 +145,7 @@
                   </a>
                 </li>
                 <li class="nav-item {{ Request::segment(1) == 'notifications' ? 'active' : '' }}">
-                  <a class="nav-link" href="/notifications">
+                  <a class="nav-link" href="{{ route('schedules.index') }}">
                     <span class="sidebar-text">Jadwal Terapis</span>
                   </a>
                 </li>

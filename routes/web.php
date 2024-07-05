@@ -14,6 +14,7 @@ use App\Http\Controllers\Owner\AdminController;
 use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\PresenceController;
 use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\Admin\ScheduleController;
 
 /*
 |--------------------------------------------------------------------------
@@ -202,4 +203,6 @@ Route::middleware('auth')->group(function () {
             Route::delete('{user}', 'destroy')->name('destroy');
         });
 
+    Route::get('schedules', [ScheduleController::class, 'index'])->name('schedules.index');
+    Route::get('schedules/json', [ScheduleController::class, 'json'])->name('schedules.json');
 });

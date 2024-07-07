@@ -43,7 +43,7 @@
 
         <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
 
-      <li class="nav-item {{ Request::segment(1) == 'dashboard' ? 'active' : '' }}">
+      <li class="nav-item @active('dashboard')">
           <a href="/dashboard" class="nav-link d-flex">
               <span class="d-flex align-items-center justify-content-center" >
                 <i class="bx bx-home sidebar-icon" style="font-size: 1.5rem; padding-bottom: 0px"></i>
@@ -55,7 +55,7 @@
         <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
 
     @role('admin')
-        <li class="nav-item {{ Request::segment(1) == 'reservations' ? 'active' : '' }}">
+        <li class="nav-item @active('reservations.*')">
             <a href="{{ route('reservations.index') }}" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bx-receipt sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
@@ -64,7 +64,7 @@
             </a>
         </li>
 
-        <li class="nav-item {{ Request::segment(1) == 'customers' ? 'active' : '' }}">
+        <li class="nav-item @active('customers.*')">
             <a href="{{route('customers.index')}}" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
@@ -73,7 +73,7 @@
             </a>
         </li>
 
-        <li class="nav-item" >
+        <li class="nav-item">
             <span class="nav-link collapsed d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
               data-bs-target="#submenu-pages">
               <span class="d-flex">
@@ -91,24 +91,24 @@
                   </svg>
               </span>
             </span>
-            <div class="multi-level collapse" role="list" id="submenu-pages" aria-expanded="false">
+            <div class="multi-level collapse @active('treatments.*,treatmentCategories,tools,materials', 'show')" role="list" id="submenu-pages" aria-expanded="false">
               <ul class="flex-column nav">
-                  <li class="nav-item {{ Request::segment(1) == 'treatmentCategories' ? 'active' : '' }}">
+                  <li class="nav-item @active('treatmentCategories')">
                       <a class="nav-link" href="{{ route('treatmentCategories.index') }}">
                           <span class="sidebar-text">Kategori Treatment</span>
                       </a>
                   </li>
-                <li class="nav-item" {{ Request::segment(1) == 'treatments' ? 'active' : '' }}>
+                <li class="nav-item @active('treatments.*')">
                   <a class="nav-link" href="{{ route('treatments.index') }}">
                     <span class="sidebar-text">Daftar Treatment</span>
                   </a>
                 </li>
-                <li class="nav-item {{ Request::segment(1) == 'tools' ? 'active' : '' }}">
+                <li class="nav-item @active('tools')">
                   <a class="nav-link" href=" {{ route('tools.index') }}">
                     <span class="sidebar-text">Alat Treatment</span>
                   </a>
                 </li>
-                <li class="nav-item {{ Request::segment(1) == 'materials' ? 'active' : '' }}">
+                <li class="nav-item @active('materials')">
                   <a class="nav-link" href="{{ route('materials.index') }}">
                     <span class="sidebar-text">Bahan Treatment</span>
                   </a>
@@ -136,20 +136,20 @@
               </span>
             </span>
             <div
-              class="multi-level collapse {{ Request::segment(1) == 'buttons' || Request::segment(1) == 'notifications' || Request::segment(1) == 'forms' || Request::segment(1) == 'modals' || Request::segment(1) == 'typography' ? 'show' : '' }}"
+              class="multi-level collapse @active('therapists.*,schedules,presences', 'show')"
               role="list" id="submenu-components" aria-expanded="false">
               <ul class="flex-column nav">
-                <li class="nav-item {{ Request::segment(1) == 'therapists' ? 'active' : '' }}">
+                <li class="nav-item @active('therapists.*')">
                   <a class="nav-link" href="{{ route('therapists.index') }}">
                     <span class="sidebar-text">Daftar Terapis</span>
                   </a>
                 </li>
-                <li class="nav-item {{ Request::segment(1) == 'notifications' ? 'active' : '' }}">
+                <li class="nav-item @active('schedules.*')">
                   <a class="nav-link" href="{{ route('schedules.index') }}">
                     <span class="sidebar-text">Jadwal Terapis</span>
                   </a>
                 </li>
-                <li class="nav-item {{ Request::segment(1) == 'presence' ? 'active' : '' }}">
+                <li class="nav-item @active('presences.*')">
                   <a class="nav-link" href="{{ route('presences.index') }}">
                     <span class="sidebar-text">Presensi Terapis</span>
                   </a>
@@ -167,7 +167,7 @@
             </a>
         </li>
 
-        <li class="nav-item {{ Request::segment(1) == 'setting' ? 'active' : '' }}">
+        <li class="nav-item @active('setting')">
             <a href="{{ route('setting.index') }}" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bxs-cog sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
@@ -181,7 +181,7 @@
 
         @role('owner')
 
-        <li class="nav-item {{ Request::segment(1) == 'franchises' ? 'active' : '' }}">
+        <li class="nav-item @active('franchises.*')">
             <a href="{{ route('franchises.index') }}" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bx-buildings sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
@@ -190,7 +190,7 @@
             </a>
         </li>
 
-        <li class="nav-item {{ Request::segment(1) == 'admin' ? 'active' : '' }}">
+        <li class="nav-item @active('admin')">
             <a href="{{ route('admin.index') }}" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>

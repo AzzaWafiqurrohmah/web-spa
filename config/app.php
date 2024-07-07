@@ -185,4 +185,5 @@ return [
         // 'Example' => App\Facades\Example::class,
     ])->toArray(),
 
+    'locationiq_key' => env('LOCATION_IQ_API_KEY'),
 ];

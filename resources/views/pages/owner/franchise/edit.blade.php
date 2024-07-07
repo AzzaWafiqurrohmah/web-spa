@@ -14,7 +14,8 @@
                     </ol>
                 </nav>
             </div>
-            <form action="{{ route('franchises.store') }}"  method="POST">
+            <form action="{{ route('franchises.update', $franchise) }}"  method="POST">
+                @method('PUT')
                 @include('pages.owner.franchise.form')
             </form>
         </div>

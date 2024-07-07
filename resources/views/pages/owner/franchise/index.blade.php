@@ -24,7 +24,7 @@
                             <thead>
                             <tr>
                                 <th>ID Wilayah</th>
-                                <th>Nama Wilayah</th>
+                                <th>Nama Cabang</th>
                                 <th>Aksi</th>
                             </tr>
                             </thead>

@@ -37,6 +37,7 @@
         <link href="{{asset('assets/css/style.css')}}" rel="stylesheet">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
         <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet"/>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-5-theme/1.3.0/select2-bootstrap-5-theme.min.css">
 
         <!-- map -->
         <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -112,6 +113,8 @@
                     'X-CSRF-TOKEN': '{{ csrf_token() }}',
                 }
             });
+
+            $.fn.select2.defaults.set("theme", "bootstrap-5");
 
             @if(session()->has('swal_s'))
             Swal.fire({

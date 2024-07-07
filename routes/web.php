@@ -15,6 +15,7 @@ use App\Http\Controllers\admin\SettingController;
 use App\Http\Controllers\admin\PresenceController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\Admin\ScheduleController;
+use App\Http\Controllers\RegionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -177,18 +178,11 @@ Route::middleware('auth')->group(function () {
     Route::prefix('franchises')
         ->name('franchises.')
         ->controller(FranchiseController::class)->group(function () {
-            Route::get('/', 'index')->name('index');
-            Route::get('create', 'create')->name('create');
-            Route::post('store', 'store')->name('store');
-            Route::get('/{franchise}/edit', 'edit')->name('edit');
-            Route::match(['PUT', 'PATCH'], '{franchise}/update', 'update')->name('update');
-
             Route::get('datatables', 'datatables')->name('datatables');
             Route::get('json', 'json')->name('json');
-            Route::get('{franchise}', 'show')->name('show');
-            Route::delete('{franchise}', 'destroy')->name('destroy');
-            Route::get('{city}/latLng', 'latLng');
         });
+
+    Route::resource('franchises', FranchiseController::class);
 
     //admin in owner
     Route::prefix('admin')
@@ -205,4 +199,12 @@ Route::middleware('auth')->group(function () {
 
     Route::get('schedules', [ScheduleController::class, 'index'])->name('schedules.index');
     Route::get('schedules/json', [ScheduleController::class, 'json'])->name('schedules.json');
+
+    Route::prefix('regions')
+        ->name('regions.')
+        ->controller(RegionController::class)
+        ->group(function () {
+            Route::get('regencies', 'regency')->name('regencies');
+            Route::get('{region:code}', 'show')->name('show');
+        });
 });

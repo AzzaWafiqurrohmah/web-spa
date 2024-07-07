@@ -3,15 +3,24 @@
 namespace App\Http\Controllers\Owner;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\owner\FranchiseRequest;
 use App\Http\Resources\owner\FranchiseResource;
 use App\Models\Franchise;
-use App\Repository\owner\FranchiseRepository;
+use App\Models\Region;
+use App\Repository\FranchiseRepository;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
 
 class FranchiseController extends Controller
 {
     use ApiResponser;
+
+    private FranchiseRepository $repo;
+
+    public function __construct()
+    {
+        $this->repo = new FranchiseRepository;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -26,26 +35,24 @@ class FranchiseController extends Controller
 
     public function create()
     {
-        $cities = FranchiseRepository::getCity();
+        $provinces = Region::whereNull('parent')->orderBy('name')->get();
+        $regency = (old('regency')) ?
+            Region::where('code', old('regency'))->first() :
+            null;
 
-        return view('pages.owner.franchise.create', [
-            'cities' => $cities
-        ]);
-    }
-
-    public function latLng(string $city)
-    {
-        return response()->json(
-            FranchiseRepository::getLatLng($city)
+        return view(
+            'pages.owner.franchise.create',
+            compact('provinces', 'regency')
         );
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(FranchiseRequest $request)
     {
-        //
+        $this->repo->store($request->validated());
+        return to_route('franchises.index')->with('swal_s', 'Berhasil menambahkan franchise');
     }
 
     /**
@@ -62,32 +69,40 @@ class FranchiseController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Franchise $franchise)
     {
-        //
+        $provinces = Region::whereNull('parent')->orderBy('name')->get();
+        $regency = Region::where('code', old('regency', $franchise->raw_id))->first();
+
+        return view(
+            'pages.owner.franchise.edit',
+            compact('franchise', 'provinces', 'regency')
+        );
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(FranchiseRequest $request, Franchise $franchise)
     {
-        //
+        $this->repo->update($franchise, $request->validated());
+        return to_route('franchises.index')->with('swal_s', 'Berhasil mengubah franchise');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Franchise $franchise)
     {
-        //
+        $franchise->delete();
+        return to_route('franchises.index')->with('swal_s', 'Berhasil menghapus franchise');
     }
 
     public function datatables()
     {
         return datatables(Franchise::query())
             ->addIndexColumn()
-            ->addColumn('action', fn($franchise) => view('pages.owner.franchise.action', compact('franchise')))
+            ->addColumn('action', fn ($franchise) => view('pages.owner.franchise.action', compact('franchise')))
             ->toJson();
     }
 

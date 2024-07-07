@@ -9,10 +9,11 @@ class RegionRepository
 {
     public function getLatLong(string $name)
     {
+        $name = last(explode(' ', $name));
         $res = Http::get('https://us1.locationiq.com/v1/search', [
             'key' => config('app.locationiq_key'),
             'format' => 'json',
-            'q' => "{$name}, Indonesia",
+            'q' => "{$name}-Indonesia",
         ]);
 
         if (!$res->ok())

@@ -157,6 +157,7 @@
 
     $('.month-item').click(function() {
         const month = $(this).data('position');
+        renderLoop = 3;
 
         monthCarousel.trigger('to.owl.carousel', [month, 200]);
         updateDateCarousel((new Date).getFullYear(), month);

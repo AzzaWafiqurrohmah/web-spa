@@ -31,7 +31,7 @@
         border-bottom: 2px dashed #e4e6eb;
 
         .card {
-            top: -10px;
+            top: -20px;
             width: 100%;
             position: absolute;
         }
@@ -41,11 +41,11 @@
         }
 
         .profile-img {
-            background-color: gray;
+            background-color: #667bc6;
             width: 30px;
             aspect-ratio: 1 / 1;
             border-radius: 100%;
-            margin-left: -10px;
+            margin-left: -12.5px;
             border: 1px solid white;
             display: flex;
             align-items: center;
@@ -57,6 +57,12 @@
 
     .schedule-item {
         cursor: pointer;
+    }
+
+    .next-schedule-icons {
+        margin-top: 15px;
+        font-size: .9rem;
+        color: #1f2937;
     }
 </style>
 @endpush

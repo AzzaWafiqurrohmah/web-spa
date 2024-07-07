@@ -39,9 +39,18 @@ class ScheduleController extends Controller
 
     public function index()
     {
+        $reservations = Reservation::where('date', date('Y-m-d'))
+            ->where('time', '>=', date('H:i:s'))
+            ->with(
+                'reservationDetail',
+                'reservationDetail.treatment',
+                'therapist'
+            )->get();
+
         return view('pages.admin.schedule.index', [
             'months' => $this->months,
             'days' => $this->days,
+            'reservations' => $reservations
         ]);
     }
 

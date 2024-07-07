@@ -56,6 +56,34 @@
             </div>
         </div>
     </div>
+
+    <div class="col-md-4">
+        <h5><b>Jadwal Selanjutnya</b></h5>
+        <div style="max-height: 40rem;" data-scrollbar>
+            @forelse ($reservations as $reservation)
+            <div class="card mb-2">
+                <div class="card-body">
+                    <h6><b>
+                        Reservasi {{ str_replace('-', '', $reservation->date) }}{{ $reservation->id }}
+                    </b></h6>
+
+                    <div class="d-flex flex-column next-schedule-icons gap-1">
+                        <div><i class='far fa-fw fa-clock'></i> {{ $reservation->time }}</div>
+                        <div><i class='far fa-fw fa-user'></i> {{ $reservation->therapist->fullname }}</div>
+                        <div><i class='far fa-fw fa-square'></i> {{ $reservation->reservationDetail->count() }} Treatment</div>
+                    </div>
+                </div>
+            </div>
+            @empty
+            <div class="card">
+                <div class="card-body d-flex flex-column gap-2 justify-content-center align-items-center">
+                    <img src="{{ asset('assets/img/illustrations/empty-schedule.svg') }}" width="50%">
+                    <small class="m-0">Jadwal Masih Kosong</small>
+                </div>
+            </div>
+            @endforelse
+        </div>
+    </div>
 </div>
 @endsection
 

@@ -28,7 +28,7 @@
         <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
         <!-- Fontawesome -->
-        <link type="text/css" href="/vendor/fontawesome-free/css/all.min.css" rel="stylesheet">
+        <link type="text/css" href="https://use.fontawesome.com/releases/v6.5.2/css/all.css" rel="stylesheet">
 
         <!-- Sweet Alert -->
         <link type="text/css" href="/vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet">

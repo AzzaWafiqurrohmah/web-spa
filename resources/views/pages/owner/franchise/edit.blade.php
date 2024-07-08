@@ -2,7 +2,7 @@
 @section('content')
     <title>New Franchise</title>
 
-    <div class="row mt-4">
+    <div class="row mt-0">
         <div class="col-md-11">
             <div class="mb-3" >
                 <h2 style="font-family: 'Times New Roman', Times, serif; font-weight: bold">Tambah Cabang</h2>

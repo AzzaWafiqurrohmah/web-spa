@@ -64,9 +64,7 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        return $this->success(
-            'Berhasil mengambil data'
-        );
+        return view('pages.admin.reservation.show', compact('reservation'));
     }
 
     /**
@@ -98,24 +96,24 @@ class ReservationController extends Controller
         $model = Reservation::with(['customer', 'therapist']);
         return DataTables::eloquent($model)
             ->addIndexColumn()
-            ->addColumn('id', fn ($reservation) => format_reservation($reservation->date) . $reservation->id)
-            ->addColumn('date', fn ($reservation) => format_date($reservation->date))
+            ->addColumn('id', fn ($reservation) => $reservation->date->format('dmY') . $reservation->id)
+            ->addColumn('date', fn ($reservation) => $reservation->date->format('d F Y'))
             ->addColumn('totals', fn ($reservation) => "Rp " . $reservation->totals)
-            ->addColumn('customer', fn($reservation) => $reservation->customer->fullname)
-            ->addColumn('therapist', fn($reservation) => $reservation->therapist->fullname )
+            ->addColumn('customer', fn ($reservation) => $reservation->customer->fullname)
+            ->addColumn('therapist', fn ($reservation) => $reservation->therapist->fullname)
             ->addColumn('action', fn ($reservation) => view('pages.admin.reservation.action', compact('reservation')))
-            ->filterColumn('totals', function($query, $keyword) {
+            ->filterColumn('totals', function ($query, $keyword) {
                 $sql = "totals  like ?";
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->orderColumn('totals', function ($query, $order) {
                 $query->orderBy('totals', $order);
             })
-            ->filterColumn('id', function($query, $keyword) {
+            ->filterColumn('id', function ($query, $keyword) {
                 $sql = "CONCAT(DATE_FORMAT(date, '%d%m%Y'), id) LIKE ?";
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
-            ->filterColumn('date', function($query, $keyword) {
+            ->filterColumn('date', function ($query, $keyword) {
                 $sql = "DATE_FORMAT(date, '%d %M %Y') LIKE ?";
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
@@ -153,8 +151,8 @@ class ReservationController extends Controller
     {
         $customer = Customer::find($request->cust);
         $treatments = [];
-        if(isset($request->treatment)){
-            foreach ($request->treatment as $treatment){
+        if (isset($request->treatment)) {
+            foreach ($request->treatment as $treatment) {
                 $treatments[] = $treatment;
             }
         }
@@ -163,7 +161,4 @@ class ReservationController extends Controller
             'data' => $treatments
         ]);
     }
-
-
-
 }

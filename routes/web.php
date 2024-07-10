@@ -136,19 +136,13 @@ Route::middleware('auth')->group(function () {
         ->name('reservations.')
         ->controller(ReservationController::class)->group(function () {
             Route::get('/customers', 'customers')->name('customers');
-            Route::get('/', 'index')->name('index');
-            Route::get('create', 'create')->name('create');
-            Route::post('store', 'store')->name('store');
-            Route::get('/{reservation}/edit', 'edit')->name('edit');
-            Route::match(['PUT', 'PATCH'], '{reservation}/update', 'update')->name('update');
 
             Route::get('datatables', 'datatables')->name('datatables');
-            Route::get('{reservation}', 'treatments')->name('show');
-            Route::delete('{reservation}', 'destroy')->name('destroy');
             Route::get('/treatments', 'treatments')->name('treatments');
             Route::post('/treatmentTotal', 'treatmentTotal')->name('treatmentTotal');
         });
 
+    Route::resource('reservations', ReservationController::class);
     Route::resource('setting', SettingController::class);
 
     //profile

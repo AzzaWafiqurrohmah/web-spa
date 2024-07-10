@@ -12,21 +12,25 @@ class Reservation extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable = [
-        'customer_id', 'therapist_id', 'date', 'time','payment_type',
+        'customer_id', 'therapist_id', 'date', 'time', 'payment_type',
         'transport_cost', 'extra_cost', 'discount', 'totals'
     ];
 
-    public function customer() :BelongsTo
+    protected $casts = [
+        'date' => 'date',
+    ];
+
+    public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);
     }
 
-    public function therapist() :BelongsTo
+    public function therapist(): BelongsTo
     {
         return $this->belongsTo(Therapist::class);
     }
 
-    public function reservationDetail() :HasMany
+    public function reservationDetail(): HasMany
     {
         return $this->hasMany(ReservationDetail::class);
     }

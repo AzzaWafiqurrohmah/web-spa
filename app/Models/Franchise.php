@@ -35,4 +35,9 @@ class Franchise extends Model
     {
         return $this->hasMany(Treatment::class);
     }
+
+    public function reservation(): HasMany
+    {
+        return $this->hasMany(Reservation::class);
+    }
 }

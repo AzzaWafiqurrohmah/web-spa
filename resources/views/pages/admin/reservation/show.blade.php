@@ -34,7 +34,7 @@
                     <div class="d-flex flex-column gap-2 text-muted mt-2" style="font-size: .85rem;">
                         <div>
                             <i class="fas fa-fw fa-building"></i>
-                            Cabang Surabaya
+                            {{ $reservation->franchise->name }}
                         </div>
                         <div>
                             <i class="fas fa-fw fa-user"></i>

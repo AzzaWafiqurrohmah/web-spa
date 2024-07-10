@@ -34,4 +34,9 @@ class Reservation extends Model
     {
         return $this->hasMany(ReservationDetail::class);
     }
+
+    public function franchise() :BelongsTo
+    {
+        return $this->belongsTo(Franchise::class);
+    }
 }

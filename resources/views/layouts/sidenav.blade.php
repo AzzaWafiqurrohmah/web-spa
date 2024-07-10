@@ -249,7 +249,7 @@
 
         @endrole
 
-      <li class="nav-item" id="signOut">
+      <li class="nav-item sign-out" id="signOut">
         <a href=""
           class="btn btn-secondary d-flex align-items-center justify-content-center btn-upgrade-pro">
             <i class="bx bx-log-out sidebar-icon d-inline-flex align-items-center justify-content-center"

@@ -23,7 +23,7 @@
             });
         }
 
-        document.getElementById('signOut').addEventListener('click', function (e){
+        $('.sign-out').on('click', function (e){
             e.preventDefault();
             Swal.fire({
                 icon: 'question',
@@ -34,6 +34,7 @@
                 if(res.isConfirmed)
                     signOut();
             });
-        });
+        })
+
     </script>
 @endpush

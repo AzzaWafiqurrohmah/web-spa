@@ -13,8 +13,10 @@ class ReservationRepository
 {
     public static function save(array $data)
     {
+        $user = Auth::user();
         $customer = Customer::find($data['customer_id']);
         $reservation = Reservation::create([
+            'franchise_id' => $user->franchise_id,
             'customer_id' => $data['customer_id'],
             'therapist_id' => $data['therapist_id'] ,
             'date' => $data['date'] ,

@@ -12,7 +12,7 @@ class Reservation extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable = [
-        'customer_id', 'therapist_id', 'date', 'time', 'payment_type',
+        'franchise_id', 'customer_id', 'therapist_id', 'date', 'time', 'payment_type',
         'transport_cost', 'extra_cost', 'discount', 'totals'
     ];
 

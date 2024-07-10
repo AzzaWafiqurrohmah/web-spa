@@ -35,7 +35,7 @@
                     @enderror
                 </div>
                 <label for="duration">Durasi </label>
-                <div class="mb-3">
+                <div class="mb-4">
                     <div class="input-group mb-1">
                         <input type="number" name="duration" id="duration" aria-describedby="basic-addon1" class="form-control @error('duration') is-invalid @enderror"value="{{old('duration', $treatment?->duration)}}">
                         <span class="input-group-text"> Menit </span>
@@ -47,7 +47,7 @@
             </div>
             <div class="col-lg-6">
                 <label for="price"> Harga </label>
-                <div class="mb-3">
+                <div class="mb-4">
                     <div class="input-group mb-1">
                         <span class="input-group-text"> Rp </span>
                         <input type="number" name="price" id="price" aria-describedby="basic-addon1" class="form-control @error('price') is-invalid @enderror" value="{{old('price', $treatment?->price)}}">
@@ -58,7 +58,7 @@
                 </div>
 
                 <label for="discount"> Diskon </label>
-                <div class="mb-3">
+                <div class="mb-4">
                     <div class="input-group mb-1">
                         <span class="input-group-text"> Rp </span>
                         <input type="number" name="discount" id="discount" aria-describedby="basic-addon1" class="form-control @error('discount') is-invalid @enderror" value="{{old('discount', $treatment?->discount)}}">

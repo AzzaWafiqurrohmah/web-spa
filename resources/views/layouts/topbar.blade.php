@@ -66,8 +66,8 @@
                                 </div>
                             </a>
                         </div>
-                        <div class="d-grid py-2 px-3 pt-2">
-                            <a href="" class="btn btn-outline-warning">Log Out</a>
+                        <div id="signOut2" class="d-grid py-2 px-3 pt-2 sign-out">
+                            <a class="btn btn-outline-warning">Log Out</a>
                         </div>
                     </div>
                 </div>

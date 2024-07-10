@@ -238,10 +238,19 @@
             </a>
         </li>
 
+        <li class="nav-item {{ Request::segment(2) == 'schedules' ? 'active' : '' }}">
+            <a href="/therapist/schedules" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bxs-spreadsheet sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Jadwal Reservasi</span>
+            </a>
+        </li>
+
         <li class="nav-item {{ Request::segment(2) == 'presences' ? 'active' : '' }}">
             <a href="/therapist/presences" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
-                    <i class="bx bxs-spreadsheet sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                    <i class="bx bxs-calendar sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 </span>
                 <span class="sidebar-text ms-1 mt-0 d-block">Presensi</span>
             </a>
@@ -249,7 +258,7 @@
 
         @endrole
 
-      <li class="nav-item" id="signOut">
+      <li class="nav-item sign-out" id="signOut">
         <a href=""
           class="btn btn-secondary d-flex align-items-center justify-content-center btn-upgrade-pro">
             <i class="bx bx-log-out sidebar-icon d-inline-flex align-items-center justify-content-center"

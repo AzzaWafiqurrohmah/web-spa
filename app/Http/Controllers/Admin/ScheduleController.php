@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Resources\ScheduleResource;
 use App\Models\Reservation;
+use App\Models\Therapist;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ScheduleController extends Controller
 {
@@ -57,12 +59,24 @@ class ScheduleController extends Controller
     public function json(Request $request)
     {
         $date = $request->date ?? date('Y-m-d');
+
+        $user = Auth::user();
         $schedules = Reservation::where('date', $date)
             ->with(
                 'reservationDetail',
                 'reservationDetail.treatment',
                 'therapist'
             )->get();
+
+        if( $user instanceof Therapist ){
+            $schedules = Reservation::where('date', $date)
+                ->where('therapist_id', $user->id)
+                ->with(
+                    'reservationDetail',
+                    'reservationDetail.treatment',
+                    'therapist'
+                )->get();
+        }
 
         return $this->success(
             ScheduleResource::collection($schedules),

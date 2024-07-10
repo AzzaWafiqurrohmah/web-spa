@@ -11,6 +11,7 @@ use App\Traits\ApiResponser;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class TherapistController extends Controller
 {
@@ -72,7 +73,6 @@ class TherapistController extends Controller
      */
     public function update(TherapistRequest $request, Therapist $therapist)
     {
-//        dd($request->all());
         TherapistRepository::update($therapist, $request->validated());
         return to_route('therapists.index')->with('alert_s', "Berhasil mengubah data Terapis");
     }
@@ -105,6 +105,91 @@ class TherapistController extends Controller
         return $this->success(
             TherapistResource::collection($therapists),
             "Berhasil mengamil seluruh data"
+        );
+    }
+
+    public function search(Request $request){
+        date_default_timezone_set('Asia/Jakarta');
+        $now = Carbon::now();
+        $q =  $request->input('q');
+        $date = $request->input('date');
+        if($date == '0'){
+            $date = $now->format('Y-m-d');
+        }
+        $time = Carbon::parse($request->input('time'))->format('H:i:s');
+        if($request->input('time') == '0'){
+            $time = $now->format('H:i:s');
+        }
+        $duration = $request->input('duration');
+        $endTime = Carbon::parse($time)->addMinutes($duration)->format('H:i:s');
+
+        $therapist = Therapist::whereNotIn('id', function ($query) use ($q, $date, $time, $endTime) {
+            $query->select('reservations.therapist_id')
+                ->distinct()
+                ->from('reservations')
+                ->join(DB::raw('(SELECT reservation_id, SUM(treatments.duration * 60) AS total_duration
+                        FROM reservation_details
+                        JOIN treatments ON reservation_details.treatment_id = treatments.id
+                        GROUP BY reservation_id) AS details'), function ($join) {
+                    $join->on('reservations.id', '=', 'details.reservation_id');
+                })
+                ->where('reservations.date', $date)
+                ->where(function ($query) use ($time, $endTime) {
+                    $query->where(function ($query) use ($time){
+                        $query->where('reservations.time', '<=', $time)
+                            ->whereRaw("ADDTIME(reservations.time, SEC_TO_TIME(details.total_duration)) >= '" . $time . "'");
+                    })
+                        ->orWhere(function ($query) use ($endTime, $time) {
+                            $query->where('reservations.time', '>=', $time)
+                                ->where('reservations.time', '<=', $endTime);
+                        });
+                });
+        })->where(function ($query) use ($q) {
+            $query->where('fullname', 'like', '%' . $q . '%')
+                ->orWhere('phone', 'like', '%' . $q . '%');
+        })->get();
+        return response()->json([
+//            'data' => ['message' => 'hai']
+            'data' => TherapistResource::collection($therapist)
+        ]);
+    }
+
+    public function available(Request $request)
+    {
+        $date = $request->input('date');
+        $time = $request->input('time');
+        $duration = $request->input('duration');
+        $endTime = Carbon::parse($time)->addMinutes($duration)->format('H:i:s');
+
+        $therapistID = Therapist::whereNotIn('id', function ($query) use ($date, $time, $endTime) {
+            $query->select('reservations.therapist_id')
+                ->distinct()
+                ->from('reservations')
+                ->join(DB::raw('(SELECT reservation_id, SUM(treatments.duration * 60) AS total_duration
+                        FROM reservation_details
+                        JOIN treatments ON reservation_details.treatment_id = treatments.id
+                        GROUP BY reservation_id) AS details'), function ($join) {
+                    $join->on('reservations.id', '=', 'details.reservation_id');
+                })
+                ->where('reservations.date', $date)
+                ->where(function ($query) use ($time, $endTime) {
+                    $query->where(function ($query) use ($time){
+                        $query->where('reservations.time', '<=', $time)
+                            ->whereRaw("ADDTIME(reservations.time, SEC_TO_TIME(details.total_duration)) >= '" . $time . "'");
+                    })
+                        ->orWhere(function ($query) use ($endTime, $time) {
+                            $query->where('reservations.time', '>=', $time)
+                                ->where('reservations.time', '<=', $endTime);
+                        });
+                });
+        })->pluck('id')->toArray();
+
+        $message = 'Maaf Terapis sedang sibuk, Silahkan pilih terapis yang lain';
+        if(in_array($request->input('id'), $therapistID )){
+            $message = 'success';
+        }
+        return $this->success(
+            message: $message
         );
     }
 

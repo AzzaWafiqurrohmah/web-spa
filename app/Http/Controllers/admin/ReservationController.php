@@ -43,9 +43,7 @@ class ReservationController extends Controller
             return $item['value'];
         })->toArray();
 
-        $therapists = Therapist::where('franchise_id', $user->franchise_id)->get();
         return view('pages.admin.reservation.create', [
-            'therapists' => $therapists,
             'setting' => $setting
         ]);
     }
@@ -70,9 +68,25 @@ class ReservationController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Reservation $reservation)
     {
-        //
+        $user = Auth::user();
+
+        $data = Setting::where('user_id', $user->id)->get(['key', 'value']);
+        $setting = $data->pluck(null, 'key')->map(function ($item) {
+            return $item['value'];
+        })->toArray();
+
+        $totalTreatment = 0;
+        foreach ($reservation->reservationDetail as $reservationDetail){
+            $totalTreatment += $reservationDetail->treatment->price;
+        }
+
+        return view('pages.admin.reservation.create', [
+            'setting' => $setting,
+            'reservation' => $reservation,
+            'totalTreatments' => $totalTreatment
+        ]);
     }
 
     /**

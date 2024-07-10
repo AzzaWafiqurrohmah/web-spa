@@ -15,9 +15,11 @@
             <div class="card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-4">
+                        @role('admin')
                         <div>
                             <a href="{{route('reservations.create')}}" class="btn btn-primary">Tambah Reservasi</a>
                         </div>
+                        @endrole
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-hover" id="reservations-table">
@@ -43,10 +45,14 @@
 
 @push('script')
     <script>
+        let url ='{{ route('reservations.datatables') }}';
+        @if($user->hasRole('therapist'))
+            url = '/therapist/reservations/datatables'
+        @endif
         const reservationTable = $('#reservations-table').DataTable({
             serverSide: true,
             rendering: true,
-            ajax: '{{ route('reservations.datatables') }}',
+            ajax: url,
             columns: [
                 {data: 'id'},
                 {data: 'date', name: 'date'},

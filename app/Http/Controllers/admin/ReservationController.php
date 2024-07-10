@@ -28,7 +28,10 @@ class ReservationController extends Controller
      */
     public function index()
     {
-        return view('pages.admin.reservation.index');
+        $user = Auth::user();
+        return view('pages.admin.reservation.index', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -107,7 +110,18 @@ class ReservationController extends Controller
 
     public function datatables()
     {
+        $user = Auth::user();
         $model = Reservation::with(['customer', 'therapist']);
+
+        if($user->hasRole('admin')){
+            $model = Reservation::with(['customer', 'therapist'])
+                ->where('franchise_id', $user->franchise_id);
+        }
+        if( $user->hasRole('therapist')){
+            $model = Reservation::with(['customer', 'therapist'])
+                ->where('therapist_id', $user->id);
+        }
+
         return DataTables::eloquent($model)
             ->addIndexColumn()
             ->addColumn('id', fn ($reservation) => $reservation->date->format('dmY') . $reservation->id)

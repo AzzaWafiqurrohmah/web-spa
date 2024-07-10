@@ -7,6 +7,7 @@ use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\Therapist\PresenceController;
 use App\Http\Controllers\Admin\ScheduleController;
+use App\Http\Controllers\admin\ReservationController;
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', fn () => view('pages.dashboard'))->name('dashboard');
@@ -69,5 +70,16 @@ Route::middleware('auth')->group(function () {
 
     Route::get('schedules', [ScheduleController::class, 'index'])->name('schedules.index');
     Route::get('schedules/json', [ScheduleController::class, 'json'])->name('schedules.json');
+
+    Route::prefix('reservations')
+        ->name('reservations.')
+        ->controller(ReservationController::class)->group(function () {
+            Route::get('/customers', 'customers')->name('customers');
+            Route::get('datatables', 'datatables')->name('datatables');
+            Route::get('/treatments', 'treatments')->name('treatments');
+            Route::post('/treatmentTotal', 'treatmentTotal')->name('treatmentTotal');
+        });
+
+    Route::resource('reservations', ReservationController::class);
 
 });

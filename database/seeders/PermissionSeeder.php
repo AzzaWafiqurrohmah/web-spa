@@ -15,5 +15,6 @@ class PermissionSeeder extends Seeder
     {
         Permission::create(['name' => 'crud treatments']);
         Permission::create(['name' => 'crud customers']);
+        Permission::create(['name'=> 'crud reservations']);
     }
 }

@@ -199,12 +199,12 @@
             </a>
         </li>
 
-        <li class="nav-item {{ Request::segment(1) == 'transaction' ? 'active' : '' }}">
-            <a href="" class="nav-link d-flex">
+        <li class="nav-item {{ Request::segment(1) == 'reservations' ? 'active' : '' }}">
+            <a href="{{ route('reservations.index') }}" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bx-receipt sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 </span>
-                <span class="sidebar-text ms-1 mt-0 d-block">Transaksi</span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Reservasi</span>
             </a>
         </li>
 
@@ -235,6 +235,15 @@
                     <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 </span>
                 <span class="sidebar-text ms-1 mt-0 d-block">Customer</span>
+            </a>
+        </li>
+
+        <li class="nav-item {{ Request::segment(2) == 'reservations' ? 'active' : '' }}">
+            <a href="/therapist/reservations" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bx-receipt sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Reservasi</span>
             </a>
         </li>
 

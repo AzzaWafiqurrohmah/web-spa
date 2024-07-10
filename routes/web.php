@@ -120,6 +120,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('therapists')
         ->name('therapists.')
         ->controller(TherapistController::class)->group(function () {
+            Route::get('/search', 'search')->name('search');
+            Route::get('/available', 'available')->name('available');
             Route::get('/', 'index')->name('index');
             Route::get('create', 'create')->name('create');
             Route::post('store', 'store')->name('store');

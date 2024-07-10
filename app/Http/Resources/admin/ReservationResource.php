@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\admin;
 
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 
@@ -21,7 +22,7 @@ class ReservationResource extends JsonResource
             'payment_type' => $this->payment_type,
             'transport_cost' => $this->transport_const,
             'discount' => $this->discount,
-            'totals' => $this->totals
+            'totals' => $this->totals,
         ];
     }
 }

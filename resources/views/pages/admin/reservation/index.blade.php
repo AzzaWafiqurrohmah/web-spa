@@ -43,7 +43,7 @@
 
 @push('script')
     <script>
-        const treatmentTable = $('#reservations-table').DataTable({
+        const reservationTable = $('#reservations-table').DataTable({
             serverSide: true,
             rendering: true,
             ajax: '{{ route('reservations.datatables') }}',
@@ -57,68 +57,8 @@
             ],
         });
 
-        const treatmentModal = new bootstrap.Modal('#treatment-modal');
-
-        let ID = 0;
-
-        function fillForm() {
-            $.ajax({
-                url: `/treatments/${ID}`,
-                success: (res) =>
-                    fillFormdata(res.data),
-            });
-        }
-
-        $('#treatment-modal').on('show.bs.modal', function (event) {
-            fillForm();
-        });
-
-        $('#treatments-table').on('click', '.btn-detail', function (e) {
-            ID = this.dataset.id;
-            treatmentModal.show();
-        });
-
-        $('#newTreatment').on('click', function (e) {
-            treatmentModal.show();
-        });
-
-        $('#treatments-table').on('click', '.btn-edit', function (e) {
-            window.location.href = "{{ route('treatments.edit', 'VALUE') }}".replace('VALUE', $(this).data('id'));
-        });
-
-        function deleteItem(id) {
-            $.ajax({
-                url: `/treatments/${id}`,
-                method: 'DELETE',
-                success(res) {
-                    treatmentTable.ajax.reload();
-
-                    Swal.fire({
-                        icon: 'success',
-                        text: res.meta.message,
-                        timer: 1500,
-                    });
-                },
-                error(err) {
-                    Swal.fire({
-                        icon: 'error',
-                        text: err,
-                        timer: 1500,
-                    });
-                },
-            });
-        }
-
-        $('#treatments-table').on('click', '.btn-delete', function (e) {
-            Swal.fire({
-                icon: 'question',
-                text: 'Apakah anda yakin?',
-                showCancelButton: true,
-                cancelButtonText: 'Batal',
-            }).then((res) => {
-                if (res.isConfirmed)
-                    deleteItem(this.dataset.id);
-            });
+        $('#reservations-table').on('click', '.btn-edit', function (){
+            window.location.href = "{{ route('reservations.edit', 'VALUE') }}".replace('VALUE', $(this).data('id'));
         });
 
     </script>

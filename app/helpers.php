@@ -35,7 +35,7 @@ if(!function_exists('format_reservation'))
     function format_reservation($date)
     {
         $date = \Illuminate\Support\Carbon::createFromFormat("Y-m-d", $date);
-        return $date->format('dmY');
+        return $date->format('Ymd');
     }
 }
 

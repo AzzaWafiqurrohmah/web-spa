@@ -112,8 +112,13 @@
             <i class='bx bx-loader-alt bx-spin' style="font-size: 2.5rem"></i>
         </div>`);
 
+        let url = '/therapist/schedules/json';
+        @can('crud customers')
+            url = '{{ route('schedules.json') }}';
+        @endcan
+
         $.ajax({
-            url: '{{ route('schedules.json') }}',
+            url: url,
             dataType: 'JSON',
             data: {
                 date: `${year}-${padZero(month + 1)}-${padZero(date + 1)}`,

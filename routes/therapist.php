@@ -6,6 +6,7 @@ use App\Http\Controllers\admin\CustomerController;
 use App\Http\Controllers\admin\AuthController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\Therapist\PresenceController;
+use App\Http\Controllers\Admin\ScheduleController;
 
 Route::middleware('auth')->group(function () {
     Route::get('dashboard', fn () => view('pages.dashboard'))->name('dashboard');
@@ -65,4 +66,8 @@ Route::middleware('auth')->group(function () {
     Route::get('coba', function (){
         return 'hai';
     });
+
+    Route::get('schedules', [ScheduleController::class, 'index'])->name('schedules.index');
+    Route::get('schedules/json', [ScheduleController::class, 'json'])->name('schedules.json');
+
 });

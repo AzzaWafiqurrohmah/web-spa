@@ -3,7 +3,7 @@
     <title>Admin</title>
     <div class="row">
         <div class="col-md-8">
-            <div class="mt-5 mb-3">
+            <div class="mt-0 mb-3">
                 <h1>Daftar Admin</h1>
                 <nav>
                     <ol class="breadcrumb">

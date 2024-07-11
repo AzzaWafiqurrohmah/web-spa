@@ -10,6 +10,14 @@
     $therapist = \App\Models\therapist::find(old('therapist_id'));
     $date = old('dateHidden') ?? 'dd/mm/yyyy';
     $time = old('time') ?? '--:--';
+
+    $treatmentID = [];
+    if (old('treatments')){
+        foreach (old('treatments') as $treatment){
+            $treatmentID[] = $treatment;
+        }
+    }
+
     if(isset($reservation)){
         \Carbon\Carbon::setLocale('id');
         $customer = \App\Models\Customer::find($reservation?->customer_id);
@@ -22,6 +30,13 @@
         $discountRsv = old('discount') ?? $reservation?->discount;
         $totalAll = old('total') ?? $reservation?->totals;
     }
+
+    $treatmentsModal = [];
+    if(count($treatmentID) != 0){
+        foreach ($treatmentID as $id){
+            $treatmentsModal[] = \App\Models\Treatment::find($id);
+        }
+    }
 @endphp
 
 @csrf
@@ -29,11 +44,6 @@
      <div class="col-md-7" style="">
         <div class="card">
             <h4 class="ms-3 mb-0 mt-3">Detail Reservasi</h4>
-{{--            @if(old('treatments'))--}}
-{{--                @foreach(old('treatments') as $treatment)--}}
-{{--                    <p> {{ $treatment }} </p>--}}
-{{--                @endforeach--}}
-{{--            @endif--}}
             <div class="card-body">
                 <div class="mb-3">
                     <label for="customer_id">Pelanggan</label>
@@ -95,22 +105,24 @@
 
                 <p id="treatment">Treatment yang dipilih: </p>
                 <div class="row" id="treatment-container">
-                    @if(old('treatments') || isset($reservation))
-                        <div class="col-md-6 mb-3" >
-                            <input type="hidden" id="treatments" name="treatments[${treatment.id}]" value="${treatment.id}">
-                            <div class="card" >
-                                <div class="card-body d-flex gap-4 align-items-center">
-                                    <i class="bi bi-clipboard-check-fill" style="font-size: 2rem"></i>
-                                    <div>
-                                        <h6 class="m-0" style="font-size: 1.2rem">${treatment.name}</h6>
-                                        <p class="m-0">${treatment.price}</p>
+                    @if(count($treatmentsModal) != 0)
+                        @foreach($treatmentsModal as $treatment)
+                            <div class="col-md-6 mb-3" >
+                                <input type="hidden" id="treatments" name="treatments[{{$treatment->id}}]" value="{{$treatment->id}}">
+                                <div class="card" >
+                                    <div class="card-body d-flex gap-4 align-items-center">
+                                        <i class="bi bi-clipboard-check-fill" style="font-size: 2rem"></i>
+                                        <div>
+                                            <h6 class="m-0" style="font-size: 1.2rem">{{$treatment->name}}</h6>
+                                            <p class="m-0">{{$treatment->price}}</p>
+                                        </div>
+                                        <span class="position-absolute top-0 end-0 me-2 btn-delete" data-id="{{$treatment->id}}" style="font-size: 1.4rem; cursor: pointer">
+                                            <i class="bi bi-x"></i>
+                                        </span>
                                     </div>
-                                    <span class="position-absolute top-0 end-0 me-2 btn-delete" data-id="${treatment.id}" style="font-size: 1.4rem; cursor: pointer">
-                                 <i class="bi bi-x"></i>
-                              </span>
                                 </div>
                             </div>
-                        </div>
+                        @endforeach
                     @endif
                 </div>
 
@@ -233,7 +245,7 @@
 
     let ekstra_malam = {{ $setting['biaya_ekstra_malam'] }};
     let date = new Date();
-    let treatments = [];
+    // let treatments = [];
     let customer;
     let discAdd = 0;
     let durationTP = 0;
@@ -247,13 +259,20 @@
     function updateTotal()
     {
         customer = $('#customer_id').val();
+        let treatments = [];
+        $('[name^="treatments\\["]').each(function() {
+            treatments.push($(this).val());
+        });
+
         $.ajax({
             url: `/reservations/treatmentTotal`,
             dataType: 'JSON',
             method: 'POST',
             data: {
+
                 cust: customer,
                 treatment: treatments
+                // treatment: treatments
             },
             success(res) {
                 date = setTime($('#time').val(), $('#date').val());
@@ -365,11 +384,23 @@
 
 
     $('#treatment-container').on('click', '.btn-delete', function() {
-        id = $(this).data('id')
-        treatments = treatments.filter(val => val !== id);
-        updateTotal();
+        id = $(this).data('id');
+        // treatments = treatments.filter(val => val !== id);
+
+        // let treatments1 = [];
+        // $('[name^="treatments\\["]').each(function() {
+        //     treatments1.push($(this).val());
+        // });
+        //
+        // treatments2 = treatments1.filter(val => val !== 2);
+        // console.log(treatments2);
+
+
+        // console.log(id);
+        // updateTotal();
 
         $(this).parent().parent().parent().remove();
+        updateTotal();
     });
 
 
@@ -484,8 +515,6 @@
             dataType: 'JSON',
             success(res) {
                 addTreatment(res.data);
-
-                treatments.push(res.data.id);
                 updateTotal();
             }
         });

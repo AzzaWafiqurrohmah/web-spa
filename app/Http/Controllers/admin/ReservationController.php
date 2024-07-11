@@ -56,6 +56,7 @@ class ReservationController extends Controller
      */
     public function store(ReservationRequest $request)
     {
+//        dd($request->all());
         ReservationRepository::save($request->all());
         return to_route('reservations.index')->with('alert_s', 'Berhasil menambahkan Reservasi baru');
     }

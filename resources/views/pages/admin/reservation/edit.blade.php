@@ -1,6 +1,6 @@
 @extends('layouts.app')
 @section('content')
-    <title>New Reservation</title>
+    <title>Edit Reservation</title>
 
     <div class="row mt-0">
         <div class="col-md-12">

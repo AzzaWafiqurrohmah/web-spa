@@ -56,7 +56,6 @@ class ReservationController extends Controller
      */
     public function store(ReservationRequest $request)
     {
-//        dd($request->all());
         ReservationRepository::save($request->all());
         return to_route('reservations.index')->with('alert_s', 'Berhasil menambahkan Reservasi baru');
     }
@@ -74,31 +73,26 @@ class ReservationController extends Controller
      */
     public function edit(Reservation $reservation)
     {
-        $user = Auth::user();
+        $data = ReservationRepository::edit($reservation);
 
-        $data = Setting::where('user_id', $user->id)->get(['key', 'value']);
-        $setting = $data->pluck(null, 'key')->map(function ($item) {
-            return $item['value'];
-        })->toArray();
-
-        $totalTreatment = 0;
-        foreach ($reservation->reservationDetail as $reservationDetail){
-            $totalTreatment += $reservationDetail->treatment->price;
-        }
-
-        return view('pages.admin.reservation.create', [
-            'setting' => $setting,
+        return view('pages.admin.reservation.edit', [
+            'setting' => $data['setting'],
             'reservation' => $reservation,
-            'totalTreatments' => $totalTreatment
+            'totalTreatments' => $data['totalTreatment'],
+            'additional_disc' => $data['additional_disc'],
+            'treatment_id' => $data['treatment_id'],
+            'customer' => $data['customer'],
+            'therapist' => $data['therapist']
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(ReservationRequest $request, Reservation $reservation)
     {
-        //
+        ReservationRepository::update($request->all(), $reservation);
+        return to_route('reservations.index')->with('alert_s', 'Berhasil mengubah data');
     }
 
     /**

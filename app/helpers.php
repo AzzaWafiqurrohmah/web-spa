@@ -66,3 +66,16 @@ if(!function_exists('genderID')) {
         ];
     }
 }
+
+if(!function_exists('rsv_date')) {
+    function rsv_date(?\Carbon\Carbon $date) {
+        if($date == null){
+            return null;
+        }
+
+        \Carbon\Carbon::setLocale('id');
+        $res = \Carbon\Carbon::parse($date)->translatedFormat('l, j F Y');
+
+        return $res;
+    }
+}

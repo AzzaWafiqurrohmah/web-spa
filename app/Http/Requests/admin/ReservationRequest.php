@@ -27,7 +27,6 @@ class ReservationRequest extends FormRequest
             'discountAdd' => 'required',
             'date' => 'required',
             'time' => 'required',
-//            'treatment' => 'required',
             'payment_type' => 'required'
         ];
     }

@@ -7,11 +7,14 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Treatment extends Model
 {
-    use HasFactory;
+    use HasFactory, SoftDeletes;
     public $timestamps = false;
+    protected $dates = ['deleted_at'];
+
     protected $fillable = [
         'treatment_category_id', 'franchise_id', 'name', 'duration',
         'pictures', 'period_start', 'period_end', 'price', 'discount'

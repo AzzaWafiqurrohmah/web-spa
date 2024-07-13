@@ -22,6 +22,7 @@ return new class extends Migration
             $table->date('period_end')->nullable();
             $table->integer('price');
             $table->integer('discount')->default(0)->nullable();
+            $table->softDeletes();
         });
     }
 

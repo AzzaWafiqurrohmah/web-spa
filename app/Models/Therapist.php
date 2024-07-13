@@ -6,14 +6,16 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 
 class Therapist extends Authenticatable
 {
-    use HasFactory, HasRoles;
+    use HasFactory, HasRoles, SoftDeletes;
 
     public $timestamps = false;
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'image',

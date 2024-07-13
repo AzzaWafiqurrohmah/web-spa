@@ -23,6 +23,7 @@ return new class extends Migration
             $table->integer('body_height');
             $table->integer('body_weight');
             $table->date('start_working')->nullable();
+            $table->softDeletes();
         });
     }
 

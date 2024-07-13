@@ -12,13 +12,12 @@ class Customer extends Model
 {
     use HasFactory, SoftDeletes;
     public $timestamps = false;
+    protected $dates = ['deleted_at'];
 
     protected $fillable = [
         'franchise_id', 'fullname', 'phone', 'is_member', 'start_member', 'address',
         'gender', 'birth_date', 'home_pict', 'home_details', 'latitude', 'longitude'
     ];
-    
-    protected $dates = ['deleted_at'];
 
     public function franchise() :BelongsTo
     {

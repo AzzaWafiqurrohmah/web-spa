@@ -25,6 +25,7 @@ return new class extends Migration
             $table->string('home_details')->nullable();
             $table->string('latitude')->nullable();
             $table->string('longitude')->nullable();
+            $table->softDeletes();
         });
     }
 

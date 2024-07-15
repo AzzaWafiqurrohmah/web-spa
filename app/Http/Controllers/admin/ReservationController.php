@@ -39,15 +39,12 @@ class ReservationController extends Controller
      */
     public function create()
     {
-        $user = Auth::user();
-
-        $data = Setting::where('user_id', $user->id)->get(['key', 'value']);
-        $setting = $data->pluck(null, 'key')->map(function ($item) {
-            return $item['value'];
-        })->toArray();
-
+        $data = ReservationRepository::form();
         return view('pages.admin.reservation.create', [
-            'setting' => $setting
+            'setting' => $data['setting'],
+            'customer' => $data['customer'],
+            'therapist' => $data['therapist'],
+            'treatmentsModal' => $data['treatmentsModal']
         ]);
     }
 
@@ -61,6 +58,7 @@ class ReservationController extends Controller
     }
 
     /**
+     *
      * Display the specified resource.
      */
     public function show(Reservation $reservation)
@@ -73,16 +71,15 @@ class ReservationController extends Controller
      */
     public function edit(Reservation $reservation)
     {
-        $data = ReservationRepository::edit($reservation);
-
+        $data = ReservationRepository::form($reservation);
         return view('pages.admin.reservation.edit', [
             'setting' => $data['setting'],
             'reservation' => $reservation,
             'totalTreatments' => $data['totalTreatment'],
             'additional_disc' => $data['additional_disc'],
-            'treatment_id' => $data['treatment_id'],
             'customer' => $data['customer'],
-            'therapist' => $data['therapist']
+            'therapist' => $data['therapist'],
+            'treatmentsModal' => $data['treatmentsModal']
         ]);
     }
 

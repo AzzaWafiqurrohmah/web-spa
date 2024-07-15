@@ -1,22 +1,5 @@
 @php
     $reservation = $reservation ?? null;
-
-    $customer = $customer ?? \App\Models\Customer::find(old('customer_id'));
-    $therapist = $therapist ?? \App\Models\therapist::find(old('therapist_id'));
-
-    $treatmentID = $treatment_id ?? [];
-    if (old('treatments')){
-        foreach (old('treatments') as $treatment){
-            $treatmentID[] = $treatment;
-        }
-    }
-
-    $treatmentsModal = [];
-    if(count($treatmentID) != 0){
-        foreach ($treatmentID as $id){
-            $treatmentsModal[] = \App\Models\Treatment::find($id);
-        }
-    }
 @endphp
 
 @csrf
@@ -28,7 +11,7 @@
                 <div class="mb-3">
                     <label for="customer_id">Pelanggan</label>
                     <select class="customer-option form-control @error('customer_id') is-invalid @enderror" id="customer_id" name="customer_id" autofocus>
-                        @if(isset($customer))
+                        @if(isset($reservation) || old('customer_id'))
                             <option value="{{ $customer->id }}">{{ $customer->fullname }}</option>
                         @endif
                     </select>
@@ -40,7 +23,7 @@
                     <label for="therapist_id">Terapis</label>
                     <select name="therapist_id"
                             class="therapist-option form-control @error('therapist_id') is-invalid @enderror"  aria-label="Small select example" id="therapist_id">
-                        @if(isset($therapist))
+                        @if(isset($reservation) || old('therapist_id'))
                             <option value="{{ $therapist->id }}">{{ $therapist->fullname }}</option>
                         @endif
                     </select>
@@ -85,7 +68,7 @@
 
                 <p id="treatment">Treatment yang dipilih: </p>
                 <div class="row" id="treatment-container">
-                    @if(count($treatmentsModal) != 0)
+                    @if(isset($reservation) || old('treatments'))
                         @foreach($treatmentsModal as $treatment)
                             <div class="col-md-6 mb-3" >
                                 <input type="hidden" id="treatments" name="treatments[{{$treatment->id}}]" value="{{$treatment->id}}">

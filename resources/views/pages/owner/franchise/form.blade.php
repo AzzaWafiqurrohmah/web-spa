@@ -37,7 +37,7 @@
             </div>
             <div class="col-md-6">
                 <div class="mb-4">
-                    <label for="regency-select">Kabuputan/Kota</label>
+                    <label for="regency-select">Kabupaten/Kota</label>
                     <select id="regency-select" class="form-control @error('regency') is-invalid @enderror" name="regency" disabled>
                         <option value="">--- Pilih Kabupaten/Kota ---</option>
                     </select>

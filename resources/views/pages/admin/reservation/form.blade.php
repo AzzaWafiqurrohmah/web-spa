@@ -11,6 +11,7 @@
                 <div class="mb-3">
                     <label for="customer_id">Pelanggan</label>
                     <select class="customer-option form-control @error('customer_id') is-invalid @enderror" id="customer_id" name="customer_id" autofocus>
+                        <option value="">--- Pilih Pelanggan ---</option>
                         @if(isset($reservation) || old('customer_id'))
                             <option value="{{ $customer->id }}">{{ $customer->fullname }}</option>
                         @endif

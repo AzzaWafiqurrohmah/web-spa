@@ -156,15 +156,21 @@
 
 
         $('#treatment-container').on('click', '.btn-delete', function() {
-            id = $(this).data('id');
+            const id = $(this).data('id');
             $(this).parent().parent().parent().remove();
             updateTotal();
         });
 
+        var defaultOptions = [
+            { id: '1', text: 'Customer 1', phone: '123456789' },
+            { id: '2', text: 'Customer 2', phone: '987654321' },
+            { id: '3', text: 'Customer 3', phone: '456789123' }
+        ];
 
 
         //select2 customer
         $(".customer-option").select2({
+            data: defaultOptions,
             ajax: {
                 url: "/reservations/customers",
                 method: 'GET',
@@ -189,7 +195,7 @@
                 cache: true
             },
             placeholder: '--- Pilih Customer ---',
-            minimumInputLength: 1,
+            minimumInputLength: 0,
             templateResult: formatRepo
         });
 
@@ -247,7 +253,7 @@
                 cache: true
             },
             placeholder: '--- Pilih Treatment ---',
-            minimumInputLength: 1,
+            minimumInputLength: 0,
             templateResult: formatRepo2
         });
 
@@ -257,7 +263,7 @@
             }
             return $(
                 '<div class="d-flex gap-4 align-items-center">' +
-                '<i class="bi bi-person-circle ms-1" style="font-size: 1.5rem"></i>' +
+                '<i class="bi bi-clipboard ms-1" style="font-size: 1.5rem"></i>' +
                 '<div>' +
                 '<h4 class="m-0" style="font-size: 16px">' + repo.text + '</h4>' +
                 '<p class="m-0" style="font-size: 12px">' + repo.price + '</p>' +
@@ -334,7 +340,7 @@
                 cache: true
             },
             placeholder: '--- Pilih Terapis ---',
-            minimumInputLength: 1,
+            minimumInputLength: 0,
             templateResult: formatRepo3
         });
 

@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\ToolsExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\ImportRequest;
 use App\Http\Requests\admin\ToolRequest;
 use App\Http\Resources\admin\ToolResource;
+use App\Imports\ToolsImport;
 use App\Models\Tool;
 use App\Traits\ApiResponser;
+use Illuminate\Support\Facades\Request;
+use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ToolController extends Controller
 {
@@ -64,6 +70,25 @@ class ToolController extends Controller
         return $this->success(
             message: 'Berhasil menghapus Data Alat'
         );
+    }
+
+    public function import(ImportRequest $request){
+        $file = $request->file('fileImport')->storePublicly('tools', 'public');
+        Excel::import(new ToolsImport(), 'public/' . $file);
+
+        return $this->success(
+            message: 'Berhasil menambahkan data'
+        );
+    }
+
+    public function export()
+    {
+        if(count(Tool::all()) < 1){
+            return response()->json([
+                'data' => 'empty'
+            ]);
+        }
+        return Excel::download(new ToolsExport(), 'tools2.xlsx');
     }
 
     public function datatables()

@@ -78,6 +78,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('tools')
         ->name('tools.')
         ->controller(ToolController::class)->group(function () {
+            Route::post('/import', 'import')->name('import');
+            Route::get('/export', 'export')->name('export');
             Route::get('/', 'index')->name('index');
             Route::post('store', 'store')->name('store');
             Route::match(['PUT', 'PATCH'], '{tool}/update', 'update')->name('update');

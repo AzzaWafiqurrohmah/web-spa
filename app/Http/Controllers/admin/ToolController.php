@@ -88,7 +88,7 @@ class ToolController extends Controller
                 'data' => 'empty'
             ]);
         }
-        return Excel::download(new ToolsExport(), 'tools2.xlsx');
+        return Excel::download(new ToolsExport(), 'tools.xlsx');
     }
 
     public function datatables()

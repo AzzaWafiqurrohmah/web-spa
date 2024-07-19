@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Exports\MaterialsExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\ImportRequest;
 use App\Http\Requests\admin\MaterialRequest;
 use App\Http\Resources\admin\MaterialResource;
+use App\Imports\MaterialsImport;
 use App\Models\Material;
 use App\Traits\ApiResponser;
+use Maatwebsite\Excel\Facades\Excel;
 
 class MaterialController extends Controller
 {
@@ -63,6 +67,25 @@ class MaterialController extends Controller
         return $this->success(
             message: 'Berhasil menghapus Data Bahan'
         );
+    }
+
+    public function import(ImportRequest $request){
+        $file = $request->file('fileImport')->storePublicly('tools', 'public');
+        Excel::import(new MaterialsImport(), 'public/' . $file);
+
+        return $this->success(
+            message: 'Berhasil menambahkan data'
+        );
+    }
+
+    public function export()
+    {
+        if(count(Material::all()) < 1){
+            return response()->json([
+                'data' => 'empty'
+            ]);
+        }
+        return Excel::download(new MaterialsExport(), 'materials.xlsx');
     }
 
     public function datatables()

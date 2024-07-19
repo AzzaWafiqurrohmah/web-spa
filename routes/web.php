@@ -94,6 +94,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('materials')
         ->name('materials.')
         ->controller(MaterialController::class)->group(function () {
+            Route::post('/import', 'import')->name('import');
+            Route::get('/export', 'export')->name('export');
             Route::get('/', 'index')->name('index');
             Route::post('store', 'store')->name('store');
             Route::match(['PUT', 'PATCH'], '{material}/update', 'update')->name('update');

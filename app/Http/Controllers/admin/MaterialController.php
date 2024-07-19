@@ -10,6 +10,7 @@ use App\Http\Resources\admin\MaterialResource;
 use App\Imports\MaterialsImport;
 use App\Models\Material;
 use App\Traits\ApiResponser;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Facades\Excel;
 
 class MaterialController extends Controller
@@ -28,7 +29,11 @@ class MaterialController extends Controller
      */
     public function store(MaterialRequest $request)
     {
-        $material = Material::create($request->validated());
+        $data = $request->validated();
+        $user = Auth::user();
+        $data['franchise_id'] = $user->franchise_id;
+
+        $material = Material::create($data);
         return $this->success(
             MaterialResource::make($material),
             'Berhasil menambahkan Data Bahan'
@@ -90,7 +95,10 @@ class MaterialController extends Controller
 
     public function datatables()
     {
-        return datatables(Material::query())
+        $user = Auth::user();
+        $data = Material::where('franchise_id', $user->franchise_id);
+        
+        return datatables($data)
             ->addIndexColumn()
             ->addColumn('action', fn($material) => view('pages.admin.treatment.material.action', compact('material')))
             ->toJson();

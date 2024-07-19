@@ -3,6 +3,7 @@
 namespace App\Imports;
 
 use App\Models\Tool;
+use Illuminate\Support\Facades\Auth;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
@@ -17,7 +18,9 @@ class ToolsImport implements ToModel, WithUpserts, WithHeadingRow
     */
     public function model(array $row)
     {
+        $user = Auth::user();
         return new Tool([
+            'franchise_id' => $user->franchise_id,
             'name' => $row['nama_alat']
         ]);
     }

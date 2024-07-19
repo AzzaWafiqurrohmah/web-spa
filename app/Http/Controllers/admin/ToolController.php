@@ -10,6 +10,7 @@ use App\Http\Resources\admin\ToolResource;
 use App\Imports\ToolsImport;
 use App\Models\Tool;
 use App\Traits\ApiResponser;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 use Maatwebsite\Excel\Facades\Excel;
@@ -30,7 +31,10 @@ class ToolController extends Controller
      */
     public function store(ToolRequest $request)
     {
-        $tool = Tool::create($request->validated());
+        $data = $request->validated();
+        $user = Auth::user();
+        $data['franchise_id'] = $user->franchise_id;
+        $tool = Tool::create($data);
 
         return $this->success(
             ToolResource::make($tool),
@@ -93,7 +97,9 @@ class ToolController extends Controller
 
     public function datatables()
     {
-        return datatables(Tool::query())
+        $user = Auth::user();
+        $data = Tool::where('franchise_id', $user->franchise_id);
+        return datatables($data)
             ->addIndexColumn()
             ->addColumn('action', fn($tool) => view('pages.admin.treatment.tool.action', compact('tool')) )
             ->toJson();

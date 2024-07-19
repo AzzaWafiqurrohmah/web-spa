@@ -40,4 +40,14 @@ class Franchise extends Model
     {
         return $this->hasMany(Reservation::class);
     }
+
+    public function tool(): HasMany
+    {
+        return $this->hasMany(Tool::class);
+    }
+
+    public function material(): HasMany
+    {
+        return $this->hasMany(Material::class);
+    }
 }

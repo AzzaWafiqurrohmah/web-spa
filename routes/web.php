@@ -16,6 +16,7 @@ use App\Http\Controllers\admin\PresenceController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\RegionController;
+use App\Http\Controllers\admin\PacketController;
 
 /*
 |--------------------------------------------------------------------------
@@ -103,6 +104,23 @@ Route::middleware('auth')->group(function () {
             Route::get('datatables', 'datatables')->name('datatables');
             Route::get('{material}', 'show')->name('show');
             Route::delete('{material}', 'destroy')->name('destroy');
+        });
+
+    //packet treatment
+    Route::prefix('packets')
+        ->name('packets.')
+        ->controller(PacketController::class)->group(function () {
+            Route::post('/treatmentTotal', 'treatmentTotal')->name('treatmentTotal');
+            Route::get('/', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');
+
+            Route::get('/{packet}/edit', 'edit')->name('edit');
+            Route::match(['PUT', 'PATCH'], '{packet}/update', 'update')->name('update');
+
+            Route::get('datatables', 'datatables')->name('datatables');
+            Route::get('{packet}', 'show')->name('show');
+            Route::delete('{packet}', 'destroy')->name('destroy');
         });
 
     //treatment

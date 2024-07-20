@@ -103,11 +103,19 @@
                     <span class="sidebar-text">Daftar Treatment</span>
                   </a>
                 </li>
+
+                  <li class="nav-item @active('packets.*')">
+                      <a class="nav-link" href="{{ route('packets.index') }}">
+                          <span class="sidebar-text">Paket Treatment</span>
+                      </a>
+                  </li>
+
                 <li class="nav-item @active('tools')">
                   <a class="nav-link" href=" {{ route('tools.index') }}">
                     <span class="sidebar-text">Alat Treatment</span>
                   </a>
                 </li>
+
                 <li class="nav-item @active('materials')">
                   <a class="nav-link" href="{{ route('materials.index') }}">
                     <span class="sidebar-text">Bahan Treatment</span>

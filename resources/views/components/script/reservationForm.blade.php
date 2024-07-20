@@ -161,12 +161,6 @@
             updateTotal();
         });
 
-        var defaultOptions = [
-            { id: '1', text: 'Customer 1', phone: '123456789' },
-            { id: '2', text: 'Customer 2', phone: '987654321' },
-            { id: '3', text: 'Customer 3', phone: '456789123' }
-        ];
-
 
         //select2 customer
         $(".customer-option").select2({

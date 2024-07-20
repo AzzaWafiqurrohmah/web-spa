@@ -97,7 +97,6 @@ class MaterialController extends Controller
     {
         $user = Auth::user();
         $data = Material::where('franchise_id', $user->franchise_id);
-        
         return datatables($data)
             ->addIndexColumn()
             ->addColumn('action', fn($material) => view('pages.admin.treatment.material.action', compact('material')))

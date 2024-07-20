@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('packets', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->integer('discount')->default(0)->nullable();
+            $table->integer('packet_price');
+            $table->integer('member_price');
         });
     }
 

@@ -10,7 +10,7 @@ class Packet extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'name', 'discount'
+        'name', 'packet_price', 'member_price'
     ];
 
     public function treatments(): BelongsToMany

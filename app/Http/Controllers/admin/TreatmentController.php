@@ -97,10 +97,15 @@ class TreatmentController extends Controller
         return datatables(Treatment::query())
             ->addIndexColumn()
             ->addColumn('duration', fn($treatment) => $treatment->duration . " menit")
-            ->addColumn('price', fn($treatment) => "Rp " . $treatment->price)
+            ->addColumn('price', fn($treatment) => 'Rp ' . number_format($treatment->price))
+            ->addColumn('member_price', fn($treatment) => 'Rp ' . number_format($treatment->member_price))
             ->addColumn('action', fn($treatment) => view('pages.admin.treatment.main.action', compact('treatment')))
             ->filterColumn('price', function($query, $keyword) {
                 $sql = "price LIKE ?";
+                $query->whereRaw($sql, ["%{$keyword}%"]);
+            })
+            ->filterColumn('member_price', function($query, $keyword) {
+                $sql = "member_price LIKE ?";
                 $query->whereRaw($sql, ["%{$keyword}%"]);
             })
             ->filterColumn('duration', function($query, $keyword) {
@@ -109,6 +114,9 @@ class TreatmentController extends Controller
             })
             ->orderColumn('price', function ($query, $order) {
                 $query->orderBy('price', $order);
+            })
+            ->orderColumn('member_price', function ($query, $order) {
+                $query->orderBy('member_price', $order);
             })
             ->orderColumn('duration', function ($query, $order) {
                 $query->orderBy('duration', $order);

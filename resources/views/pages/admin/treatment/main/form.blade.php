@@ -46,14 +46,15 @@
                 </div>
             </div>
             <div class="col-lg-6">
-                <label for="price"> Harga </label>
                 <div class="mb-4">
-                    <div class="input-group mb-1">
-                        <span class="input-group-text"> Rp </span>
-                        <input type="number" name="price" id="price" aria-describedby="basic-addon1" class="form-control @error('price') is-invalid @enderror" value="{{old('price', $treatment?->price)}}">
+                    <label for="period_start">Mulai Berlaku</label>
+                    <div class="input-group">
+                        <input id="period_start" type="date"  class="form-control @error('period_start') is-invalid @enderror" name="period_start" value="{{old('period_start', $treatment?->period_start)}}">
                     </div>
-                    @error("price")
-                    <small class="text-danger mb-3">{{ $message }}</small>
+                    @error('period_start')
+                    <div class="invaid-feedback">
+                        <small class="text-danger">{{ $message }}</small>
+                    </div>
                     @enderror
                 </div>
 
@@ -68,17 +69,33 @@
                     @enderror
                 </div>
 
-                <div class="mb-4">
-                    <label for="period_start">Mulai Berlaku</label>
-                    <div class="input-group">
-                        <input id="period_start" type="date"  class="form-control @error('period_start') is-invalid @enderror" name="period_start" value="{{old('period_start', $treatment?->period_start)}}">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <label for="price"> Harga Normal </label>
+                        <div class="mb-4">
+                            <div class="input-group mb-1">
+                                <span class="input-group-text"> Rp </span>
+                                <input type="number" name="price" id="price" aria-describedby="basic-addon1" class="form-control @error('price') is-invalid @enderror" value="{{old('price', $treatment?->price)}}">
+                            </div>
+                            @error("price")
+                            <small class="text-danger mb-3">{{ $message }}</small>
+                            @enderror
+                        </div>
                     </div>
-                    @error('period_start')
-                    <div class="invaid-feedback">
-                        <small class="text-danger">{{ $message }}</small>
+                    <div class="col-lg-6">
+                        <label for="member_price"> Harga Member</label>
+                        <div class="mb-4">
+                            <div class="input-group mb-1">
+                                <span class="input-group-text"> Rp </span>
+                                <input type="number" name="member_price" id="price" aria-describedby="basic-addon1" class="form-control @error('member_price') is-invalid @enderror" value="{{old('member_price', $treatment?->member_price)}}">
+                            </div>
+                            @error("member_price")
+                            <small class="text-danger mb-3">{{ $message }}</small>
+                            @enderror
+                        </div>
                     </div>
-                    @enderror
                 </div>
+
             </div>
         </div>
     </div>

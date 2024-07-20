@@ -26,6 +26,7 @@ class TreatmentRequest extends FormRequest
             'name' => 'required|string',
             'duration' => 'required|int',
             'period_start' => 'required|date_format:Y-m-d',
+            'member_price' => 'required|int',
             'price' => 'required|int',
             'discount' => 'required|int',
             'tools' => 'required',

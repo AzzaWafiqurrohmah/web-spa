@@ -28,7 +28,8 @@
                                 <th>ID Treatment</th>
                                 <th>Nama</th>
                                 <th>Durasi</th>
-                                <th>Harga</th>
+                                <th>Harga Normal</th>
+                                <th>Harga Member</th>
                                 <th>Aksi</th>
                             </tr>
                             </thead>
@@ -58,6 +59,7 @@
                 {data: 'name', name: 'name'},
                 {data: 'duration'},
                 {data: 'price'},
+                {data: 'member_price'},
                 {data: 'action', orderable: false, searchable: false},
             ],
         });

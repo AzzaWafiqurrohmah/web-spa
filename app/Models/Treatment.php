@@ -17,7 +17,7 @@ class Treatment extends Model
 
     protected $fillable = [
         'treatment_category_id', 'franchise_id', 'name', 'duration',
-        'pictures', 'period_start', 'period_end', 'price', 'discount'
+        'pictures', 'period_start', 'period_end', 'price', 'member_price', 'discount'
     ];
 
     protected $casts = [

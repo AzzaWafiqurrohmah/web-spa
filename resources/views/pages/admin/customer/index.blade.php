@@ -2,7 +2,12 @@
 @section('content')
     <title>Customer</title>
     <div class="row">
-        <div class="col-md-11">
+        @role(['admin', 'owner'])
+            <div class="col-md-11">
+        @endrole
+        @role('therapist')
+            <div class="col-md-9">
+        @endrole
             <div class="mt-0 mb-3">
                 <h2>Data pelanggan</h2>
                 <nav>
@@ -27,7 +32,9 @@
                             <tr>
                                 <th>ID customer</th>
                                 <th>Nama Lengkap</th>
-                                <th>Tanggal Lahir</th>
+                                @role(['admin', 'owner'])
+                                    <th>Tanggal Lahir</th>
+                                @endrole
                                 <th>Status</th>
                                 <th>Aksi</th>
                             </tr>

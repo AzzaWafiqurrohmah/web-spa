@@ -4,17 +4,21 @@
         @can('crud customers')
             url = '{{ route('customers.datatables') }}';
         @endcan
+        const columns = [
+            { data: 'id' },
+            { data: 'fullname', name: 'fullname' },
+                @can('crud customers')
+                    { data: 'birth_date' },
+                @endcan
+            { data: 'member' },
+            { data: 'action', orderable: false, searchable: false }
+        ];
+
         const customersTable = $('#customers-table').DataTable({
             serverSide: true,
             rendering: true,
             ajax: url,
-            columns: [
-                {data: 'id'},
-                {data: 'fullname', name: 'fullname'},
-                {data: 'birth_date'},
-                {data: 'member'},
-                {data: 'action', orderable: false, searchable: false},
-            ],
+            columns: columns.filter(column => column !== undefined),
         });
 
         $('#month').change(function () {

@@ -25,7 +25,8 @@ class PacketRequest extends FormRequest
             'name' => 'required|string',
             'total' => 'required|int',
             'packet_price' => 'required|int',
-            'member_price' => 'required|int'
+            'member_price' => 'required|int',
+            'checkBox' => 'nullable'
         ];
     }
 }

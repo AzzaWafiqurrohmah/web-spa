@@ -28,7 +28,8 @@ class PacketController extends Controller
     {
         $data = PacketRepository::form();
         return view('pages.admin.treatment.packet.create', [
-            'treatmentsModal' => $data['treatmentsModal']
+            'treatmentsModal' => $data['treatmentsModal'],
+            'checkBox' => $data['checkBox']
         ]);
     }
 
@@ -58,7 +59,8 @@ class PacketController extends Controller
         $data = PacketRepository::form($packet);
         return view('pages.admin.treatment.packet.edit', [
             'treatmentsModal' => $data['treatmentsModal'],
-            'totalTreatment' => $data['totalTreatment']['normalPrice'],
+            'totalTreatment' => $data['totalTreatment'],
+            'checkBox' => $data['checkBox'],
             'packet' => $packet
         ]);
     }

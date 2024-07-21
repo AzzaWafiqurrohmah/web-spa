@@ -24,12 +24,21 @@ class PacketRepository
             }
         }
 
+        $condition = false;
         if(isset($packet))
         {
-            $res['totalTreatment'] = PacketService::treatmentTotal($treatmentID);
+            $data = PacketService::treatmentTotal($treatmentID);
+            $res['totalTreatment'] = $data['normalPrice'];
+
+            if($packet->member_price == $data['member_price'] ){
+                $condition = true;
+            }
         }
 
+        $checkBox = old('checkBox') ? 'checked' : ( $condition ? 'checked' : '' ) ;
+
         $res['treatmentsModal'] = $treatmentsModal;
+        $res['checkBox'] = $checkBox;
         return $res;
     }
 }

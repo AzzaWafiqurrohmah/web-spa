@@ -56,7 +56,7 @@
                 <div class="mb-4">
                     <div class="input-group mb-1">
                         <span class="input-group-text"> Rp </span>
-                        <input type="number" name="total" id="total" aria-describedby="basic-addon1" class="form-control @error('total') is-invalid @enderror" value="{{old('total') ?? ( $totalTreatment ?? 0 )}}">
+                        <input type="number" name="total" id="total" aria-describedby="basic-addon1" class="form-control @error('total') is-invalid @enderror" value="{{old('total') ?? ( $totalTreatment ?? '' )}}">
                     </div>
                     @error("total")
                     <small class="text-danger mb-3">{{ $message }}</small>
@@ -66,7 +66,7 @@
                 <div class="mb-4">
                     <div class="input-group mb-1">
                         <span class="input-group-text"> Rp </span>
-                        <input type="number" name="packet_price" id="packet_price" aria-describedby="basic-addon1" class="form-control @error('packet_price') is-invalid @enderror" value="{{old('packet_price', $packet?->packet_price)}}">
+                        <input type="number" name="packet_price" id="packet_price" aria-describedby="basic-addon1" class="form-control @error('packet_price') is-invalid @enderror" value="{{old('packet_price') ?? ($packet?->packet_price ?? '')}}">
                     </div>
                     @error("price")
                     <small class="text-danger mb-3">{{ $message }}</small>
@@ -76,14 +76,14 @@
                 <div class="mb-0">
                     <div class="input-group mb-1">
                         <span class="input-group-text"> Rp </span>
-                        <input type="number" name="member_price" id="member_price" aria-describedby="basic-addon1" class="form-control @error('member_price') is-invalid @enderror" value="{{old('member_price', $packet?->member_price)}}">
+                        <input type="number" name="member_price" id="member_price" aria-describedby="basic-addon1" class="form-control @error('member_price') is-invalid @enderror" value="{{old('member_price') ?? ($packet?->member_price ?? '')}}">
                     </div>
                     @error("member_price")
                     <small class="text-danger mb-3">{{ $message }}</small>
                     @enderror
                 </div>
                 <div class="form-check ms-1 mt-2">
-                    <input class="form-check-input" type="checkbox" value="1" id="checkBox" name="checkBox">
+                    <input class="form-check-input" type="checkbox" {{ $checkBox }} id="checkBox" name="checkBox">
                     <label class="form-check-label" for="checkBox">Gunakan Harga default</label>
                 </div>
 

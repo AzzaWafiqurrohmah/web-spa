@@ -112,7 +112,13 @@
             if ($(this).is(':checked')) {
                 updateTotal();
             } else {
-                $('#member_price').val(0);
+                $('#member_price').val('');
+            }
+        });
+
+        $('#member_price').change(function() {
+            if ($('#checkBox').is(':checked')) {
+                $('#checkBox').prop('checked', false);
             }
         });
 

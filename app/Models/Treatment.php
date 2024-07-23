@@ -24,9 +24,9 @@ class Treatment extends Model
         'pictures' => 'array'
     ];
 
-    public function reservationDetail() :HasMany
+    public function reservationDetails()
     {
-        return $this->hasMany(ReservationDetail::class);
+        return $this->morphMany(ReservationDetail::class, 'reservationable');
     }
 
     public function franchise() :BelongsTo

@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('reservation_details', function (Blueprint $table) {
             $table->id();
             $table->foreignId('reservation_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
-            $table->foreignId('treatment_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->unsignedBigInteger('reservationable_id');
+            $table->string('reservationable_type');
             $table->integer('disc_treatment')->default(0)->nullable();
             $table->integer('disc_member')->default(0)->nullable();
         });

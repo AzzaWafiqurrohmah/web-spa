@@ -11,15 +11,15 @@ class ReservationDetail extends Model
     use HasFactory;
     public $timestamps = false;
     protected $fillable = [
-        'treatment_id', 'reservation_id', 'disc_treatment', 'disc_member'
+        'reservationable_id', 'reservationable_type', 'reservation_id', 'disc_treatment', 'disc_member'
     ];
     public function reservation() :BelongsTo
     {
         return $this->belongsTo(Reservation::class);
     }
 
-    public function treatment() :BelongsTo
+    public function reservationable()
     {
-        return $this->belongsTo(Treatment::class);
+        return $this->morphTo();
     }
 }

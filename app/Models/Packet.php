@@ -18,4 +18,9 @@ class Packet extends Model
     {
         return $this->belongsToMany(Treatment::class);
     }
+
+    public function reservationDetails()
+    {
+        return $this->morphMany(ReservationDetail::class, 'reservationable');
+    }
 }

@@ -1,5 +1,6 @@
 @push('script')
     <script>
+        var treatmentContainer = 0;
 
         function addTreatment(treatment) {
             $('#treatment-container').append(`
@@ -24,7 +25,11 @@
         $('#treatment-container').on('click', '.btn-delete', function() {
             const id = $(this).data('id');
             $(this).parent().parent().parent().remove();
+            console.log(treatmentContainer);
+            treatmentContainer -= 1;
+
             updateTotal();
+            emptyTreatment();
         });
 
         $(".treatment-option").select2({
@@ -77,6 +82,7 @@
                 url: `/treatments/${id}`,
                 dataType: 'JSON',
                 success(res) {
+                    treatmentContainer += 1;
                     addTreatment(res.data);
                     updateTotal();
                 }
@@ -86,6 +92,10 @@
         var member_price = 0;
         function updateTotal()
         {
+            if ($('#emptyView').length > 0) {
+                $('#emptyView').remove();
+            }
+
             let treatments = [];
             $('[name^="treatments\\["]').each(function() {
                 treatments.push($(this).val());
@@ -122,6 +132,19 @@
             }
         });
 
+        function emptyTreatment()
+        {
+            if (treatmentContainer == 0) {
+                $('#treatment-container').append(`
+                <div class="card-body d-flex flex-column gap-2 justify-content-center align-items-center mt-0" id="emptyView">
+                    <img src="{{ asset('assets/img/illustrations/empty-treatment.png') }}" width="30%">
+                    <small class="m-0">Belum ada treatment yang dipilih</small>
+                </div>
+            `);
+            }
+        }
+
+        emptyTreatment();
 
     </script>
 @endpush

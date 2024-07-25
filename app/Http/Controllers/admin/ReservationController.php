@@ -7,6 +7,7 @@ use App\Http\Requests\admin\ReservationRequest;
 use App\Http\Resources\admin\CustomerResource;
 use App\Http\Resources\admin\TreatmentResource;
 use App\Models\Customer;
+use App\Models\Packet;
 use App\Models\Reservation;
 use App\Models\ReservationDetail;
 use App\Models\Setting;
@@ -65,7 +66,10 @@ class ReservationController extends Controller
      */
     public function show(Reservation $reservation)
     {
-        return view('pages.admin.reservation.show', compact('reservation'));
+        $data = ReservationRepository::show($reservation);
+        $allReservation = $data['allReservation'];
+        $disc_reservation = $data['disc_reservation'];
+        return view('pages.admin.reservation.show', compact('reservation', 'allReservation', 'disc_reservation'));
     }
 
     /**

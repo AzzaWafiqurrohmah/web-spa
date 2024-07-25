@@ -75,12 +75,12 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($reservation->reservationDetail as $detail)
+                            @foreach ($allReservation as $item)
                             <tr>
-                                <td class="text-muted">{{ $detail->treatment->name }}</td>
-                                <td class="text-muted">Rp {{ number_format($detail->treatment->price) }}</td>
-                                <td class="text-muted">Rp {{ number_format($detail->disc_treatment) }}</td>
-                                <td class="text-muted">RP {{ number_format($detail->disc_member) }}</td>
+                                <td class="text-muted">{{ $item['name'] }}</td>
+                                <td class="text-muted">Rp {{ number_format($item['price']) }}</td>
+                                <td class="text-muted">Rp {{ number_format($item['disc_treatment']) }}</td>
+                                <td class="text-muted">Rp {{ number_format($item['disc_member']) }}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -113,7 +113,7 @@
                         </div>
                         <div>
                             <p class="m-0"><b>Diskon Reservasi</b></p>
-                            <p class="m-0">Rp {{ number_format($reservation->discount) }}</p>
+                            <p class="m-0">Rp {{ number_format($disc_reservation) }}</p>
                         </div>
                     </div>
                 </div>

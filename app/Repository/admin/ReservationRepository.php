@@ -170,6 +170,37 @@ class ReservationRepository
         return $res;
     }
 
+    public static function show(Reservation $reservation){
+        $discount = 0;
+        $allReservation = [];
+        foreach ( $reservation->reservationDetail as $detail){
+            if($detail->reservationable_type === Packet::class ){
+                $packet = Packet::find($detail->reservationable_id);
+                $data = [];
+                $data['name'] = $packet->name;
+                $data['price'] = $packet->packet_price;
+                $data['disc_member'] = $detail->disc_member;
+                $data['disc_treatment'] = $detail->disc_treatment;
+                $allReservation[] = $data;
+            }
+            if($detail->reservationable_type === Treatment::class ){
+                $treatment = Treatment::find($detail->reservationable_id);
+                $data = [];
+                $data['name'] = $treatment->name;
+                $data['price'] = $treatment->price;
+                $data['disc_member'] = $detail->disc_member;
+                $data['disc_treatment'] = $detail->disc_treatment;
+                $allReservation[] = $data;
+            }
+            $discount += ($detail->disc_member + $detail->disc_treatment);
+        }
+        $disc_reservation = $reservation->discount - $discount;
+        $res = [];
+        $res['allReservation'] = $allReservation;
+        $res['disc_reservation'] = $disc_reservation;
+        return $res;
+    }
+
     public static function discMember(Customer $customer, $price, $member_price )
     {
         $disc_member = 0;

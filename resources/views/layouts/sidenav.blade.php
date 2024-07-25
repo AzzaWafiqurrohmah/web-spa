@@ -166,13 +166,35 @@
             </div>
         </li>
 
-        <li class="nav-item {{ Request::segment(1) == 'laporan' ? 'active' : '' }}">
-            <a href="" class="nav-link d-flex">
+        <li class="nav-item">
+            <span class="nav-link collapsed d-flex justify-content-between align-items-center" data-bs-toggle="collapse"
+              data-bs-target="#report-components">
+              <span class="d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bx-notepad sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 </span>
-                <span class="sidebar-text ms-1 mt-0 d-block">Laporan</span>
-            </a>
+                <span class="sidebar-text mt-0 d-block">Laporan</span>
+              </span>
+              <span class="link-arrow">
+                  <svg class="icon icon-sm" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd"
+                        d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                        clip-rule="evenodd">
+                      </path>
+                  </svg>
+              </span>
+            </span>
+            <div
+              class="multi-level collapse @active('reports', 'show')"
+              role="list" id="report-components" aria-expanded="false">
+              <ul class="flex-column nav">
+                <li class="nav-item @active('reports.income')">
+                  <a class="nav-link" href="{{ route('reports.income') }}">
+                    <span class="sidebar-text">Pendapatan</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
         </li>
 
         <li class="nav-item @active('setting')">

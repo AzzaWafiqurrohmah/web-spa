@@ -13,7 +13,7 @@ class ReservationDetail extends Model
     protected $fillable = [
         'reservationable_id', 'reservationable_type', 'reservation_id', 'disc_treatment', 'disc_member'
     ];
-    public function reservation() :BelongsTo
+    public function reservation(): BelongsTo
     {
         return $this->belongsTo(Reservation::class);
     }

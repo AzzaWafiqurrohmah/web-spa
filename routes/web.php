@@ -16,7 +16,8 @@ use App\Http\Controllers\admin\PresenceController;
 use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\RegionController;
-use App\Http\Controllers\admin\PacketController;
+use App\Http\Controllers\Admin\PacketController;
+use App\Http\Controllers\ReportController;
 
 /*
 |--------------------------------------------------------------------------
@@ -215,6 +216,10 @@ Route::middleware('auth')->group(function () {
             Route::get('{user}', 'show')->name('show');
             Route::delete('{user}', 'destroy')->name('destroy');
         });
+
+    Route::prefix('reports')->controller(ReportController::class)->group(function () {
+        Route::get('income', 'income')->name('reports.income');
+    });
 
     Route::get('schedules', [ScheduleController::class, 'index'])->name('schedules.index');
     Route::get('schedules/json', [ScheduleController::class, 'json'])->name('schedules.json');

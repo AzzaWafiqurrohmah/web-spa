@@ -40,6 +40,11 @@ class RouteServiceProvider extends ServiceProvider
                 ->prefix('therapist')
                 ->name('therapist.')
                 ->group(base_path('routes/therapist.php'));
+
+            Route::middleware(['web', 'auth'])
+                ->prefix('select2')
+                ->name('select2.')
+                ->group(base_path('routes/select2.php'));
         });
     }
 }

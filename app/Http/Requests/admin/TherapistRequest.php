@@ -34,8 +34,8 @@ class TherapistRequest extends FormRequest
             'password' => 'nullable'
         ];
 
-        if($this->getMethod() == 'POST') {
-            $rules['password'] = 'required|size:8';
+        if ($this->getMethod() == 'POST') {
+            $rules['password'] = 'required|min:8';
             $rules['email'] = 'required|email|unique:therapists,email';
         }
 

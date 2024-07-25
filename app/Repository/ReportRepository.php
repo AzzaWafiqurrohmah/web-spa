@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Models\Packet;
 use App\Models\Reservation;
+use App\Models\Therapist;
 use App\Models\Treatment;
 
 class ReportRepository
@@ -45,7 +46,79 @@ class ReportRepository
             $reservation->total_packets = $packets->count();
             $reservation->total_treatments = $treatments->count();
 
+            $total = $reservation->totals - ($reservation->transport_cost + $reservation->extra_cost) + $reservation->discount;
+
+            $reservation->totals = ($total * 70) / 100;
+
             return $reservation;
+        });
+    }
+
+    public function outcome(
+        ?int $month = null,
+        ?int $year = null,
+        ?int $franchiseId = null
+    ) {
+        $therapists = Therapist::query();
+
+        if ($franchiseId)
+            $therapists->where('franchise_id', $franchiseId);
+
+        $therapists = $therapists->with([
+            'reservation' => function ($query) use ($month, $year) {
+                if ($month) $query->whereMonth('date', $month);
+                if ($year) $query->whereYear('date', $year);
+            },
+
+            'presence' => function ($query) use ($month, $year) {
+                if ($month) $query->whereMonth('date', $month);
+                if ($year) $query->whereYear('date', $year);
+            }
+        ])->get();
+
+        return $therapists->map(function ($therapist) {
+            $presents = $therapist->presence->filter(
+                fn ($prs) => $prs->status == 'full' || $prs->status == 'half'
+            )->count();
+
+            $therapist->meal = $presents * 12500;
+            $therapist->reservations = $therapist->reservation->map(function ($rsv) {
+                $total = $rsv->totals - ($rsv->transport_cost + $rsv->extra_cost) + $rsv->discount;
+                $total = ($total * 30) / 100;
+
+                $rsv->totals = $total + ($rsv->transport_cost + $rsv->extra_cost);
+                return $rsv;
+            });
+
+            return $therapist;
+        });
+    }
+
+    public function presence(
+        ?int $month = null,
+        ?int $year = null,
+        ?int $franchiseId = null
+    ) {
+        $therapists = Therapist::query();
+
+        if ($franchiseId)
+            $therapists->where('franchise_id', $franchiseId);
+
+        $therapists = $therapists->with(['presence' => function ($query) use ($month, $year) {
+            if ($month)
+                $query->whereMonth('date', $month);
+
+            if ($year)
+                $query->whereYear('date', $year);
+        }])->get();
+
+        return $therapists->map(function ($therapist) {
+            $therapist->absent = $therapist->presence->where('status', 'absent')->count();
+            $therapist->present = $therapist->presence->filter(
+                fn ($prs) => $prs->status == 'full' || $prs->status == 'half'
+            )->count();
+
+            return $therapist;
         });
     }
 }

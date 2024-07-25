@@ -193,6 +193,16 @@
                     <span class="sidebar-text">Pendapatan</span>
                   </a>
                 </li>
+                <li class="nav-item @active('reports.outcome')">
+                    <a class="nav-link" href="{{ route('reports.outcome') }}">
+                        <span class="sidebar-text">Pengeluaran</span>
+                    </a>
+                </li>
+                <li class="nav-item @active('reports.presence')">
+                    <a class="nav-link" href="{{ route('reports.presence') }}">
+                        <span class="sidebar-text">Kehadiran</span>
+                    </a>
+                </li>
               </ul>
             </div>
         </li>

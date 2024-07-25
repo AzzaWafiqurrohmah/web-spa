@@ -127,10 +127,24 @@ class TherapistController extends Controller
             $query->select('reservations.therapist_id')
                 ->distinct()
                 ->from('reservations')
-                ->join(DB::raw('(SELECT reservation_id, SUM(treatments.duration * 60) AS total_duration
-                        FROM reservation_details
-                        JOIN treatments ON reservation_details.treatment_id = treatments.id
-                        GROUP BY reservation_id) AS details'), function ($join) {
+                ->joinSub(function ($query) {
+                    $query->selectRaw('reservation_id, SUM(duration * 60) AS total_duration')
+                        ->from('reservation_details')
+                        ->join('treatments', function ($join) {
+                            $join->on('reservation_details.reservationable_id', '=', 'treatments.id')
+                                ->where('reservation_details.reservationable_type', 'App\Models\Treatment');
+                        })
+                        ->groupBy('reservation_id')
+                        ->unionAll(function ($query) {
+                            $query->selectRaw('reservation_id, SUM(treatments.duration * 60) AS total_duration')
+                                ->from('reservation_details')
+                                ->join('packets', 'reservation_details.reservationable_id', '=', 'packets.id')
+                                ->join('packet_treatment', 'packets.id', '=', 'packet_treatment.packet_id')
+                                ->join('treatments', 'packet_treatment.treatment_id', '=', 'treatments.id')
+                                ->where('reservation_details.reservationable_type', 'App\Models\Packet')
+                                ->groupBy('reservation_id');
+                        });
+                }, 'details', function ($join) {
                     $join->on('reservations.id', '=', 'details.reservation_id');
                 })
                 ->where('reservations.date', $date)
@@ -149,7 +163,6 @@ class TherapistController extends Controller
                 ->orWhere('phone', 'like', '%' . $q . '%');
         })->get();
         return response()->json([
-//            'data' => ['message' => 'hai']
             'data' => TherapistResource::collection($therapist)
         ]);
     }
@@ -165,10 +178,24 @@ class TherapistController extends Controller
             $query->select('reservations.therapist_id')
                 ->distinct()
                 ->from('reservations')
-                ->join(DB::raw('(SELECT reservation_id, SUM(treatments.duration * 60) AS total_duration
-                        FROM reservation_details
-                        JOIN treatments ON reservation_details.treatment_id = treatments.id
-                        GROUP BY reservation_id) AS details'), function ($join) {
+                ->joinSub(function ($query) {
+                    $query->selectRaw('reservation_id, SUM(duration * 60) AS total_duration')
+                        ->from('reservation_details')
+                        ->join('treatments', function ($join) {
+                            $join->on('reservation_details.reservationable_id', '=', 'treatments.id')
+                                ->where('reservation_details.reservationable_type', 'App\Models\Treatment');
+                        })
+                        ->groupBy('reservation_id')
+                        ->unionAll(function ($query) {
+                            $query->selectRaw('reservation_id, SUM(treatments.duration * 60) AS total_duration')
+                                ->from('reservation_details')
+                                ->join('packets', 'reservation_details.reservationable_id', '=', 'packets.id')
+                                ->join('packet_treatment', 'packets.id', '=', 'packet_treatment.packet_id')
+                                ->join('treatments', 'packet_treatment.treatment_id', '=', 'treatments.id')
+                                ->where('reservation_details.reservationable_type', 'App\Models\Packet')
+                                ->groupBy('reservation_id');
+                        });
+                }, 'details', function ($join) {
                     $join->on('reservations.id', '=', 'details.reservation_id');
                 })
                 ->where('reservations.date', $date)

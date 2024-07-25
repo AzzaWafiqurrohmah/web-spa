@@ -25,7 +25,6 @@
         $('#treatment-container').on('click', '.btn-delete', function() {
             const id = $(this).data('id');
             $(this).parent().parent().parent().remove();
-            console.log(treatmentContainer);
             treatmentContainer -= 1;
 
             updateTotal();

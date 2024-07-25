@@ -44,7 +44,8 @@ class ReservationController extends Controller
             'setting' => $data['setting'],
             'customer' => $data['customer'],
             'therapist' => $data['therapist'],
-            'treatmentsModal' => $data['treatmentsModal']
+            'treatmentsModal' => $data['treatmentsModal'],
+            'packetsModal' => $data['packetModal']
         ]);
     }
 
@@ -53,6 +54,7 @@ class ReservationController extends Controller
      */
     public function store(ReservationRequest $request)
     {
+//        dd($request->all());
         ReservationRepository::save($request->all());
         return to_route('reservations.index')->with('alert_s', 'Berhasil menambahkan Reservasi baru');
     }
@@ -77,9 +79,11 @@ class ReservationController extends Controller
             'reservation' => $reservation,
             'totalTreatments' => $data['totalTreatment'],
             'additional_disc' => $data['additional_disc'],
+            'disc_treatment' => $data['disc_treatment'],
             'customer' => $data['customer'],
             'therapist' => $data['therapist'],
-            'treatmentsModal' => $data['treatmentsModal']
+            'treatmentsModal' => $data['treatmentsModal'],
+            'packetsModal' => $data['packetModal']
         ]);
     }
 
@@ -95,7 +99,7 @@ class ReservationController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Reservation $reservation)
     {
         //
     }
@@ -171,12 +175,19 @@ class ReservationController extends Controller
     {
         $customer = Customer::find($request->cust);
         $treatments = [];
+        $packets = [];
         if (isset($request->treatment)) {
-            foreach ($request->treatment as $treatment) {
-                $treatments[] = $treatment;
+            foreach ($request->treatment as $id) {
+                $code = substr($id, 0, 1);
+
+                if($code == "P"){
+                    $packets[] = substr($id, 1, 1);
+                } else {
+                    $treatments[] = substr($id, 1, 1);
+                }
             }
         }
-        $treatments = ReservationService::treatmentCost($treatments, $customer);
+        $treatments = ReservationService::treatmentCost($customer, $treatments, $packets);
         return response()->json([
             'data' => $treatments
         ]);

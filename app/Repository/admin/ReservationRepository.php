@@ -2,12 +2,15 @@
 
 namespace App\Repository\admin;
 
+use App\Http\Resources\admin\PacketResource;
 use App\Models\Customer;
+use App\Models\Packet;
 use App\Models\Reservation;
 use App\Models\ReservationDetail;
 use App\Models\Setting;
 use App\Models\Therapist;
 use App\Models\Treatment;
+use App\Service\ReservationService;
 use Cassandra\Custom;
 use Illuminate\Support\Facades\Auth;
 
@@ -30,16 +33,8 @@ class ReservationRepository
             'totals' => $data['totals']
         ]);
 
-        foreach ($data['treatments'] as $id)
-        {
-            $treatment = Treatment::find($id);
-            ReservationDetail::create([
-                'treatment_id' => $treatment->id ,
-                'reservation_id' => $reservation->id ,
-                'disc_treatment' => $treatment->discount ,
-                'disc_member' => self::discMember($customer, $treatment->price)
-            ]);
-        }
+        self::createDetails($data['treatments'], $reservation, $customer);
+
     }
 
     public static function update(array $data, Reservation $reservation)
@@ -50,14 +45,45 @@ class ReservationRepository
         ReservationDetail::where('reservation_id', $reservation->id)
             ->delete();
 
-        foreach ($data['treatments'] as $id)
+        self::createDetails($data['treatments'], $reservation, $customer);
+    }
+
+    public static function createDetails(array $data, Reservation $reservation, Customer $customer){
+        $treatments = [];
+        $packets = [];
+        if (isset($data)) {
+            foreach ($data as $id) {
+                $code = substr($id, 0, 1);
+
+                if($code == "P"){
+                    $packets[] = substr($id, 1, 1);
+                } else {
+                    $treatments[] = substr($id, 1, 1);
+                }
+            }
+        }
+
+        foreach ($treatments as $id)
         {
             $treatment = Treatment::find($id);
             ReservationDetail::create([
-                'treatment_id' => $treatment->id ,
-                'reservation_id' => $reservation->id ,
+                'reservationable_id' => $treatment->id,
+                'reservationable_type' => Treatment::class,
+                'reservation_id' => $reservation->id,
                 'disc_treatment' => $treatment->discount ,
-                'disc_member' => self::discMember($customer, $treatment->price)
+                'disc_member' => self::discMember($customer, $treatment->price, $treatment->member_price)
+            ]);
+        }
+
+        foreach ($packets as $id)
+        {
+            $packet = Packet::find($id);
+            ReservationDetail::create([
+                'reservationable_id' => $packet->id,
+                'reservationable_type' => Packet::class,
+                'reservation_id' => $reservation->id,
+                'disc_treatment' => 0 ,
+                'disc_member' => self::discMember($customer, $packet->packet_price, $packet->member_price)
             ]);
         }
     }
@@ -79,25 +105,54 @@ class ReservationRepository
         $res['therapist'] = $therapist;
 
         $treatmentID = [];
-        if($reservation || old('treatments')) {
-            foreach ( (old('treatments') ?? $reservation?->reservationDetail) as $detail){
-                $treatmentID[] = old('treatments') ? $detail : $detail->treatment_id;
+        $packetID = [];
+
+        if($reservation){
+            foreach ($reservation->reservationDetail as $detail){
+                if($detail->reservationable_type === 'App\Models\Packet'){
+                    $packetID[] = $detail->reservationable_id;
+                }
+
+                if($detail->reservationable_type === 'App\Models\Treatment'){
+                    $treatmentID[] = $detail->reservationable_id;
+                }
+            }
+        }
+
+        if(old('treatments')){
+            foreach (old('treatments') as $id) {
+                $code = substr($id, 0, 1);
+
+                if($code == "P"){
+                    $packetID[] = substr($id, 1, 1);
+                } else {
+                    $treatmentID[] = substr($id, 1, 1);
+                }
             }
         }
 
         $treatmentsModal = [];
-        if(count($treatmentID) != 0){
-            foreach ($treatmentID as $id){
-                $treatmentsModal[] = Treatment::find($id);
+        $packetsModal = [];
+        foreach ($treatmentID as $id){
+            $treatment = Treatment::find($id);
+            if ($customer->is_member){
+                $treatment->price = $treatment->member_price;
             }
+            $treatmentsModal[] = $treatment;
+        }
+        foreach ($packetID as $id){
+            $packet = Packet::find($id);
+            if ($customer->is_member){
+                $packet->packet_price = $packet->member_price;
+            }
+            $packetsModal[] = $packet;
         }
         $res['treatmentsModal'] = $treatmentsModal;
+        $res['packetModal'] = $packetsModal;
 
         if(isset($reservation)){
-            $totalTreatment = 0;
-            foreach ($reservation->reservationDetail as $reservationDetail){
-                $totalTreatment += $reservationDetail->treatment->price;
-            }
+            $service = ReservationService::treatmentCost($customer, $treatmentID, $packetID);
+            $totalTreatment = $service['totalTreatment'];
 
             $disc_member = 0;
             $disc_treatment = 0;
@@ -110,21 +165,35 @@ class ReservationRepository
 
             $res['totalTreatment'] = $totalTreatment;
             $res['additional_disc'] = $additional_disc;
+            $res['disc_treatment'] = $additional_disc + $service['disc_treatment'];
         }
         return $res;
     }
 
-    public static function discMember(Customer $customer, $price)
+    public static function discMember(Customer $customer, $price, $member_price )
     {
-        $user = Auth::user();
-        $setting = Setting::where('user_id', $user->id)
-            ->where('key', 'diskon_member')->first();
         $disc_member = 0;
-
         if($customer->is_member)
         {
-            $disc_member = $price * ($setting->value / 100);
+            $disc_member = $price - $member_price;
         }
         return $disc_member;
     }
+
+    public static function breakTreatment(array $data){
+        $res = [];
+        $res['treatments'] = [];
+        $res['packets'] = [];
+        foreach ($data as $id) {
+            $code = substr($id, 0, 1);
+
+            if($code == "P"){
+                $res['packets'] = substr($id, 1, 1);
+            } else {
+                $res['treatments'] = substr($id, 1, 1);
+            }
+        }
+        return $res;
+    }
+
 }

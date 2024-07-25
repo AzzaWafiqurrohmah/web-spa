@@ -24,6 +24,7 @@ class TreatmentResource extends JsonResource
             'period_start' => $this->period_start,
             'period_end' => $this->period_end,
             'price' => $this->price,
+            'member_price' => $this->member_price,
             'discount' => $this->discount
         ];
     }

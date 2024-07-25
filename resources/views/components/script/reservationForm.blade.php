@@ -1,6 +1,7 @@
 @push('script')
     <script>
-
+        var allTreatment = [];
+        var member ;
         function selectPayment(id) {
             document.getElementById(id).checked = true;
         }
@@ -13,8 +14,8 @@
         let ekstra_malam = {{ $setting['biaya_ekstra_malam'] }};
         let date = new Date();
         // let treatments = [];
-        let customer;
-        let discAdd = 0;
+        let customer = $('.customer-option').val();
+        let discAdd = $('#discountAdd').val();
         let durationTP = 0;
         let therapistID = 0;
 
@@ -25,11 +26,13 @@
 
         function updateTotal()
         {
+
             customer = $('#customer_id').val();
             let treatments = [];
             $('[name^="treatments\\["]').each(function() {
                 treatments.push($(this).val());
             });
+
 
             $.ajax({
                 url: `/reservations/treatmentTotal`,
@@ -39,7 +42,6 @@
 
                     cust: customer,
                     treatment: treatments
-                    // treatment: treatments
                 },
                 success(res) {
                     date = setTime($('#time').val(), $('#date').val());
@@ -50,12 +52,14 @@
                     }
 
                     var totalEkstra = setEkstraMalam(res.data.duration);
-                    var totalDisc = res.data.disc + parseInt(discAdd);
-                    total = (parseVal($('#transport_cost_string').text()) + res.data.totalTreatment + totalEkstra ) - totalDisc;
+                    var discString = parseInt(discAdd) + res.data.disc_treatment;
+                    var totalDisc = res.data.discount + discString ;
+                    total = (parseVal($('#transport_cost_string').text()) + res.data.totalTreatment + totalEkstra ) - discString;
 
                     $('#extra_cost_string').text(`Rp ${totalEkstra}`);
                     $('#extra_cost').val(totalEkstra);
-                    $('#discString').text(`Rp ${ totalDisc }`);
+                    $('#discString').text(`Rp ${ parseInt(discAdd) + res.data.disc_treatment }`);
+                    $('#discTreatment').val(`Rp ${ discString}`);
                     $('#discount').val(totalDisc);
                     $('#totalTreatmentString').text(`Rp ${ res.data.totalTreatment }`)
                     $('#totalTreatment').val(res.data.totalTreatment);
@@ -101,23 +105,20 @@
 
             if(date.getHours() < deadline.getHours())
             {
-                // console.log('1');
                 date.setMinutes(date.getMinutes() + $totalDuration);
 
                 let difference = date - deadline;
                 hour = Math.floor(difference / (1000 * 60 * 60));
                 minute = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
 
-                if (hour <= 0) {
+                if( hour < 0){
                     hour = 0;
-                } else {
-                    if (hour < 1 && minute > 0) {
-                        hour = 1;
-                    }
+                }
 
-                    if (hour >= 1 && minute > 30) {
-                        hour += 1;
-                    }
+                if (hour == 0   && minute > 0) {
+                    hour = 1;
+                } else if (hour >= 1 && minute > 30) {
+                    hour += 1;
                 }
 
             } else {
@@ -135,17 +136,47 @@
         }
 
         function addTreatment(treatment) {
+            let price = treatment.price;
+            if(member){
+                price = treatment.member_price
+            }
+
             $('#treatment-container').append(`
             <div class="col-md-6 mb-3" >
-                 <input type="hidden" id="treatments" name="treatments[${treatment.id}]" value="${treatment.id}">
+                 <input type="hidden" id="treatments" name="treatments[T${treatment.id}]" value="T${treatment.id}">
                  <div class="card" >
                        <div class="card-body d-flex gap-4 align-items-center">
                              <i class="bi bi-clipboard-check-fill" style="font-size: 2rem"></i>
                               <div>
                                 <h6 class="m-0" style="font-size: 1.2rem">${treatment.name}</h6>
-                                <p class="m-0">${treatment.price}</p>
+                                <p class="m-0">${price}</p>
                               </div>
                               <span class="position-absolute top-0 end-0 me-2 btn-delete" data-id="${treatment.id}" style="font-size: 1.4rem; cursor: pointer">
+                                 <i class="bi bi-x"></i>
+                              </span>
+                       </div>
+                 </div>
+            </div>
+            `);
+        }
+
+        function addPacket(packet) {
+            let price = packet.packet_price;
+            if(member){
+                price = packet.member_price
+            }
+
+            $('#treatment-container').append(`
+            <div class="col-md-6 mb-3" >
+                 <input type="hidden" id="treatments" name="treatments[P${packet.id}]" value="P${packet.id}">
+                 <div class="card" >
+                       <div class="card-body d-flex gap-4 align-items-center">
+                             <i class="bi bi-clipboard-check-fill" style="font-size: 2rem"></i>
+                              <div>
+                                <h6 class="m-0" style="font-size: 1.2rem">${packet.name}</h6>
+                                <p class="m-0">${price}</p>
+                              </div>
+                              <span class="position-absolute top-0 end-0 me-2 btn-delete" data-id="${packet.id}" style="font-size: 1.4rem; cursor: pointer">
                                  <i class="bi bi-x"></i>
                               </span>
                        </div>
@@ -158,13 +189,14 @@
         $('#treatment-container').on('click', '.btn-delete', function() {
             const id = $(this).data('id');
             $(this).parent().parent().parent().remove();
+
             updateTotal();
+            // emptyTreatment();
         });
 
 
         //select2 customer
         $(".customer-option").select2({
-            data: defaultOptions,
             ajax: {
                 url: "/reservations/customers",
                 method: 'GET',
@@ -181,6 +213,7 @@
                             return {
                                 text: item.fullname,
                                 phone: item.phone,
+                                member: item.is_member,
                                 id:item.id
                             }
                         })
@@ -190,16 +223,22 @@
             },
             placeholder: '--- Pilih Customer ---',
             minimumInputLength: 0,
-            templateResult: formatRepo
+            templateResult: formatRepo,
+            templateSelection: formatSelection
         });
 
         function formatRepo (repo) {
             if (repo.loading) {
                 return repo.text;
             }
+
+            let color = 'grey';
+            if(repo.member === 1){
+                color = 'green';
+            }
             return $(
-                '<div class="d-flex gap-4 align-items-center">' +
-                '<i class="bi bi-person-circle ms-1" style="font-size: 1.5rem"></i>' +
+                '<div class="d-flex gap-3 align-items-center">' +
+                `<i class="bi bi-person-circle ms-1" style="font-size: 1.5rem; color: ${color}"></i>` +
                 '<div>' +
                 '<h4 class="m-0" style="font-size: 16px">' + repo.text + '</h4>' +
                 '<p class="m-0" style="font-size: 12px">' + repo.phone + '</p>' +
@@ -215,12 +254,73 @@
                 dataType: 'JSON',
                 success(res) {
                     customer = res.data.id;
+                    $('#customer_member').val(member);
                     $('#transport_cost_string').text(`Rp ${res.data.transport_cost}`);
+                    $('#transport_input').val(res.data.transport_cost);
                     $('#transport_cost').val(res.data.transport_cost);
+                    $('#treatment-container').empty();
                     updateTotal();
                 }
             });
         });
+
+
+        $('.customer-option').change(function() {
+            ($(this).val().length > 0) ?
+                $('#regency-select').removeAttr('disabled') :
+                $('#regency-select').attr('disabled', true);
+
+            if($(this).val().length > 0){
+                $('.treatment-option').removeAttr('disabled');
+                $('.packet-option').removeAttr('disabled');
+            }
+        });
+
+        $('#transport_input').on('change', function (){
+            $('#transport_cost_string').text(`Rp ${$(this).val()}`);
+        })
+
+        function formatSelection(selection) {
+
+            let color = 'grey';
+            if (selection.id !== '') {
+                member = selection.member ?? parseInt($('#customer_member').val());
+                // console.log(member);
+                if (member === 1) {
+                    color = 'green';
+                }
+                return $(
+                    '<div class="d-flex gap-3">' +
+                    `<i class="bi bi-person-circle" style="font-size: 1.4rem; color: ${color}; margin-top: -5px"></i>` +
+                    '<div>' +
+                    '<h4 class="m-0" style="font-size: 16px">' + selection.text + '</h4>' +
+                    '</div>' +
+                    '</div>'
+                );
+            } else {
+                return $('<span style="color: grey;">' + selection.text + '</span>');
+            }
+
+
+
+            // console.log(selection);
+            // let color = 'grey';
+            // if (selection.member === 1 && isSelected) {
+            //     color = 'green';
+            // }
+            // if (selection.id !== '') {
+            //     return $(
+            //             '<div class="d-flex gap-3">' +
+            //             `<i class="bi bi-person-circle" style="font-size: 1.4rem; color: ${color}; margin-top: -5px"></i>` +
+            //             '<div>' +
+            //             '<h4 class="m-0" style="font-size: 16px">' + selection.text + '</h4>' +
+            //             '</div>' +
+            //             '</div>'
+            //     );
+            // } else {
+            //     return $('<span style="color: grey;">' + selection.text + '</span>');
+            // }
+        }
 
         $(".treatment-option").select2({
             ajax: {
@@ -239,6 +339,7 @@
                             return {
                                 text: item.name,
                                 price: item.price,
+                                member_price: item.member_price,
                                 id:item.id
                             }
                         })
@@ -255,12 +356,16 @@
             if (repo.loading) {
                 return repo.text;
             }
+            let price = repo.price;
+            if(member){
+                price = repo.member_price
+            }
             return $(
                 '<div class="d-flex gap-4 align-items-center">' +
                 '<i class="bi bi-clipboard ms-1" style="font-size: 1.5rem"></i>' +
                 '<div>' +
                 '<h4 class="m-0" style="font-size: 16px">' + repo.text + '</h4>' +
-                '<p class="m-0" style="font-size: 12px">' + repo.price + '</p>' +
+                '<p class="m-0" style="font-size: 12px">' + price + '</p>' +
                 '</div>' +
                 '</div>'
             );
@@ -273,6 +378,68 @@
                 dataType: 'JSON',
                 success(res) {
                     addTreatment(res.data);
+                    updateTotal();
+                }
+            });
+        });
+
+        //packet treatment
+        $(".packet-option").select2({
+            ajax: {
+                url: "/packets/search",
+                method: 'GET',
+                dataType: 'json',
+                delay: 0,
+                data: function (params) {
+                    return {
+                        q: params.term
+                    };
+                },
+                processResults: function (data, params) {
+                    return {
+                        results: $.map(data.data, function (item) {
+                            return {
+                                text: item.name,
+                                price: item.packet_price,
+                                member_price: item.member_price,
+                                id:item.id
+                            }
+                        })
+                    };
+                },
+                cache: true
+            },
+            placeholder: '--- Pilih Paket Treatment ---',
+            minimumInputLength: 0,
+            templateResult: formatRepoPacket
+        });
+
+        function formatRepoPacket (repo) {
+            if (repo.loading) {
+                return repo.text;
+            }
+            let price = repo.price;
+            if(member){
+                price = repo.member_price
+            }
+            return $(
+                '<div class="d-flex gap-4 align-items-center">' +
+                '<i class="bi bi-clipboard ms-1" style="font-size: 1.5rem"></i>' +
+                '<div>' +
+                '<h4 class="m-0" style="font-size: 16px">' + repo.text + '</h4>' +
+                '<p class="m-0" style="font-size: 12px">' + price + '</p>' +
+                '</div>' +
+                '</div>'
+            );
+        }
+
+        $('.packet-option').on('select2:select', function(repo) {
+            const id = $(this).val();
+            $.ajax({
+                url: `/packets/${id}`,
+                dataType: 'JSON',
+                success(res) {
+                    addPacket(res.data);
                     updateTotal();
                 }
             });
@@ -357,7 +524,6 @@
             therapistID = $(this).val();
             updateTotal();
         });
-
 
 
     </script>

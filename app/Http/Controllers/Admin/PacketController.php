@@ -4,6 +4,7 @@ namespace App\Http\Controllers\admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\PacketRequest;
+use App\Http\Resources\admin\PacketResource;
 use App\Models\Packet;
 use App\Repository\admin\PacketRepository;
 use App\Service\PacketService;
@@ -46,9 +47,12 @@ class PacketController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Packet $packet)
     {
-        //
+        return $this->success(
+            PacketResource::make($packet),
+            'Berhasil mendapatkan data'
+        );
     }
 
     /**
@@ -110,6 +114,19 @@ class PacketController extends Controller
         $treatments = PacketService::treatmentTotal($treatments);
         return response()->json([
             'data' => $treatments
+        ]);
+    }
+
+    public function packets(Request $request)
+    {
+        $q =  $request->input('q');
+        $packet = Packet::query()
+            ->where('name', 'like', '%' . $q . '%')
+            ->orWhere('packet_price', 'like', '%' . $q . '%')
+            ->orWhere('member_price', 'like', '%' . $q . '%')
+            ->get();
+        return response()->json([
+            'data' => PacketResource::collection($packet)
         ]);
     }
 }

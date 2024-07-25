@@ -110,6 +110,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('packets')
         ->name('packets.')
         ->controller(PacketController::class)->group(function () {
+            Route::get('/search', 'packets')->name('packets');
             Route::post('/treatmentTotal', 'treatmentTotal')->name('treatmentTotal');
             Route::get('/', 'index')->name('index');
             Route::get('create', 'create')->name('create');

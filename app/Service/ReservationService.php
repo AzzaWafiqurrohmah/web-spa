@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Models\Customer;
+use App\Models\Packet;
 use App\Models\Setting;
 use App\Models\Treatment;
 use Illuminate\Support\Facades\Auth;
@@ -28,42 +29,59 @@ class ReservationService
         return ( $setting->value * $distance );
     }
 
-    public static function treatmentCost($data, Customer $customer)
+    public static function treatmentCost( Customer $customer, ?array $dataTreatment, ?array $dataPacket )
     {
-        $user = Auth::user();
-        $setting = Setting::where('user_id', $user->id)
-            ->where('key', 'diskon_member')->first();
 
-        $treatments = array_map(function($id) use ($customer, $setting){
-            $treatment = Treatment::find($id);
-            $reservation = [];
-            $reservation['duration'] = $treatment->duration;
-            $reservation['disc_member'] = 0;
-            if($customer->is_member == 1){
-                $reservation['disc_member'] =  (($setting->value/100) * $treatment->price);
+        $total = [
+            'duration' => 0,
+            'price' => 0,
+            'member_price' => 0,
+            'discount' => 0,
+            'disc_treatment' => 0,
+        ];
+
+        if(!empty($dataTreatment)){
+            foreach ($dataTreatment as $id){
+                $treatment = Treatment::find($id);
+                $total['duration'] += $treatment->duration;
+                $total['price'] += $treatment->price;
+                $total['member_price'] += $treatment->member_price;
+                $total['discount'] += self::discMember($customer, $treatment->price, $treatment->member_price);
+                $total['disc_treatment'] += $treatment->discount;
             }
-            $reservation['discount'] = $treatment->discount;
-            $reservation['price'] = $treatment->price;
-            return $reservation;
-        }, $data);
-
-        $totalTreatments = 0;
-        $disc = 0;
-        $duration = 0;
-        for ($i = 0; $i < count($treatments); $i++) {
-//            $totalTreatments += ($treatments[$i]['price'] - $treatments[$i]['disc_member'] - $treatments[$i]['discount']);
-            $totalTreatments += $treatments[$i]['price'];
-            $disc += ($treatments[$i]['disc_member'] + $treatments[$i]['discount']);
-            $duration += $treatments[$i]['duration'];
         }
 
-        $allTreatments = [];
-        $allTreatments['totalTreatment'] = $totalTreatments;
-        $allTreatments['disc'] = $disc;
-        $allTreatments['duration'] = $duration;
+        if(!empty($dataPacket)){
+            foreach ($dataPacket as $id){
+                $packet = Packet::find($id);
 
+                foreach ($packet->treatments as $treatment){
+                    $total['duration'] += $treatment->duration;
+                }
 
-        return $allTreatments;
+                $total['price'] += $packet->packet_price;
+                $total['member_price'] += $packet->member_price;
+                $total['discount'] += self::discMember($customer, $packet->packet_price, $packet->member_price);
+                $total['disc_treatment'] += 0;
+            }
+        }
+
+        $total['totalTreatment'] = $total['price'];
+        if($customer->is_member == 1){
+            $total['totalTreatment'] = $total['member_price'];
+        }
+
+        return $total;
+    }
+
+    public static function discMember(Customer $customer, $price, $member_price )
+    {
+        $disc_member = 0;
+        if($customer->is_member)
+        {
+            $disc_member = $price - $member_price;
+        }
+        return $disc_member;
     }
 
 }

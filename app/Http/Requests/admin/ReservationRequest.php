@@ -27,7 +27,8 @@ class ReservationRequest extends FormRequest
             'discountAdd' => 'required',
             'date' => 'required',
             'time' => 'required',
-            'payment_type' => 'required'
+            'payment_type' => 'required',
+            'transport_cost' => 'required'
         ];
     }
 }

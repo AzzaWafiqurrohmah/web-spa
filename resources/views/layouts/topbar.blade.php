@@ -8,7 +8,7 @@
             <div class="btn-group ms-auto">
                 <div class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="cursor: pointer">
                     <img
-                        src="{{ $user->image ? Storage::url($user->image) : 'https://apsensi.my.id/img/profile/noimage.jpg' }}"
+                        src="{{ $user->image ? Storage::url($user->image) : 'assets/img/illustrations/noimage.jpg' }}"
                         class="rounded-circle"
                         width="40"
                         height="40"
@@ -22,7 +22,7 @@
                         </div>
                         <div class="d-flex align-items-center py-3 mx-4 border-bottom">
                             <img
-                                src="{{ $user->image ? Storage::url($user->image) : 'https://apsensi.my.id/img/profile/noimage.jpg' }}"
+                                src="{{ $user->image ? Storage::url($user->image) : 'assets/img/illustration/noimage.jpg' }}"
                                 class="rounded-circle"
                                 width="80"
                                 height="80"

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Franchise;
 use App\Models\Therapist;
 use App\Repository\ReportRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ReportController extends Controller
@@ -26,8 +27,8 @@ class ReportController extends Controller
         $reservations = $this->repo->income(
             month: $month,
             year: $year,
-            therapistId: $therapist?->id,
-            franchiseId: $franchise?->id
+            franchiseId: $franchise?->id,
+            therapistId: $therapist?->id
         );
 
         return view('pages.report.income', compact(

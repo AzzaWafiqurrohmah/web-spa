@@ -44,7 +44,7 @@
         <li role="separator" class="dropdown-divider mt-4 mb-3 border-gray-700"></li>
 
       <li class="nav-item @active('dashboard')">
-          <a href="/dashboard" class="nav-link d-flex">
+          <a href="{{ route('dashboard.index') }}" class="nav-link d-flex">
               <span class="d-flex align-items-center justify-content-center" >
                 <i class="bx bx-home sidebar-icon" style="font-size: 1.5rem; padding-bottom: 0px"></i>
               </span>

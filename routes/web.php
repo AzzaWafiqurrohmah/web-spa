@@ -18,6 +18,7 @@ use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\Admin\PacketController;
 use App\Http\Controllers\ReportController;
+use App\Http\Controllers\DashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,10 +39,14 @@ Route::middleware('guest')->controller(AuthController::class)->group(function ()
 
 Route::middleware('auth')->group(function () {
     Route::get('signOut', [AuthController::class, 'signOut'])->name('signOut');
-    //dashboard
-    Route::get('dashboard', function () {
-        return view('pages.dashboard');
-    })->name('dashboard');
+
+    Route::prefix('dashboard')
+        ->name('dashboard.')
+        ->controller(DashboardController::class)->group(function (){
+           Route::get('/', 'index')->name('index');
+           Route::get('/adminChart', 'adminChart')->name('adminChart');
+           Route::get('/adminRanking', 'adminRanking')->name('adminRanking');
+        });
 
     Route::prefix('customers')
         ->name('customers.')

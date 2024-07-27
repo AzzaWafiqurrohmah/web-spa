@@ -44,7 +44,7 @@ d.addEventListener("DOMContentLoaded", function(event) {
             themeSettingsCollapse.hide();
             themeSettingsExpandEl.classList.add('show');
         }
-        
+
         themeSettingsEl.addEventListener('hidden.bs.collapse', function () {
             themeSettingsExpandEl.classList.add('show');
             window.localStorage.setItem('settings_expanded', false);
@@ -114,7 +114,7 @@ d.addEventListener("DOMContentLoaded", function(event) {
     var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
       return new bootstrap.Popover(popoverTriggerEl)
     })
-    
+
 
     // Datepicker
     var datepickers = [].slice.call(d.querySelectorAll('[data-datepicker]'))
@@ -171,87 +171,87 @@ d.addEventListener("DOMContentLoaded", function(event) {
 
     //Chartist
 
-    if(d.querySelector('.ct-chart-sales-value')) {
-        //Chart 5
-          new Chartist.Line('.ct-chart-sales-value', {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'],
-            series: [
-                [0, 10, 30, 40, 80, 60, 100]
-            ]
-          }, {
-            low: 0,
-            showArea: true,
-            fullWidth: true,
-            plugins: [
-              Chartist.plugins.tooltip()
-            ],
-            axisX: {
-                // On the x-axis start means top and end means bottom
-                position: 'end',
-                showGrid: true
-            },
-            axisY: {
-                // On the y-axis start means left and end means right
-                showGrid: false,
-                showLabel: false,
-                labelInterpolationFnc: function(value) {
-                    return '$' + (value / 1) + 'k';
-                }
-            }
-        });
-    }
+    // if(d.querySelector('.ct-chart-sales-value')) {
+    //     //Chart 5
+    //       new Chartist.Line('.ct-chart-sales-value', {
+    //         labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul'],
+    //         series: [
+    //             [0, 10, 30, 40, 80, 60, 100]
+    //         ]
+    //       }, {
+    //         low: 0,
+    //         showArea: true,
+    //         fullWidth: true,
+    //         plugins: [
+    //           Chartist.plugins.tooltip()
+    //         ],
+    //         axisX: {
+    //             // On the x-axis start means top and end means bottom
+    //             position: 'end',
+    //             showGrid: true
+    //         },
+    //         axisY: {
+    //             // On the y-axis start means left and end means right
+    //             showGrid: false,
+    //             showLabel: false,
+    //             labelInterpolationFnc: function(value) {
+    //                 return '$' + (value / 1) + 'k';
+    //             }
+    //         }
+    //     });
+    // }
 
-    if(d.querySelector('.ct-chart-ranking')) {
-        var chart = new Chartist.Bar('.ct-chart-ranking', {
-            labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-            series: [
-              [1, 5, 2, 5, 4, 3],
-              [2, 3, 4, 8, 1, 2],
-            ]
-          }, {
-            low: 0,
-            showArea: true,
-            plugins: [
-              Chartist.plugins.tooltip()
-            ],
-            axisX: {
-                // On the x-axis start means top and end means bottom
-                position: 'end'
-            },
-            axisY: {
-                // On the y-axis start means left and end means right
-                showGrid: false,
-                showLabel: false,
-                offset: 0
-            }
-            });
-          
-          chart.on('draw', function(data) {
-            if(data.type === 'line' || data.type === 'area') {
-              data.element.animate({
-                d: {
-                  begin: 2000 * data.index,
-                  dur: 2000,
-                  from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-                  to: data.path.clone().stringify(),
-                  easing: Chartist.Svg.Easing.easeOutQuint
-                }
-              });
-            }
-        });
-    }
+    // if(d.querySelector('.ct-chart-ranking')) {
+    //     var chart = new Chartist.Bar('.ct-chart-ranking', {
+    //         labels: ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
+    //         series: [
+    //           [1, 5, 2, 5, 4, 3],
+    //           [2, 3, 4, 8, 1, 2],
+    //         ]
+    //       }, {
+    //         low: 0,
+    //         showArea: true,
+    //         plugins: [
+    //           Chartist.plugins.tooltip()
+    //         ],
+    //         axisX: {
+    //             // On the x-axis start means top and end means bottom
+    //             position: 'end'
+    //         },
+    //         axisY: {
+    //             // On the y-axis start means left and end means right
+    //             showGrid: false,
+    //             showLabel: false,
+    //             offset: 0
+    //         }
+    //         });
+    //
+    //       chart.on('draw', function(data) {
+    //         if(data.type === 'line' || data.type === 'area') {
+    //           data.element.animate({
+    //             d: {
+    //               begin: 2000 * data.index,
+    //               dur: 2000,
+    //               from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
+    //               to: data.path.clone().stringify(),
+    //               easing: Chartist.Svg.Easing.easeOutQuint
+    //             }
+    //           });
+    //         }
+    //     });
+    // }
 
     if(d.querySelector('.ct-chart-traffic-share')) {
         var data = {
             series: [70, 20, 10]
           };
-          
+
           var sum = function(a, b) { return a + b };
-          
+
           new Chartist.Pie('.ct-chart-traffic-share', data, {
             labelInterpolationFnc: function(value) {
               return Math.round(value / data.series.reduce(sum) * 100) + '%';
-            },            
+            },
             low: 0,
             high: 8,
             donut: true,
@@ -262,7 +262,7 @@ d.addEventListener("DOMContentLoaded", function(event) {
             plugins: [
               Chartist.plugins.tooltip()
             ],
-        });         
+        });
     }
 
     if (d.getElementById('loadOnClick')) {
@@ -270,10 +270,10 @@ d.addEventListener("DOMContentLoaded", function(event) {
             var button = this;
             var loadContent = d.getElementById('extraContent');
             var allLoaded = d.getElementById('allLoadedText');
-    
+
             button.classList.add('btn-loading');
             button.setAttribute('disabled', 'true');
-    
+
             setTimeout(function () {
                 loadContent.style.display = 'block';
                 button.style.display = 'none';
@@ -342,7 +342,7 @@ d.addEventListener("DOMContentLoaded", function(event) {
     if(billingSwitchEl) {
         const countUpStandard = new countUp.CountUp('priceStandard', 99, { startVal: 199 });
         const countUpPremium = new countUp.CountUp('pricePremium', 199, { startVal: 299 });
-        
+
         billingSwitchEl.addEventListener('change', function() {
             if(billingSwitch.checked) {
                 countUpStandard.start();

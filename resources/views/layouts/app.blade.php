@@ -11,7 +11,7 @@
 {{--            @endif--}}
             @include('layouts.topbar')
             @yield('content')
-{{--            @include('layouts.footer')--}}
+            @include('layouts.footer')
         </main>
     @endif
 @endsection

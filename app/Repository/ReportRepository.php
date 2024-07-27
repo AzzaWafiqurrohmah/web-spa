@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Models\Franchise;
 use App\Models\Packet;
 use App\Models\Reservation;
 use App\Models\Therapist;
@@ -92,6 +93,30 @@ class ReportRepository
 
             return $therapist;
         });
+    }
+
+    public function franchiseIncome(
+        ?int $month = null,
+        ?int $year = null,
+    ){
+        $franchises = Franchise::query();
+
+        $franchises = $franchises->with([
+            'reservation' => function ($query) use ($month, $year) {
+                if ($month) $query->whereMonth('date', $month);
+                if ($year) $query->whereYear('date', $year);
+            }
+        ])->get();
+
+        return $franchises->map(function ($franchise) {
+            $franchise->reservations = $franchise->reservation->map(function ($rsv) {
+                $total = $rsv->totals - ($rsv->transport_cost + $rsv->extra_cost) + $rsv->discount;
+                $rsv->totals = ($total * 70) / 100;
+                return $rsv;
+            });
+            return $franchise;
+        });
+
     }
 
     public function presence(

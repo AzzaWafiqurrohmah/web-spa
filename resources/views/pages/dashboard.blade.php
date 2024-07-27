@@ -7,17 +7,32 @@
             <div class="card-header d-sm-flex flex-row align-items-center flex-0">
                 <div class="d-block mb-3 mb-sm-0">
                     <div class="fs-5 fw-normal mb-1">Total Pendapatan</div>
-                    <h3 class="fs-3 fw-bold">{{ $thisMonth }}</h3>
-                    <div class="small mt-2">
-                        <span class="fw-normal me-2">Bulan ini</span>
-                        @if($condition == 'minus')
-                            <span class="fas fa-angle-down text-danger"></span>
-                            <span class="text-danger fw-bold">{{ $incomePercentage }}</span>
-                        @else
-                            <span class="fas fa-angle-up text-success"></span>
-                            <span class="text-success fw-bold">{{ $incomePercentage }}</span>
-                        @endif
-                    </div>
+                    @role('admin')
+                        <h3 class="fs-3 fw-bold">{{ $thisMonth }}</h3>
+                        <div class="small mt-2">
+                            <span class="fw-normal me-2">Bulan ini</span>
+                            @if($condition == 'minus')
+                                <span class="fas fa-angle-down text-danger"></span>
+                                <span class="text-danger fw-bold">{{ $incomePercentage }}</span>
+                            @else
+                                <span class="fas fa-angle-up text-success"></span>
+                                <span class="text-success fw-bold">{{ $incomePercentage }}</span>
+                            @endif
+                        </div>
+                    @endrole
+                    @role('owner')
+                        <h3 class="fs-3 fw-bold">{{ $thisMonthOwner }}</h3>
+                        <div class="small mt-2">
+                            <span class="fw-normal me-2">Bulan ini</span>
+                            @if($conditionOwner == 'minus')
+                                <span class="fas fa-angle-down text-danger"></span>
+                                <span class="text-danger fw-bold">{{ $incomeOwner }}</span>
+                            @else
+                                <span class="fas fa-angle-up text-success"></span>
+                                <span class="text-success fw-bold">{{ $incomeOwner }}</span>
+                            @endif
+                        </div>
+                    @endrole
                 </div>
             </div>
             <div class="card-body p-2">
@@ -30,22 +45,44 @@
             <div class="card-body">
                 <div class="row d-block d-xl-flex align-items-center">
                     <div class="col-12 col-xl-5 text-xl-center mb-3 mb-xl-0 d-flex align-items-center justify-content-xl-center">
-                        <div class="icon-shape icon-shape-primary rounded me-4 me-sm-0">
-                            <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
-                        </div>
-                        <div class="d-sm-none">
-                            <h2 class="fw-extrabold h5">Pelanggan</h2>
-                            <h3 class="mb-1"> {{ $customer }} </h3>
-                        </div>
+                        @role('admin')
+                            <div class="icon-shape icon-shape-primary rounded me-4 me-sm-0">
+                                <svg class="icon" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M13 6a3 3 0 11-6 0 3 3 0 016 0zM18 8a2 2 0 11-4 0 2 2 0 014 0zM14 15a4 4 0 00-8 0v3h8v-3zM6 8a2 2 0 11-4 0 2 2 0 014 0zM16 18v-3a5.972 5.972 0 00-.75-2.906A3.005 3.005 0 0119 15v3h-3zM4.75 12.094A5.973 5.973 0 004 15v3H1v-3a3 3 0 013.75-2.906z"></path></svg>
+                            </div>
+                            <div class="d-sm-none">
+                                <h2 class="fw-extrabold h5">Pelanggan</h2>
+                                <h3 class="mb-1"> {{ $customer }} </h3>
+                            </div>
+                        @endrole
+                        @role('owner')
+                            <div class="icon-shape icon-shape-tertiary rounded me-4 me-sm-0">
+                                <svg class="icon icon-md" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M3 3a1 1 0 000 2v8a2 2 0 002 2h2.586l-1.293 1.293a1 1 0 101.414 1.414L10 15.414l2.293 2.293a1 1 0 001.414-1.414L12.414 15H15a2 2 0 002-2V5a1 1 0 100-2H3zm11.707 4.707a1 1 0 00-1.414-1.414L10 9.586 8.707 8.293a1 1 0 00-1.414 0l-2 2a1 1 0 101.414 1.414L8 10.414l1.293 1.293a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path></svg>
+                            </div>
+                            <div class="d-sm-none">
+                                <h2 class="fw-extrabold h5">Cabang</h2>
+                                <h3 class="mb-1"> {{ $franchise }} </h3>
+                            </div>
+                        @endrole
                     </div>
                     <div class="col-12 col-xl-7 px-xl-0">
-                        <div class="d-none d-sm-block">
-                            <h2 class="h6 text-gray-400 mb-0">Pelanggan</h2>
-                            <h3 class="fw-extrabold mb-2">{{ $customer }} </h3>
-                        </div>
-                        <div class="small d-flex mt-1">
-                            <div>Total seluruh pelanggan </div>
-                        </div>
+                        @role('admin')
+                            <div class="d-none d-sm-block">
+                                <h2 class="h6 text-gray-400 mb-0">Pelanggan</h2>
+                                <h3 class="fw-extrabold mb-2">{{ $customer }} </h3>
+                            </div>
+                            <div class="small d-flex mt-1">
+                                <div>Total seluruh pelanggan </div>
+                            </div>
+                        @endrole
+                        @role('owner')
+                            <div class="d-none d-sm-block">
+                                <h2 class="h6 text-gray-400 mb-0">Cabang</h2>
+                                <h3 class="fw-extrabold mb-2">{{ $franchise }} </h3>
+                            </div>
+                            <div class="small d-flex mt-1">
+                                <div>Total seluruh Cabang </div>
+                            </div>
+                        @endrole
                     </div>
                 </div>
             </div>
@@ -61,13 +98,23 @@
                         </div>
                         <div class="d-sm-none">
                             <h2 class="fw-extrabold h5">Terapis</h2>
-                            <h3 class="mb-1">{{ $therapist }}</h3>
+                            @role('admin')
+                                <h3 class="mb-1">{{ $therapist }}</h3>
+                            @endrole
+                            @role('owner')
+                                <h3 class="mb-1">{{ $therapistOwner }}</h3>
+                            @endrole
                         </div>
                     </div>
                     <div class="col-12 col-xl-7 px-xl-0">
                         <div class="d-none d-sm-block">
                             <h2 class="h6 text-gray-400 mb-0">Terapis</h2>
-                            <h3 class="fw-extrabold mb-2">{{ $therapist }}</h3>
+                            @role('admin')
+                                <h3 class="fw-extrabold mb-2">{{ $therapist }}</h3>
+                            @endrole
+                            @role('owner')
+                                <h3 class="fw-extrabold mb-2">{{ $therapistOwner }}</h3>
+                            @endrole
                         </div>
                         <div class="small d-flex mt-1">
                             <div>Total seluruh terapis</div>
@@ -87,23 +134,44 @@
                         </div>
                         <div class="d-sm-none">
                             <h2 class="fw-extrabold h5"> Reservasi </h2>
-                            <h3 class="mb-1">50.88%</h3>
+                            @role('admin')
+                                <h3 class="mb-1">{{ $reservation }}</h3>
+                            @endrole
+                            @role('owner')
+                                <h3 class="mb-1">{{ $rsvOwner }}</h3>
+                            @endrole
                         </div>
                     </div>
                     <div class="col-12 col-xl-7 px-xl-0">
                         <div class="d-none d-sm-block">
                             <h2 class="h6 text-gray-400 mb-0"> Reservasi </h2>
-                            <h3 class="fw-extrabold mb-2">{{ $reservation }}</h3>
+                            @role('admin')
+                                <h3 class="fw-extrabold mb-2">{{ $reservation }}</h3>
+                            @endrole
+                            @role('owner')
+                                <h3 class="fw-extrabold mb-2">{{ $rsvOwner }}</h3>
+                            @endrole
                         </div>
                         <div class="small d-flex mt-1">
                             <div>Bulan ini
-                                @if($rsvCondition == 'minus')
-                                    <span class="fas fa-angle-down text-danger"></span>
-                                    <span class="text-danger fw-bold">{{ $rsvPercentage }}</span>
-                                @else
-                                    <span class="fas fa-angle-up text-success"></span>
-                                    <span class="text-success fw-bold">{{ $rsvPercentage }}</span>
-                                @endif
+                                @role('admin')
+                                    @if($rsvCondition == 'minus')
+                                        <span class="fas fa-angle-down text-danger"></span>
+                                        <span class="text-danger fw-bold">{{ $rsvPercentage }}</span>
+                                    @else
+                                        <span class="fas fa-angle-up text-success"></span>
+                                        <span class="text-success fw-bold">{{ $rsvPercentage }}</span>
+                                    @endif
+                                @endrole
+                                @role('owner')
+                                    @if($rsvOwnerCond == 'minus')
+                                        <span class="fas fa-angle-down text-danger"></span>
+                                        <span class="text-danger fw-bold">{{ $rsvOwnerPercentage }}</span>
+                                    @else
+                                        <span class="fas fa-angle-up text-success"></span>
+                                        <span class="text-success fw-bold">{{ $rsvOwnerPercentage }}</span>
+                                    @endif
+                                @endrole
                             </div>
                         </div>
                     </div>
@@ -119,9 +187,16 @@
                 <div class="card border-0 shadow">
                     <div class="card-header">
                         <div class="row align-items-center">
-                            <div class="col">
-                                <h2 class="fs-5 fw-bold mb-0">Terapis Ter - Aktif</h2>
-                            </div>
+                            @role('admin')
+                                <div class="col">
+                                    <h2 class="fs-5 fw-bold mb-0">Terapis Ter - Aktif</h2>
+                                </div>
+                            @endrole
+                            @role('owner')
+                                <div class="col">
+                                    <h2 class="fs-5 fw-bold mb-0">Cabang Ter - Aktif</h2>
+                                </div>
+                            @endrole
                             <div class="col text-end">
                                 <small>Bulan ini</small>
                             </div>
@@ -130,27 +205,52 @@
                     <div class="table-responsive">
                         <table class="table align-items-center table-flush">
                             <thead class="thead-light">
-                            <tr>
-                                <th class="border-bottom" style="width: 400px" scope="col">Nama Terapis</th>
-                                <th class="border-bottom text-center" scope="col">Total Reservasi</th>
-                                <th class="border-bottom text-end" scope="col">Total Gaji / Pendapatan</th>
-{{--                                <th class="border-bottom" scope="col">Persentase</th>--}}
-                            </tr>
+                            @role('admin')
+                                <tr>
+                                    <th class="border-bottom" style="width: 400px" scope="col">Nama Terapis</th>
+                                    <th class="border-bottom text-center" scope="col">Total Reservasi</th>
+                                    <th class="border-bottom text-end" scope="col">Total Gaji / Pendapatan</th>
+                                </tr>
+                            @endrole
+                            @role('owner')
+                                <tr>
+                                    <th class="border-bottom" style="width: 400px" scope="col">Nama Cabang</th>
+                                    <th class="border-bottom text-center" scope="col">Total Reservasi</th>
+                                    <th class="border-bottom text-end" scope="col">Total Pendapatan</th>
+                                </tr>
+                            @endrole
                             </thead>
                             <tbody>
-                            @foreach($actTherapist as $therapist)
+                            @role('admin')
+                                @foreach($actTherapist as $therapist)
+                                    <tr>
+                                        <th class="text-gray-900" style="width: 400px" scope="row">
+                                            {{ $therapist->fullname }}
+                                        </th>
+                                        <td class="fw-bolder text-gray-500 text-center">
+                                            {{ $therapist->reservations->count() }}  Reservasi
+                                        </td>
+                                        <td class="fw-bolder text-gray-500 text-end">
+                                            {{ 'Rp ' . number_format($therapist->reservations->sum('totals')) }}
+                                        </td>
+                                    </tr>
+                                @endforeach
+                            @endrole
+                            @role('owner')
+                            @foreach($actFranchise as $franchise)
                                 <tr>
                                     <th class="text-gray-900" style="width: 400px" scope="row">
-                                        {{ $therapist->fullname }}
+                                        {{ $franchise->name }}
                                     </th>
                                     <td class="fw-bolder text-gray-500 text-center">
-                                        {{ $therapist->reservations->count() }}  Reservasi
+                                        {{ $franchise->reservations->count() }}  Reservasi
                                     </td>
                                     <td class="fw-bolder text-gray-500 text-end">
-                                        {{ 'Rp ' . number_format($therapist->reservations->sum('totals')) }}
+                                        {{ 'Rp ' . number_format($franchise->reservations->sum('totals')) }}
                                     </td>
                                 </tr>
                             @endforeach
+                            @endrole
                             </tbody>
                         </table>
                     </div>
@@ -164,16 +264,30 @@
                 <div class="card-header d-flex flex-row align-items-center flex-0 border-bottom">
                     <div class="d-block">
                         <div class="h6 fw-normal text-gray mb-2">Total Reservasi</div>
-                        <h2 class="h3 fw-extrabold">{{ $reservation }}</h2>
-                        <div class="small mt-2">
-                            @if($rsvCondition == 'minus')
-                                <span class="fas fa-angle-down text-danger"></span>
-                                <span class="text-danger fw-bold">{{ $rsvPercentage }}</span>
-                            @else
-                                <span class="fas fa-angle-up text-success"></span>
-                                <span class="text-success fw-bold">{{ $rsvPercentage }}</span>
-                            @endif
-                        </div>
+                        @role('admin')
+                            <h2 class="h3 fw-extrabold">{{ $reservation }}</h2>
+                            <div class="small mt-2">
+                                @if($rsvCondition == 'minus')
+                                    <span class="fas fa-angle-down text-danger"></span>
+                                    <span class="text-danger fw-bold">{{ $rsvPercentage }}</span>
+                                @else
+                                    <span class="fas fa-angle-up text-success"></span>
+                                    <span class="text-success fw-bold">{{ $rsvPercentage }}</span>
+                                @endif
+                            </div>
+                        @endrole
+                        @role('owner')
+                            <h2 class="h3 fw-extrabold">{{ $rsvOwner }}</h2>
+                            <div class="small mt-2">
+                                @if($rsvOwnerCond == 'minus')
+                                    <span class="fas fa-angle-down text-danger"></span>
+                                    <span class="text-danger fw-bold">{{ $rsvOwnerCond }}</span>
+                                @else
+                                    <span class="fas fa-angle-up text-success"></span>
+                                    <span class="text-success fw-bold">{{ $rsvOwnerPercentage }}</span>
+                                @endif
+                            </div>
+                        @endrole
                     </div>
                     <div class="d-block ms-auto">
                         <div class="d-flex align-items-center text-end mb-2">
@@ -194,107 +308,4 @@
     </div>
 </div>
 @endsection
-
-@push('script')
-    <script>
-        if(d.querySelector('.ct-chart-sales-value')) {
-            $.ajax({
-                url: `{{ route('dashboard.adminChart') }}`,
-                method: 'GET',
-                success(res) {
-                    let month = [];
-                    let totals = [];
-                    res.data.forEach(function (item){
-                        month.push(item.month);
-                        totals.push(item.total);
-                    })
-                    chartMaker(month, totals);
-                }
-            });
-        }
-
-        function chartMaker( month, total){
-            new Chartist.Line('.ct-chart-sales-value', {
-                labels: month,
-                series: [
-                    total
-                ]
-            }, {
-                low: 0,
-                showArea: true,
-                fullWidth: true,
-                plugins: [
-                    Chartist.plugins.tooltip()
-                ],
-                axisX: {
-                    // On the x-axis start means top and end means bottom
-                    position: 'end',
-                    showGrid: true
-                },
-                axisY: {
-                    // On the y-axis start means left and end means right
-                    showGrid: false,
-                    showLabel: false,
-                    labelInterpolationFnc: function(value) {
-                        return '$' + (value / 1) + 'k';
-                    }
-                }
-            });
-        }
-
-        if(d.querySelector('.ct-chart-ranking')) {
-            $.ajax({
-                url: `{{ route('dashboard.adminRanking') }}`,
-                method: 'GET',
-                success(res) {
-                    let month = res.data.month;
-                    let first = res.data.first;
-                    let second = res.data.second;
-
-                    adminRanking(month, first, second);
-                }
-            });
-        }
-
-        function adminRanking(month, first, second){
-            var chart = new Chartist.Bar('.ct-chart-ranking', {
-                labels: month,
-                series: [
-                    first,
-                    second,
-                ]
-            }, {
-                low: 0,
-                showArea: true,
-                plugins: [
-                    Chartist.plugins.tooltip()
-                ],
-                axisX: {
-                    // On the x-axis start means top and end means bottom
-                    position: 'end'
-                },
-                axisY: {
-                    // On the y-axis start means left and end means right
-                    showGrid: false,
-                    showLabel: false,
-                    offset: 0
-                }
-            });
-
-            chart.on('draw', function(data) {
-                if(data.type === 'line' || data.type === 'area') {
-                    data.element.animate({
-                        d: {
-                            begin: 2000 * data.index,
-                            dur: 2000,
-                            from: data.path.clone().scale(1, 0).translate(0, data.chartRect.height()).stringify(),
-                            to: data.path.clone().stringify(),
-                            easing: Chartist.Svg.Easing.easeOutQuint
-                        }
-                    });
-                }
-            });
-        }
-
-    </script>
-@endpush
+@include('components.script.dashboard')

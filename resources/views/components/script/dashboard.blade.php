@@ -1,8 +1,13 @@
 @push('script')
     <script>
+        let role = $('#role').val();
+        url = '{{ route('dashboard.adminChart') }}';
+        if(role === 'therapist'){
+            url = '{{ route('therapist.dashboard.adminChart') }}'
+        }
         if(d.querySelector('.ct-chart-sales-value')) {
             $.ajax({
-                url: `{{ route('dashboard.adminChart') }}`,
+                url: url,
                 method: 'GET',
                 success(res) {
                     let month = [];

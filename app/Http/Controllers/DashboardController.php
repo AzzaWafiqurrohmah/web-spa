@@ -21,18 +21,26 @@ class DashboardController extends Controller
         $user = Auth::user();
         $data = DashboardService::incomePercentage($user->franchise_id);
         $dataOwner = DashboardService::incomePercentage(null);
+        $dataTherapist = DashboardService::outcomePercentage();
 
         $customer = Customer::where('franchise_id', $user->franchise_id)->count();
         $therapist = Therapist::where('franchise_id', $user->franchise_id)->count();
         $therapistOwner = Therapist::all()->count();
         $reservation = Reservation::where('franchise_id', $user->franchise_id)->count();
         $reservationOwner = Reservation::all()->count();
+        $rsvTherapist = Reservation::where('therapist_id', $user->id)->count();
         $franchise = Franchise::all()->count();
 
         $actTherapist = DashboardService::activeTherapist();
         $actFranchise = DashboardService::activeFranchise();
         $rsvPercent = DashboardService::reservationPercent($user->franchise_id);
         $rsvOwnerPercent = DashboardService::reservationPercent(null);
+        $rsvTherapistPercent = DashboardService::reservationPercent(null, $user->id);
+        $presence = DashboardService::presence();
+
+        $role = 'admin';
+        if($user->hasRole('therapist'))
+            $role = 'therapist';
 
         return view('pages.dashboard', [
             'incomePercentage' => $data['percentage'],
@@ -41,6 +49,9 @@ class DashboardController extends Controller
             'incomeOwner' => $dataOwner['percentage'],
             'thisMonthOwner' => $data['thisMonth'],
             'conditionOwner' => $dataOwner['condition'],
+            'outcome' => $dataTherapist['percentage'],
+            'thisMonthTherapist' => $dataTherapist['thisMonth'],
+            'conditionTherapist' => $dataTherapist['condition'],
             'customer' => $customer,
             'therapist' => $therapist,
             'therapistOwner' => $therapistOwner,
@@ -52,7 +63,12 @@ class DashboardController extends Controller
             'rsvOwnerPercentage' => $rsvOwnerPercent['percentage'],
             'actTherapist' => $actTherapist,
             'actFranchise' => $actFranchise,
-            'franchise' => $franchise
+            'franchise' => $franchise,
+            'role' => $role,
+            'presence' => $presence,
+            'rsvTherapist' => $rsvTherapist,
+            'rsvTherapistPercent' => $rsvTherapistPercent['percentage'],
+            'rsvTherapistCond' => $rsvTherapistPercent['condition']
         ]);
     }
 
@@ -63,8 +79,10 @@ class DashboardController extends Controller
 
         if($user->hasRole('admin')){
             $monthlyTotal = DashboardService::chartDashboard($user->franchise_id);
-        } else{
+        } else if($user->hasRole('owner')){
             $monthlyTotal = DashboardService::chartDashboard(null);
+        } else {
+            $monthlyTotal = DashboardService::therapistChart();
         }
         return $this->success(
             $monthlyTotal,

@@ -8,9 +8,16 @@ use App\Http\Controllers\admin\ProfileController;
 use App\Http\Controllers\Therapist\PresenceController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\admin\ReservationController;
+use App\Http\Controllers\DashboardController;
 
 Route::middleware('auth')->group(function () {
-    Route::get('dashboard', fn () => view('pages.dashboard'))->name('dashboard');
+    Route::prefix('dashboard')
+        ->name('dashboard.')
+        ->controller(DashboardController::class)->group(function (){
+            Route::get('/', 'index')->name('index');
+            Route::get('/adminChart', 'adminChart')->name('adminChart');
+            Route::get('/adminRanking', 'adminRanking')->name('adminRanking');
+        });
 
     Route::get('signOut', [AuthController::class, 'signOut'])->name('signOut');
 

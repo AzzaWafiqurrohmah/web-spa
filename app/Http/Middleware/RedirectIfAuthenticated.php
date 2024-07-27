@@ -21,7 +21,7 @@ class RedirectIfAuthenticated
 
         $redirects = [
             'web' => 'dashboard',
-            'therapist' => 'therapist.dashboard'
+            'therapist' => 'therapist.dashboard.index'
         ];
 
         foreach ($guards as $name => $value)

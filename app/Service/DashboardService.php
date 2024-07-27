@@ -3,6 +3,7 @@
 namespace App\Service;
 
 use App\Models\Reservation;
+use App\Models\User;
 use App\Repository\ReportRepository;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -28,6 +29,26 @@ class DashboardService
         return self::percentage($thisMonth, $lastMonth);
     }
 
+    public static function outcomePercentage(){
+        $user = Auth::user();
+        $now = Carbon::now();
+        $reportRepo = new ReportRepository();
+        $thisMonth = $reportRepo->outcome(
+            $now->format('m'),
+            $now->format('Y'),
+            null,
+            $user->id
+        )[0]->reservations->sum('totals');
+        $lastMonth = $reportRepo->outcome(
+            $now->subMonths(1)->format('m'),
+            $now->format('Y'),
+            null,
+            $user->id
+        )[0]->reservations->sum('totals');
+
+        return self::percentage($thisMonth, $lastMonth);
+    }
+
     public static function chartDashboard(?int $franchise_id){
         $reportRepository = new ReportRepository();
         $monthlyTotal = [];
@@ -49,7 +70,49 @@ class DashboardService
         return $monthlyTotal;
     }
 
-    public static function reservationPercent(?int $franchise_id){
+    public static function therapistChart(){
+        $reportRepo = new ReportRepository();
+        $monthlyTotal = [];
+        $now = Carbon::now();
+        $user = Auth::user();
+
+        for ($i = 5; $i >= 0; $i--) {
+            $currentMonth = $now->copy()->subMonths($i);
+            $therapist = $reportRepo->outcome(
+                $currentMonth->format('m'),
+                $currentMonth->format('Y'),
+                null,
+                $user->id
+            );
+            $res = [];
+            $res['month'] = $currentMonth->format('M');
+            $res['total'] = $therapist[0]->reservations->sum('totals');
+            $monthlyTotal[] = $res;
+        }
+        return $monthlyTotal;
+    }
+
+    public static function presence(){
+        $user = Auth::user();
+        $now = Carbon::now();
+        $reportRepo = new ReportRepository();
+        $presence = $reportRepo->presence(
+            $now->format('m'),
+            $now->format('Y'),
+            null,
+            $user->id
+        )[0];
+
+        $totalPresence = $presence->present;
+        $totalDays = $now->daysInMonth;
+        $percentage = ($totalPresence / $totalDays) * 100;
+        return (number_format($percentage, 2) . ' %');
+    }
+
+    public static function reservationPercent(
+        ?int $franchise_id,
+        ?int $therapistId = null
+    ){
         $user = Auth::user();
         $now = Carbon::now();
 
@@ -59,9 +122,15 @@ class DashboardService
             ->whereMonth('date', $now->subMonths(1)->format('m'));
 
         if($franchise_id){
-            $thisMonth->where('franchise_id', $user->franchise_id);
-            $lastMonth->where('franchise_id', $user->franchise_id);
+            $thisMonth->where('franchise_id', $franchise_id);
+            $lastMonth->where('franchise_id', $franchise_id);
         }
+
+        if($therapistId){
+            $thisMonth->where('therapist_id', $therapistId);
+            $lastMonth->where('therapist_id', $therapistId);
+        }
+
         $first = $thisMonth->count();
         $last = $lastMonth->count();
 
@@ -150,8 +219,10 @@ class DashboardService
     public static function percentage($firstVal, $secondVal){
         $condition = 'plus';
         $percentage = 0;
-        if($firstVal > 0){
+        if($firstVal > 0 && $secondVal > 0){
             $percentage = ($firstVal - $secondVal) / $secondVal * 100;
+        } else if($secondVal <= 0){
+            $percentage = 100;
         }
 
         if($percentage < 0) {

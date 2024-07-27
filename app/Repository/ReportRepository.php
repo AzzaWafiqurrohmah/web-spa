@@ -58,12 +58,16 @@ class ReportRepository
     public function outcome(
         ?int $month = null,
         ?int $year = null,
-        ?int $franchiseId = null
+        ?int $franchiseId = null,
+        ?int $therapistId = null
     ) {
         $therapists = Therapist::query();
 
         if ($franchiseId)
             $therapists->where('franchise_id', $franchiseId);
+
+        if($therapistId)
+            $therapists->where('id', $therapistId);
 
         $therapists = $therapists->with([
             'reservation' => function ($query) use ($month, $year) {
@@ -122,12 +126,16 @@ class ReportRepository
     public function presence(
         ?int $month = null,
         ?int $year = null,
-        ?int $franchiseId = null
+        ?int $franchiseId = null,
+        ?int $therapistId = null
     ) {
         $therapists = Therapist::query();
 
         if ($franchiseId)
             $therapists->where('franchise_id', $franchiseId);
+
+        if($therapistId)
+            $therapists->where('id', $therapistId);
 
         $therapists = $therapists->with(['presence' => function ($query) use ($month, $year) {
             if ($month)

@@ -63,12 +63,6 @@ class ReportRepository
         ?int $franchiseId = null,
         ?int $therapistId = null
     ) {
-        $user = Auth::user();
-        $data = Setting::where('user_id', $user->id)->get(['key', 'value']);
-        $setting = $data->pluck(null, 'key')->map(function ($item) {
-            return $item['value'];
-        })->toArray();
-
         $therapists = Therapist::query();
 
         if ($franchiseId)
@@ -89,7 +83,14 @@ class ReportRepository
             }
         ])->get();
 
-        return $therapists->map(function ($therapist) use ($setting){
+        return $therapists->map(function ($therapist){
+            $franchise = Franchise::find($therapist->franchise_id);
+            $userId = $franchise->user->id;
+            $data = Setting::where('user_id', $userId)->get(['key', 'value']);
+            $setting = $data->pluck(null, 'key')->map(function ($item) {
+                return $item['value'];
+            })->toArray();
+
             $presents = $therapist->presence->filter(
                 fn ($prs) => $prs->status == 'full' || $prs->status == 'half'
             )->count();

@@ -108,6 +108,13 @@ class ReservationController extends Controller
         //
     }
 
+    public function cancelRsv(Reservation $reservation){
+        $reservation->update(['status' => 'cancelled']);
+        return $this->success(
+            message: 'Berhasil membatalkan reservasi'
+        );
+    }
+
     public function datatables()
     {
         $user = Auth::user();
@@ -126,9 +133,10 @@ class ReservationController extends Controller
             ->addIndexColumn()
             ->addColumn('id', fn ($reservation) => $reservation->date->format('dmY') . $reservation->id)
             ->addColumn('date', fn ($reservation) => $reservation->date->format('d F Y'))
-            ->addColumn('totals', fn ($reservation) => "Rp " . $reservation->totals)
+            ->addColumn('totals', fn ($reservation) => "Rp " . number_format($reservation->totals))
             ->addColumn('customer', fn ($reservation) => $reservation->customer->fullname)
             ->addColumn('therapist', fn ($reservation) => $reservation->therapist->fullname)
+            ->addColumn('status', fn($reservation) => view('pages.admin.reservation.status', compact('reservation')))
             ->addColumn('action', fn ($reservation) => view('pages.admin.reservation.action', compact('reservation')))
             ->filterColumn('totals', function ($query, $keyword) {
                 $sql = "totals  like ?";

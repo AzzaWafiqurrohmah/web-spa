@@ -13,7 +13,7 @@ class Reservation extends Model
     public $timestamps = false;
     protected $fillable = [
         'franchise_id', 'customer_id', 'therapist_id', 'date', 'time', 'payment_type',
-        'transport_cost', 'extra_cost', 'discount', 'totals'
+        'transport_cost', 'extra_cost', 'discount', 'totals', 'status'
     ];
 
     protected $casts = [

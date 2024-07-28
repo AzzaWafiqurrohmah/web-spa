@@ -2,7 +2,7 @@
 @section('content')
     <title>Reservation</title>
     <div class="row">
-        <div class="col-md-11">
+        <div class="col-md-12">
             <div class="mt-0 mb-3">
                 <h2>Daftar Reservasi</h2>
                 <nav>
@@ -26,10 +26,11 @@
                             <thead>
                             <tr>
                                 <th>ID Reservasi</th>
-                                <th>Tanggal Reservasi</th>
+                                <th>Tanggal </th>
                                 <th>Nama Terapis</th>
                                 <th>Nama Pelanggan</th>
                                 <th>Total Biaya</th>
+                                <th>Status </th>
                                 <th>Aksi</th>
                             </tr>
                             </thead>
@@ -59,6 +60,7 @@
                 {data: 'therapist', name: 'therapist.fullname'},
                 {data: 'customer', name: 'customer.fullname'},
                 {data: 'totals', name: 'totals'},
+                {data: 'status'},
                 {data: 'action', orderable: false, searchable: false},
             ],
         });
@@ -67,5 +69,39 @@
             window.location.href = "{{ route('reservations.edit', 'VALUE') }}".replace('VALUE', $(this).data('id'));
         });
 
+        function cancel(id) {
+            $.ajax({
+                url: `/reservations/cancel/${id}`,
+                method: 'GET',
+                success(res) {
+                    reservationTable.ajax.reload();
+                    Swal.fire({
+                        icon: 'success',
+                        text: res.meta.message,
+                        timer: 1500,
+                    });
+                },
+                error(err) {
+                    Swal.fire({
+                        icon: 'error',
+                        text: err,
+                        timer: 1500,
+                    });
+                },
+            });
+        }
+
+        $('#reservations-table').on('click', '.btn-cancel', function (e) {
+            Swal.fire({
+                icon: 'question',
+                text: 'Apakah anda yakin ingin membatalkan pesanan?',
+                showCancelButton: true,
+                cancelButtonText: 'Tidak',
+                confirmButtonText: 'Iya'
+            }).then((res) => {
+                if (res.isConfirmed)
+                    cancel(this.dataset.id);
+            });
+        });
     </script>
 @endpush

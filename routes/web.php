@@ -166,6 +166,7 @@ Route::middleware('auth')->group(function () {
     Route::prefix('reservations')
         ->name('reservations.')
         ->controller(ReservationController::class)->group(function () {
+            Route::get('/cancel/{reservation}', 'cancelRsv')->name('cancel');
             Route::get('/customers', 'customers')->name('customers');
 
             Route::get('datatables', 'datatables')->name('datatables');

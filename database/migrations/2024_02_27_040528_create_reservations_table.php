@@ -16,6 +16,7 @@ return new class extends Migration
             $table->foreignId('franchise_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('customer_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->foreignId('therapist_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
+            $table->enum('status', ['succes', 'cancelled', 'processed'])->default('processed')->nullable();
             $table->date('date');
             $table->string('time');
             $table->enum('payment_type', ['cash', 'transfer']);

@@ -5,8 +5,10 @@ namespace App\Repository;
 use App\Models\Franchise;
 use App\Models\Packet;
 use App\Models\Reservation;
+use App\Models\Setting;
 use App\Models\Therapist;
 use App\Models\Treatment;
+use Illuminate\Support\Facades\Auth;
 
 class ReportRepository
 {
@@ -61,6 +63,12 @@ class ReportRepository
         ?int $franchiseId = null,
         ?int $therapistId = null
     ) {
+        $user = Auth::user();
+        $data = Setting::where('user_id', $user->id)->get(['key', 'value']);
+        $setting = $data->pluck(null, 'key')->map(function ($item) {
+            return $item['value'];
+        })->toArray();
+
         $therapists = Therapist::query();
 
         if ($franchiseId)
@@ -81,12 +89,12 @@ class ReportRepository
             }
         ])->get();
 
-        return $therapists->map(function ($therapist) {
+        return $therapists->map(function ($therapist) use ($setting){
             $presents = $therapist->presence->filter(
                 fn ($prs) => $prs->status == 'full' || $prs->status == 'half'
             )->count();
 
-            $therapist->meal = $presents * 12500;
+            $therapist->meal = $presents * intval($setting['uang_makan']);
             $therapist->reservations = $therapist->reservation->map(function ($rsv) {
                 $total = $rsv->totals - ($rsv->transport_cost + $rsv->extra_cost) + $rsv->discount;
                 $total = ($total * 30) / 100;

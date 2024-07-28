@@ -39,11 +39,6 @@ class UserSeeder extends Seeder
         Setting::insert([
             [
                 'user_id' => 2,
-                'key' => 'diskon_member',
-                'value' => '15'
-            ],
-            [
-                'user_id' => 2,
                 'key' => 'biaya_transport',
                 'value' => '10000'
             ],
@@ -51,6 +46,11 @@ class UserSeeder extends Seeder
                 'user_id' => 2,
                 'key' => 'biaya_ekstra_malam',
                 'value' => '10000'
+            ],
+            [
+                'user_id' => 2,
+                'key' => 'uang_makan',
+                'value' => '12000'
             ]
         ]);
 

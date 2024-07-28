@@ -2,6 +2,7 @@
 
 namespace App\Repository\owner;
 
+use App\Models\Setting;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 
@@ -16,6 +17,25 @@ class AdminRepository
             'password' => Hash::make($data['password'])
         ]);
         $admin->assignRole('admin');
+
+        Setting::insert([
+            [
+                'user_id' => $admin->id,
+                'key' => 'uang_makan',
+                'value' => $data['uang_makan']
+            ],
+            [
+                'user_id' => $admin->id,
+                'key' => 'biaya_ekstra_malam',
+                'value' => $data['biaya_ekstra_malam']
+            ],
+            [
+                'user_id' => $admin->id,
+                'key' => 'biaya_transport',
+                'value' => $data['biaya_transport']
+            ]
+        ]);
+
         return $admin;
     }
 
@@ -26,5 +46,28 @@ class AdminRepository
         if(isset($data['password'])) $data['password'] = Hash::make($data['password']);
 
         $user->update($data);
+
+        Setting::query()
+            ->where('user_id', $user->id)
+            ->delete();
+
+        Setting::insert([
+            [
+                'user_id' => $user->id,
+                'key' => 'uang_makan',
+                'value' => $data['uang_makan']
+            ],
+            [
+                'user_id' => $user->id,
+                'key' => 'biaya_ekstra_malam',
+                'value' => $data['biaya_ekstra_malam']
+            ],
+            [
+                'user_id' => $user->id,
+                'key' => 'biaya_transport',
+                'value' => $data['biaya_transport']
+            ]
+        ]);
+
     }
 }

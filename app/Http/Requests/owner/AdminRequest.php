@@ -27,7 +27,10 @@ class AdminRequest extends FormRequest
             'name' => 'required',
             'franchise_id' => 'required',
             'email' => 'required',
-            'password' => 'nullable'
+            'password' => 'nullable',
+            'uang_makan' => 'required',
+            'biaya_ekstra_malam' => 'required',
+            'biaya_transport' => 'required'
         ];
 
         if($this->getMethod() == 'POST'){
@@ -37,8 +40,17 @@ class AdminRequest extends FormRequest
         return $rules;
     }
 
-    protected function failedValidation(Validator $validator)
+    public function messages()
     {
-        return throw new FailedValidation($validator->errors());
+        return [
+            'name.required' => 'Kolom Nama Lengkap harap diisi',
+            'franchise_id.required' => 'Kolom Nama Cabang harap diisi',
+            'email.required' => 'Kolom email harap diisi',
+            'password.required' => 'Kolom password harap diisi',
+            'uang_makan.required' => 'Kolom Biaya Uang Makan harap diisi',
+            'biaya_ekstra_malam' => 'Kolom Biaya Ekstra Malam harap diisi',
+            'biaya_transport' => 'Kolom Tarif Transportasi harap diisi'
+        ];
     }
+
 }

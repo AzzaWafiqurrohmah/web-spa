@@ -16,7 +16,7 @@
                 <div class="card-body">
                     <div class="d-flex justify-content-between mb-4">
                         <div>
-                            <button class="btn btn-primary" id="newAdmin">Tambah Admin</button>
+                            <a href="{{route('admin.create')}}" class="btn btn-primary">Tambah Admin</a>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -36,6 +36,5 @@
             </div>
         </div>
     </div>
-    @include('components.modal.owner.admin')
 @endsection
 @include('components.script.owner.admin')

@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Console\Commands\MemberCommand;
 use App\Console\Commands\PresenceCommand;
 use App\Console\Commands\ReservationCommand;
 use Illuminate\Console\Scheduling\Schedule;
@@ -11,7 +12,8 @@ class Kernel extends ConsoleKernel
 {
     protected $commands = [
         PresenceCommand::class,
-        ReservationCommand::class
+        ReservationCommand::class,
+        MemberCommand::class
     ];
     /**
      * Define the application's command schedule.
@@ -20,6 +22,7 @@ class Kernel extends ConsoleKernel
     {
         $schedule->command('app:presence-command')->daily()->at('01:00');
         $schedule->command('app:reservation-command')->everyMinute();
+        $schedule->command('app:member-command')->daily()->at('00:00');
     }
 
     /**

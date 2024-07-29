@@ -261,7 +261,7 @@
 
         @role('therapist')
         <li class="nav-item {{ Request::segment(2) == 'treatments' ? 'active' : '' }}">
-            <a href="/therapist/treatments" class="nav-link d-flex">
+            <a href="{{ route('therapist.treatments.index') }}" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bx-buildings sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 </span>
@@ -270,7 +270,7 @@
         </li>
 
         <li class="nav-item {{ Request::segment(2) == 'customers' ? 'active' : '' }}">
-            <a href="/therapist/customers" class="nav-link d-flex">
+            <a href=" {{ route('therapist.customers.index') }}" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bxs-user-account sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 </span>
@@ -279,7 +279,7 @@
         </li>
 
         <li class="nav-item {{ Request::segment(2) == 'reservations' ? 'active' : '' }}">
-            <a href="/therapist/reservations" class="nav-link d-flex">
+            <a href="{{ route('therapist.reservations.index') }}" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bx-receipt sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 </span>
@@ -288,7 +288,7 @@
         </li>
 
         <li class="nav-item {{ Request::segment(2) == 'schedules' ? 'active' : '' }}">
-            <a href="/therapist/schedules" class="nav-link d-flex">
+            <a href="{{ route('therapist.schedules.index') }}" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bxs-spreadsheet sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 </span>
@@ -297,7 +297,7 @@
         </li>
 
         <li class="nav-item {{ Request::segment(2) == 'presences' ? 'active' : '' }}">
-            <a href="/therapist/presences" class="nav-link d-flex">
+            <a href="{{ route('therapist.presences.index') }}" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bxs-calendar sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 </span>

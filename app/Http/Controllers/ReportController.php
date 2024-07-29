@@ -7,6 +7,7 @@ use App\Models\Therapist;
 use App\Repository\ReportRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
@@ -75,5 +76,28 @@ class ReportController extends Controller
             'month',
             'year',
         ));
+    }
+
+    public function incomeTherapist(Request $request){
+
+        $user = Auth::user();
+        $month = $request->m ?? intval(date('m'));
+        $year = $request->y ?? intval(date('Y'));
+
+        $therapist = $this->repo->outcome(
+            $month,
+            $year,
+            null,
+            $user->id
+        );
+
+        return view('pages.report.incomeTherapist', compact(
+            'therapist',
+            'month',
+            'year',
+//            'therapist'
+        ));
+
+//        return view('pages.report.incomeTherapist');
     }
 }

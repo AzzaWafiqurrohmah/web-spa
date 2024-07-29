@@ -305,6 +305,15 @@
             </a>
         </li>
 
+        <li class="nav-item {{ Request::segment(2) == 'reports' ? 'active' : '' }}">
+            <a href="{{ route('therapist.reports.index') }}" class="nav-link d-flex">
+                <span class="d-flex align-items-center justify-content-center" >
+                    <i class="bx bx-notepad sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
+                </span>
+                <span class="sidebar-text ms-1 mt-0 d-block">Laporan</span>
+            </a>
+        </li>
+
         @endrole
 
       <li class="nav-item sign-out" id="signOut">

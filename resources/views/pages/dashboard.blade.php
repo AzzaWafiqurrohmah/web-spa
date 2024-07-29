@@ -294,7 +294,7 @@
                             </thead>
                             <tbody>
                             @role('admin')
-                            @foreach($actTherapist as $therapist)
+                            @forelse($actTherapist as $therapist)
                                 <tr>
                                     <th class="text-gray-900" style="width: 400px" scope="row">
                                         {{ $therapist->fullname }}
@@ -306,10 +306,14 @@
                                         {{ 'Rp ' . number_format($therapist->reservations->sum('totals')) }}
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="text-center">Belum ada reservasi</td>
+                                </tr>
+                            @endforelse
                             @endrole
                             @role('owner')
-                            @foreach($actFranchise as $franchise)
+                            @forelse($actFranchise as $franchise)
                                 <tr>
                                     <th class="text-gray-900" style="width: 400px" scope="row">
                                         {{ $franchise->name }}
@@ -321,7 +325,11 @@
                                         {{ 'Rp ' . number_format($franchise->reservations->sum('totals')) }}
                                     </td>
                                 </tr>
-                            @endforeach
+                            @empty
+                                <tr>
+                                    <td colspan="3" class="text-center">Belum ada reservasi</td>
+                                </tr>
+                            @endforelse
                             @endrole
                             </tbody>
                         </table>

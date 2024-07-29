@@ -38,13 +38,24 @@ class DashboardService
             $now->format('Y'),
             null,
             $user->id
-        )[0]->reservations->sum('totals');
+        );
+        if($thisMonth->isEmpty()){
+            $thisMonth = 0;
+        } else {
+            $thisMonth = $thisMonth[0]->reservations->sum('totals');
+        }
+
         $lastMonth = $reportRepo->outcome(
             $now->subMonths(1)->format('m'),
             $now->format('Y'),
             null,
             $user->id
-        )[0]->reservations->sum('totals');
+        );
+        if($lastMonth->isEmpty()){
+            $lastMonth = 0;
+        } else {
+            $lastMonth = $lastMonth[0]->reservations->sum('totals');
+        }
 
         return self::percentage($thisMonth, $lastMonth);
     }
@@ -101,11 +112,14 @@ class DashboardService
             $now->format('Y'),
             null,
             $user->id
-        )[0];
+        );
 
-        $totalPresence = $presence->present;
-        $totalDays = $now->daysInMonth;
-        $percentage = ($totalPresence / $totalDays) * 100;
+        $percentage = 0;
+        if($presence->isNotEmpty()){
+            $totalPresence = $presence[0]->present;
+            $totalDays = $now->daysInMonth;
+            $percentage = ($totalPresence / $totalDays) * 100;
+        }
         return (number_format($percentage, 2) . ' %');
     }
 

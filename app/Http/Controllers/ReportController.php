@@ -95,9 +95,26 @@ class ReportController extends Controller
             'therapist',
             'month',
             'year',
-//            'therapist'
         ));
+    }
 
-//        return view('pages.report.incomeTherapist');
+    public function incomeOwner(Request $request){
+        $month = $request->m ?? intval(date('m'));
+        $year = $request->y ?? intval(date('Y'));
+        $franchise = Franchise::find($request->t);
+
+        $reservations = $this->repo->income(
+            month: $month,
+            year: $year,
+            franchiseId: $franchise?->id,
+            therapistId: null
+        );
+
+        return view('pages.report.incomeOwner', compact(
+            'reservations',
+            'month',
+            'year',
+            'franchise'
+        ));
     }
 }

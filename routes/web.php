@@ -229,6 +229,7 @@ Route::middleware('auth')->group(function () {
         Route::get('income', 'income')->name('reports.income');
         Route::get('outcome', 'outcome')->name('reports.outcome');
         Route::get('presence', 'presence')->name('reports.presence');
+        Route::get('incomeOwner', 'incomeOwner')->name('reports.incomeOwner');
     });
 
     Route::get('schedules', [ScheduleController::class, 'index'])->name('schedules.index');

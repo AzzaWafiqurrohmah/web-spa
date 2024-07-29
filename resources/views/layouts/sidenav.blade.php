@@ -248,8 +248,8 @@
             </a>
         </li>
 
-        <li class="nav-item {{ Request::segment(1) == 'laporan' ? 'active' : '' }}">
-            <a href="" class="nav-link d-flex">
+        <li class="nav-item {{ Request::segment(1) == 'reports' ? 'active' : '' }}">
+            <a href="{{ route('reports.incomeOwner') }}" class="nav-link d-flex">
                 <span class="d-flex align-items-center justify-content-center" >
                     <i class="bx bx-notepad sidebar-icon " style="font-size: 1.5rem; padding-bottom: 0px"></i>
                 </span>

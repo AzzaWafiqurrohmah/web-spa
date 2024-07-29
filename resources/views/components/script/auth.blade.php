@@ -1,9 +1,13 @@
 @push('script')
     <script>
-
+        url = '{{ route('signOut') }}';
+        role = ({{ \Illuminate\Support\Facades\Auth::user()->hasrole('therapist') ? 'true' : 'false' }});
+        if( role){
+            url = '{{ route('therapist.signOut') }}'
+        }
         function signOut() {
             $.ajax({
-                url: 'signOut',
+                url: url,
                 method: 'GET',
                 success(res) {
                     Swal.fire({

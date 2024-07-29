@@ -215,7 +215,9 @@ Route::middleware('auth')->group(function () {
         ->name('admin.')
         ->controller(AdminController::class)->group(function () {
             Route::get('/', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
             Route::post('store', 'store')->name('store');
+            Route::get('/{user}/edit', 'edit')->name('edit');
             Route::match(['PUT', 'PATCH'], '{user}/update', 'update')->name('update');
 
             Route::get('datatables', 'datatables')->name('datatables');
@@ -230,6 +232,7 @@ Route::middleware('auth')->group(function () {
         Route::get('outcome', 'outcome')->name('reports.outcome');
         Route::get('outcome/export', 'outcomeExport')->name('reports.outcome.export');
         Route::get('presence', 'presence')->name('reports.presence');
+        Route::get('incomeOwner', 'incomeOwner')->name('reports.incomeOwner');
     });
 
     Route::get('schedules', [ScheduleController::class, 'index'])->name('schedules.index');

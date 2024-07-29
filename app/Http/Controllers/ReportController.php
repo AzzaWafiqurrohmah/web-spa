@@ -10,6 +10,7 @@ use App\Repository\ReportRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
+use Illuminate\Support\Facades\Auth;
 
 class ReportController extends Controller
 {
@@ -107,6 +108,48 @@ class ReportController extends Controller
             'therapists',
             'month',
             'year',
+        ));
+    }
+
+    public function incomeTherapist(Request $request)
+    {
+
+        $user = Auth::user();
+        $month = $request->m ?? intval(date('m'));
+        $year = $request->y ?? intval(date('Y'));
+
+        $therapist = $this->repo->outcome(
+            $month,
+            $year,
+            null,
+            $user->id
+        );
+
+        return view('pages.report.incomeTherapist', compact(
+            'therapist',
+            'month',
+            'year',
+        ));
+    }
+
+    public function incomeOwner(Request $request)
+    {
+        $month = $request->m ?? intval(date('m'));
+        $year = $request->y ?? intval(date('Y'));
+        $franchise = Franchise::find($request->t);
+
+        $reservations = $this->repo->income(
+            month: $month,
+            year: $year,
+            franchiseId: $franchise?->id,
+            therapistId: null
+        );
+
+        return view('pages.report.incomeOwner', compact(
+            'reservations',
+            'month',
+            'year',
+            'franchise'
         ));
     }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\Therapist\PresenceController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\admin\ReservationController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ReportController;
 
 Route::middleware('auth')->group(function () {
     Route::prefix('dashboard')
@@ -22,7 +23,7 @@ Route::middleware('auth')->group(function () {
     Route::get('signOut', [AuthController::class, 'signOut'])->name('signOut');
 
     Route::prefix('/treatments')
-        ->name('therapist.treatments.')
+        ->name('treatments.')
         ->controller(TreatmentController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('create', 'create')->name('create');
@@ -36,7 +37,7 @@ Route::middleware('auth')->group(function () {
         });
 
     Route::prefix('/customers')
-        ->name('therapist.customers.')
+        ->name('customers.')
         ->controller(CustomerController::class)->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('create', 'create')->name('create');
@@ -70,11 +71,6 @@ Route::middleware('auth')->group(function () {
             Route::get('show', 'show')->name('show');
         });
 
-
-    Route::get('coba', function (){
-        return 'hai';
-    });
-
     Route::get('schedules', [ScheduleController::class, 'index'])->name('schedules.index');
     Route::get('schedules/json', [ScheduleController::class, 'json'])->name('schedules.json');
 
@@ -88,5 +84,9 @@ Route::middleware('auth')->group(function () {
         });
 
     Route::resource('reservations', ReservationController::class);
+
+    Route::prefix('reports')->controller(ReportController::class)->group(function () {
+        Route::get('income', 'incomeTherapist')->name('reports.index');
+    });
 
 });

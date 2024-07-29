@@ -95,8 +95,22 @@ class ReportRepository
                 fn ($prs) => $prs->status == 'full' || $prs->status == 'half'
             )->count();
 
+            $therapist->presents = $presents;
             $therapist->meal = $presents * intval($setting['uang_makan']);
+
             $therapist->reservations = $therapist->reservation->map(function ($rsv) {
+                $packets = $rsv->reservationDetail->filter(
+                    fn ($detail) => $detail->reservationable_type == Packet::class,
+                );
+
+                $treatments = $rsv->reservationDetail->filter(
+                    fn ($detail) => $detail->reservationable_type == Treatment::class,
+                );
+
+                $rsv->total_packets = $packets->count();
+                $rsv->total_treatments = $treatments->count();
+
+
                 $total = $rsv->totals - ($rsv->transport_cost + $rsv->extra_cost) + $rsv->discount;
                 $total = ($total * 30) / 100;
 

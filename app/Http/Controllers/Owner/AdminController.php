@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\owner\AdminRequest;
 use App\Http\Resources\owner\AdminResource;
 use App\Models\Franchise;
+use App\Models\Setting;
 use App\Models\User;
 use App\Repository\owner\AdminRepository;
 use App\Traits\ApiResponser;
@@ -25,15 +26,20 @@ class AdminController extends Controller
         ]);
     }
 
+    public function create(){
+        $franchises = Franchise::all();
+        return view('pages.owner.admin.create', [
+            'franchises' => $franchises
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      */
     public function store(AdminRequest $request)
     {
         AdminRepository::save($request->validated());
-        return $this->success(
-            message: 'Berhasil menambahkan data Admin'
-        );
+        return to_route('admin.index')->with('alert_s', 'Berhasil menambahkan data admin');
     }
 
     /**
@@ -47,6 +53,22 @@ class AdminController extends Controller
         );
     }
 
+    public function edit(User $user)
+    {
+        $franchises = Franchise::all();
+
+        $data = Setting::where('user_id', $user->id)->get(['key', 'value']);
+        $setting = $data->pluck(null, 'key')->map(function ($item) {
+            return $item['value'];
+        })->toArray();
+
+        return view('pages.owner.admin.edit', [
+            'user' => $user,
+            'franchises' => $franchises,
+            'setting' => $setting
+        ]);
+    }
+
     /**
      * Update the specified resource in storage.
      */
@@ -54,9 +76,7 @@ class AdminController extends Controller
     {
         AdminRepository::update($user, $request->validated());
 
-        return $this->success(
-            message: 'Berhasil mengubah data'
-        );
+        return to_route('admin.index')->with('alert_s', 'Berhasil mengubah data');
     }
 
     /**
@@ -64,6 +84,7 @@ class AdminController extends Controller
      */
     public function destroy(User $user)
     {
+        Setting::where('user_id', $user->id)->delete();
         $user->delete();
         return $this->success(
             message: 'Berhasil menghapus data Admin'

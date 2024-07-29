@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Exports\Report\IncomeExport;
+use App\Exports\Report\OutcomeExport;
 use App\Models\Franchise;
 use App\Models\Therapist;
 use App\Repository\ReportRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ReportController extends Controller
 {
@@ -39,6 +42,22 @@ class ReportController extends Controller
         ));
     }
 
+    public function incomeExport(Request $request)
+    {
+        $month = $request->m ?? intval(date('m'));
+        $year = $request->y ?? intval(date('Y'));
+        $therapist = Therapist::find($request->t);
+        $franchise = auth()->user()->franchise;
+
+        return Excel::download(new IncomeExport(
+            repo: $this->repo,
+            month: $month,
+            year: $year,
+            franchiseId: $franchise?->id,
+            therapistId: $therapist?->id
+        ), 'Laporan - Pendapatan.xlsx');
+    }
+
     public function outcome(Request $request)
     {
         $month = $request->m ?? intval(date('m'));
@@ -56,6 +75,20 @@ class ReportController extends Controller
             'month',
             'year',
         ));
+    }
+
+    public function outcomeExport(Request $request)
+    {
+        $month = $request->m ?? intval(date('m'));
+        $year = $request->y ?? intval(date('Y'));
+        $franchise = auth()->user()->franchise;
+
+        return Excel::download(new OutcomeExport(
+            repo: $this->repo,
+            month: $month,
+            year: $year,
+            franchiseId: $franchise?->id,
+        ), 'Laporan - Pengeluaran.xlsx');
     }
 
     public function presence(Request $request)

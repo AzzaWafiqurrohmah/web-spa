@@ -48,7 +48,7 @@
     <div class="col-md-9">
         <div class="card">
             <div class="card-body">
-                <table class="table table-striped table-hover">
+                <table class="table table-striped table-hover" id="report-table">
                     <thead>
                         <tr>
                             <th>#</th>

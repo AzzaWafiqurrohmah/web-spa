@@ -45,7 +45,7 @@
         </div>
     </div>
     <div class="col-md-3 d-flex justify-content-center align-items-center">
-        <button class="btn btn-primary mb-2"><i class="fas fa-upload me-1"></i> Ekspor</button>
+        <button id="btn-export" class="btn btn-primary mb-2"><i class="fas fa-upload me-1"></i> Ekspor</button>
     </div>
 </div>
 
@@ -119,6 +119,10 @@
     $('#month').change(() => {
         pageParams.set('m', $('#month').val());
         window.location.search = pageParams.toString();
+    });
+
+    $('#btn-export').click(function() {
+        document.location.href = '{{ route('reports.outcome.export') }}?' + encodeURI(pageParams.toString());
     });
 </script>
 @endpush

@@ -42,10 +42,10 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('dashboard')
         ->name('dashboard.')
-        ->controller(DashboardController::class)->group(function (){
-           Route::get('/', 'index')->name('index');
-           Route::get('/adminChart', 'adminChart')->name('adminChart');
-           Route::get('/adminRanking', 'adminRanking')->name('adminRanking');
+        ->controller(DashboardController::class)->group(function () {
+            Route::get('/', 'index')->name('index');
+            Route::get('/adminChart', 'adminChart')->name('adminChart');
+            Route::get('/adminRanking', 'adminRanking')->name('adminRanking');
         });
 
     Route::prefix('customers')
@@ -225,7 +225,10 @@ Route::middleware('auth')->group(function () {
 
     Route::prefix('reports')->controller(ReportController::class)->group(function () {
         Route::get('income', 'income')->name('reports.income');
+        Route::get('income/export', 'incomeExport')->name('reports.income.export');
+
         Route::get('outcome', 'outcome')->name('reports.outcome');
+        Route::get('outcome/export', 'outcomeExport')->name('reports.outcome.export');
         Route::get('presence', 'presence')->name('reports.presence');
     });
 

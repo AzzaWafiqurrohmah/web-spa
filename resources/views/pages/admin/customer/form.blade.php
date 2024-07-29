@@ -130,6 +130,8 @@
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
         }).addTo(map);
 
+        L.Control.geocoder().addTo(map);
+
         //put latlng
         const lat = document.getElementById('latitude');
         const lng = document.getElementById('longitude');

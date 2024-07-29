@@ -146,6 +146,8 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(map);
 
+        L.Control.geocoder().addTo(map);
+
         popup.openOn(map);
         marker.addTo(map);
 

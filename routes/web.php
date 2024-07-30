@@ -1,19 +1,19 @@
 <?php
 
-use App\Http\Controllers\admin\AuthController;
-use App\Http\Controllers\admin\CustomerController;
-use App\Http\Controllers\admin\MaterialController;
-use App\Http\Controllers\admin\TherapistController;
-use App\Http\Controllers\admin\ToolController;
-use App\Http\Controllers\admin\TreatmentCategoriesController;
-use App\Http\Controllers\admin\TreatmentController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\MaterialController;
+use App\Http\Controllers\Admin\TherapistController;
+use App\Http\Controllers\Admin\ToolController;
+use App\Http\Controllers\Admin\TreatmentCategoriesController;
+use App\Http\Controllers\Admin\TreatmentController;
 use App\Http\Controllers\Owner\FranchiseController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admin\ReservationController;
+use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\Owner\AdminController;
-use App\Http\Controllers\admin\SettingController;
-use App\Http\Controllers\admin\PresenceController;
-use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\Admin\SettingController;
+use App\Http\Controllers\Admin\PresenceController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Admin\ScheduleController;
 use App\Http\Controllers\RegionController;
 use App\Http\Controllers\Admin\PacketController;

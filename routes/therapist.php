@@ -1,13 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\admin\TreatmentController;
-use App\Http\Controllers\admin\CustomerController;
-use App\Http\Controllers\admin\AuthController;
-use App\Http\Controllers\admin\ProfileController;
+use App\Http\Controllers\Admin\TreatmentController;
+use App\Http\Controllers\Admin\CustomerController;
+use App\Http\Controllers\Admin\AuthController;
+use App\Http\Controllers\Admin\ProfileController;
 use App\Http\Controllers\Therapist\PresenceController;
 use App\Http\Controllers\Admin\ScheduleController;
-use App\Http\Controllers\admin\ReservationController;
+use App\Http\Controllers\Admin\ReservationController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ReportController;
 

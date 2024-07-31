@@ -121,6 +121,14 @@
     </div>
 </div>
 
+@push('style')
+<style>
+    #map {
+        min-height: 25rem;
+    }
+</style>
+@endpush
+
 @push('script')
     <script>
         var map = L.map('map').setView([-8.173043, 113.701767], 14);

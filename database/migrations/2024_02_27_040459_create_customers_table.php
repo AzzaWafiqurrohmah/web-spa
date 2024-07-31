@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('customers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('franchise_id')->constrained()->cascadeOnDelete();
-            $table->string('fullname', 100);
-            $table->string('phone', 12);
+            $table->string('fullname', 100)->unique();
+            $table->string('phone', 12)->unique();
             $table->tinyInteger('is_member')->default(0)->nullable();
             $table->date('start_member')->nullable();
             $table->string('address', 255)->nullable();

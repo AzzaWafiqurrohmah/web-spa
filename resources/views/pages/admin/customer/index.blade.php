@@ -19,13 +19,17 @@
             </div>
             <div class="card">
                 <div class="card-body">
-                    <div class="d-flex justify-content-end mb-4">
-                        @can('crud customers')
-                            <div>
+                    @can('crud customers')
+                        <div class="d-flex justify-content-between mb-4">
+                            <div style="align-items: center">
+                                <button class="btn btn-warning" id="import" name="import">Import</button>
+                                <button class="btn btn-success" id="export" name="export">Export</button>
+                            </div>
+                            <div >
                                 <a href="{{route('customers.create')}}" class="btn btn-primary">Tambah Pelanggan</a>
                             </div>
-                        @endcan
-                    </div>
+                        </div>
+                    @endcan
                     <div class="table-responsive">
                         <table class="table table-striped table-hover" id="customers-table">
                             <thead>
@@ -47,6 +51,7 @@
         </div>
     </div>
     @include('components.modal.customer')
+    @include('components.modal.customerImport')
 @endsection
 
 @include('components.script.customer')

@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\CustomerExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\CustomerRequest;
+use App\Http\Requests\admin\ImportRequest;
 use App\Http\Resources\admin\CustomerResource;
+use App\Imports\CustomersImport;
 use App\Models\Customer;
 use App\Repository\admin\CustomerRepository;
 use App\Traits\ApiResponser;
@@ -12,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Maatwebsite\Excel\Facades\Excel;
 
 class CustomerController extends Controller
 {
@@ -91,7 +95,9 @@ class CustomerController extends Controller
      */
     public function destroy(Customer $customer)
     {
-        Storage::disk('public')->delete($customer->home_pict);
+        if($customer->home_pict !== null){
+            Storage::disk('public')->delete($customer->home_pict);
+        }
         $customer->delete();
 
         return $this->success(
@@ -164,6 +170,25 @@ class CustomerController extends Controller
             CustomerResource::collection($customers),
             'Berhasil mengambil data'
         );
+    }
+
+    public function import(ImportRequest $request){
+        $file = $request->file('fileImport')->storePublicly('customersFile', 'public');
+        Excel::import(new CustomersImport(), 'public/' . $file);
+
+        return $this->success(
+            message: 'Berhasil menambahkan data'
+        );
+    }
+
+    public function export()
+    {
+        if(count(Customer::all()) < 1){
+            return response()->json([
+                'data' => 'empty'
+            ]);
+        }
+        return Excel::download(new CustomerExport(), 'Customers.xlsx');
     }
 
 }

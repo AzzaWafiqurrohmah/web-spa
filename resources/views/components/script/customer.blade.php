@@ -137,5 +137,100 @@
 
         });
 
+        $('#export').on('click', function (e) {
+            $.ajax({
+                url: `/customers/export`,
+                method: 'GET',
+                success(res) {
+
+                    if(res.data == 'empty'){
+                        Swal.fire({
+                            icon: 'warning',
+                            text: 'Data Bahan Treatment masih kosong',
+                            timer: 3000,
+                        });
+                    } else {
+                        window.location.href = '/customers/export';
+                        Swal.fire({
+                            icon: 'success',
+                            text: 'Berhasil Mengunduh file',
+                            timer: 1500,
+                        });
+                    }
+
+                },
+                error(err) {
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Terdapat masalah saat melakukan aksi',
+                        timer: 1500,
+                    });
+                },
+            });
+        });
+
+        const importModal = new bootstrap.Modal('#customer-modal-import');
+
+        $('#customer-modal-import').on('show.bs.modal', function (event) {
+            $('#customer-import-title').text('Import File Cutomer');
+        });
+
+        $('#import').on('click', function (e) {
+            importModal.show();
+        });
+
+        $('#customer-form-import').submit(function (e) {
+            e.preventDefault();
+            removeFormErrors();
+            saveFile();
+        });
+
+        function saveFile(){
+            var formData = new FormData();
+            var fileInput = document.getElementById('fileImport');
+
+            if (fileInput.files.length === 0) {
+                Swal.fire({
+                    icon: 'error',
+                    text: 'Silakan pilih file sebelum mengunggah',
+                    timer: 1500,
+                });
+                return;
+            }
+
+            formData.append('fileImport', fileInput.files[0]);
+
+            $.ajax({
+                url: '/customers/import',
+                method: 'POST',
+                data: formData,
+                processData: false,
+                contentType: false,
+                success(res) {
+                    customersTable.ajax.reload();
+                    importModal.hide();
+
+                    Swal.fire({
+                        icon: 'success',
+                        text: res.meta.message,
+                        timer: 1500,
+                    });
+
+                },
+                error(err) {
+                    if (err.status == 422) {
+                        displayFormErrors(err.responseJSON.data);
+                        return;
+                    }
+
+                    Swal.fire({
+                        icon: 'error',
+                        text: 'Heading harus berupa "Nama Bahan"',
+                        timer: 1500,
+                    });
+                },
+            });
+        }
+
     </script>
 @endpush

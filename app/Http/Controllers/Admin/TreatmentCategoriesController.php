@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\TreatmentCategoryEksport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\ImportRequest;
 use App\Http\Requests\admin\TreatmentCategoryRequest;
 use App\Http\Resources\admin\TreatmentCategoryResource;
+use App\Imports\TreatmentCategoryImport;
 use App\Models\TreatmentCategory;
 use App\Traits\ApiResponser;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TreatmentCategoriesController extends Controller
 {
@@ -82,5 +86,24 @@ class TreatmentCategoriesController extends Controller
             TreatmentCategory::collection($treatmentCategory),
             'Berhasil mengambil data'
         );
+    }
+
+    public function import(ImportRequest $request){
+        $file = $request->file('fileImport')->storePublicly('treatmentCategories', 'public');
+        Excel::import(new TreatmentCategoryImport(), 'public/' . $file);
+
+        return $this->success(
+            message: 'Berhasil menambahkan data'
+        );
+    }
+
+    public function export()
+    {
+        if(count(TreatmentCategory::all()) < 1){
+            return response()->json([
+                'data' => 'empty'
+            ]);
+        }
+        return Excel::download(new TreatmentCategoryEksport(), 'Kategori treatment.xlsx');
     }
 }

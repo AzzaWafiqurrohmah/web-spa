@@ -71,6 +71,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('treatmentCategories')
         ->name('treatmentCategories.')
         ->controller(TreatmentCategoriesController::class)->group(function () {
+            Route::post('/import', 'import')->name('import');
+            Route::get('/export', 'export')->name('export');
             Route::get('/', 'index')->name('index');
             Route::post('store', 'store')->name('store');
             Route::match(['PUT', 'PATCH'], '{treatmentCategory}/update', 'update')->name('update');

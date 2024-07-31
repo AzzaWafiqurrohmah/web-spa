@@ -155,6 +155,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('therapists')
         ->name('therapists.')
         ->controller(TherapistController::class)->group(function () {
+            Route::post('/import', 'import')->name('import');
+            Route::get('/export', 'export')->name('export');
             Route::get('/search', 'search')->name('search');
             Route::get('/available', 'available')->name('available');
             Route::get('/', 'index')->name('index');

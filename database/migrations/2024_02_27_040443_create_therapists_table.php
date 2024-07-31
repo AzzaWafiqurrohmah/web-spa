@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('franchise_id')->constrained()->cascadeOnDelete();
             $table->string('image')->nullable();
-            $table->string('fullname', 100);
+            $table->string('fullname', 100)->unique();
             $table->date('birth_date')->nullable();
             $table->enum('gender', ['male', 'female'])->default('female')->nullable();
-            $table->string('phone', 12);
+            $table->string('phone', 12)->unique();
             $table->string('address', 255);
             $table->integer('body_height');
             $table->integer('body_weight');

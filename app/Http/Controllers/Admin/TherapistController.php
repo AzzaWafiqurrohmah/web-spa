@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\TherapistExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\ImportRequest;
 use App\Http\Requests\admin\TherapistRequest;
 use App\Http\Resources\admin\TherapistResource;
+use App\Imports\TherapistImport;
 use App\Models\Therapist;
 use App\Repository\admin\TherapistRepository;
 use App\Traits\ApiResponser;
@@ -12,6 +15,7 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TherapistController extends Controller
 {
@@ -218,6 +222,25 @@ class TherapistController extends Controller
         return $this->success(
             message: $message
         );
+    }
+
+    public function import(ImportRequest $request){
+        $file = $request->file('fileImport')->storePublicly('therapistFile', 'public');
+        Excel::import(new TherapistImport(), 'public/' . $file);
+
+        return $this->success(
+            message: 'Berhasil menambahkan data'
+        );
+    }
+
+    public function export()
+    {
+        if(count(Therapist::all()) < 1){
+            return response()->json([
+                'data' => 'empty'
+            ]);
+        }
+        return Excel::download(new TherapistExport(), 'Therapists.xlsx');
     }
 
 }

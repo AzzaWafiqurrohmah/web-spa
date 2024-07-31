@@ -172,7 +172,7 @@
         const importModal = new bootstrap.Modal('#customer-modal-import');
 
         $('#customer-modal-import').on('show.bs.modal', function (event) {
-            $('#customer-import-title').text('Import File Cutomer');
+            $('#customer-import-title').text('Import File Customer');
         });
 
         $('#import').on('click', function (e) {

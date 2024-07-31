@@ -91,7 +91,7 @@
                   </svg>
               </span>
             </span>
-            <div class="multi-level collapse @active('treatments.*,treatmentCategories,tools,materials', 'show')" role="list" id="submenu-pages" aria-expanded="false">
+            <div class="multi-level collapse @active('treatments.*,treatmentCategories,packets,tools,materials', 'show')" role="list" id="submenu-pages" aria-expanded="false">
               <ul class="flex-column nav">
                   <li class="nav-item @active('treatmentCategories')">
                       <a class="nav-link" href="{{ route('treatmentCategories.index') }}">

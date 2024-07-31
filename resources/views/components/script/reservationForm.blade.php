@@ -56,6 +56,7 @@
                     var totalDisc = res.data.discount + discString ;
                     total = (parseVal($('#transport_cost_string').text()) + res.data.totalTreatment + totalEkstra ) - discString;
 
+                    // console.log($('#transport_cost_string').text());
                     $('#extra_cost_string').text(`Rp ${totalEkstra}`);
                     $('#extra_cost').val(totalEkstra);
                     $('#discString').text(`Rp ${ parseInt(discAdd) + res.data.disc_treatment }`);
@@ -255,9 +256,6 @@
                 success(res) {
                     customer = res.data.id;
                     $('#customer_member').val(member);
-                    $('#transport_cost_string').text(`Rp ${res.data.transport_cost}`);
-                    $('#transport_input').val(res.data.transport_cost);
-                    $('#transport_cost').val(res.data.transport_cost);
                     $('#treatment-container').empty();
                     updateTotal();
                 }
@@ -276,8 +274,9 @@
             }
         });
 
-        $('#transport_input').on('change', function (){
+        $('#transport_cost').on('change', function (){
             $('#transport_cost_string').text(`Rp ${$(this).val()}`);
+            updateTotal();
         })
 
         function formatSelection(selection) {

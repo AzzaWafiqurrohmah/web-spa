@@ -111,6 +111,10 @@
             -webkit-backdrop-filter: blur(3.5px);
             z-index: 99999;
         }
+
+        #map {
+            min-height: 25rem;
+        }
     </style>
 @endpush
 

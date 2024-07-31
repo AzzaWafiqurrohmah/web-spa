@@ -185,8 +185,8 @@
 
                     Swal.fire({
                         icon: 'error',
-                        text: 'Heading harus berupa "Nama Bahan"',
-                        timer: 1500,
+                        text: 'Heading Anda Salah',
+                        timer: 2000,
                     });
                 },
             });

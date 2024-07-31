@@ -2,15 +2,20 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\MaterialsExport;
+use App\Exports\TreatmentExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\ImportRequest;
 use App\Http\Requests\admin\TreatmentRequest;
 use App\Http\Resources\admin\TreatmentResource;
+use App\Imports\TreatmentImport;
 use App\Models\Material;
 use App\Models\Tool;
 use App\Models\Treatment;
 use App\Models\TreatmentCategory;
 use App\Repository\admin\TreatmentRepository;
 use App\Traits\ApiResponser;
+use Maatwebsite\Excel\Facades\Excel;
 
 class TreatmentController extends Controller
 {
@@ -90,6 +95,25 @@ class TreatmentController extends Controller
         return $this->success(
             message: "Berhasil menghapus data"
         );
+    }
+
+    public function import(ImportRequest $request){
+        $file = $request->file('fileImport')->storePublicly('treatments', 'public');
+        Excel::import(new TreatmentImport(), 'public/' . $file);
+
+        return $this->success(
+            message: 'Berhasil menambahkan data'
+        );
+    }
+
+    public function export()
+    {
+        if(count(Treatment::all()) < 1){
+            return response()->json([
+                'data' => 'empty'
+            ]);
+        }
+        return Excel::download(new TreatmentExport(), 'treatment.xlsx');
     }
 
     public function datatables()

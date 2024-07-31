@@ -134,6 +134,8 @@ Route::middleware('auth')->group(function () {
     Route::prefix('treatments')
         ->name('treatments.')
         ->controller(TreatmentController::class)->group(function () {
+            Route::post('/import', 'import')->name('import');
+            Route::get('/export', 'export')->name('export');
             Route::get('/', 'index')->name('index');
             Route::get('create', 'create')->name('create');
             Route::post('store', 'store')->name('store');

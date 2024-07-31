@@ -69,8 +69,10 @@ class TreatmentRepository
 
     public static function destroy(Treatment $treatment)
     {
-        foreach ($treatment->pictures as $pict){
-            Storage::disk('public')->delete($pict);
+        if($treatment->pictures !== null){
+            foreach ($treatment->pictures as $pict){
+                Storage::disk('public')->delete($pict);
+            }
         }
         $treatment->tools()->detach();
         $treatment->materials()->detach();

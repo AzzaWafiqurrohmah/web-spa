@@ -20,7 +20,7 @@
                             <button class="btn btn-success" id="export" name="export">Export</button>
                         </div>
                         <div >
-                            <button class="btn btn-primary" id="newMaterial" name="newMaterial">Tambah Alat</button>
+                            <button class="btn btn-primary" id="newMaterial" name="newMaterial">Tambah Bahan</button>
                         </div>
                     </div>
                     <div class="table-responsive">

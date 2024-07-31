@@ -179,6 +179,7 @@
 @push('script')
     <script>
         $(document).ready(function (){
+            $('#treatmentCategory_id').select2();
             $('.tags').select2({
                 placeholder: ' -- Pilih Alat --',
                 allowClear:true

@@ -64,13 +64,13 @@
             <div class="card mb-2">
                 <div class="card-body">
                     <h6><b>
-                        Reservasi {{ str_replace('-', '', $reservation->date) }}{{ $reservation->id }}
+                        Reservasi {{ $reservation->date->format('Ymd') }}{{ $reservation->id }}
                     </b></h6>
 
                     <div class="d-flex flex-column next-schedule-icons gap-1">
                         <div><i class='far fa-fw fa-clock'></i> {{ $reservation->time }}</div>
                         <div><i class='far fa-fw fa-user'></i> {{ $reservation->therapist->fullname }}</div>
-                        <div><i class='far fa-fw fa-square'></i> {{ $reservation->reservationDetail->count() }} Treatment</div>
+                        <div><i class='far fa-fw fa-square'></i> {{ $reservation->reservationDetail->count() }} Treatment/Paket</div>
                     </div>
                 </div>
             </div>

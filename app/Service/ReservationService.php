@@ -24,12 +24,12 @@ class ReservationService
 
         $calculator = new Vincenty();
 
-        $distance = round($calculator->getDistance($coordinate1, $coordinate2)/1000);
+        $distance = round($calculator->getDistance($coordinate1, $coordinate2) / 1000);
 
-        return ( $setting->value * $distance );
+        return ($setting->value * $distance);
     }
 
-    public static function treatmentCost( Customer $customer, ?array $dataTreatment, ?array $dataPacket )
+    public static function treatmentCost(Customer $customer, ?array $dataTreatment, ?array $dataPacket)
     {
 
         $total = [
@@ -40,8 +40,8 @@ class ReservationService
             'disc_treatment' => 0,
         ];
 
-        if(!empty($dataTreatment)){
-            foreach ($dataTreatment as $id){
+        if (!empty($dataTreatment)) {
+            foreach ($dataTreatment as $id) {
                 $treatment = Treatment::find($id);
                 $total['duration'] += $treatment->duration;
                 $total['price'] += $treatment->price;
@@ -51,11 +51,11 @@ class ReservationService
             }
         }
 
-        if(!empty($dataPacket)){
-            foreach ($dataPacket as $id){
+        if (!empty($dataPacket)) {
+            foreach ($dataPacket as $id) {
                 $packet = Packet::find($id);
 
-                foreach ($packet->treatments as $treatment){
+                foreach ($packet->treatments as $treatment) {
                     $total['duration'] += $treatment->duration;
                 }
 
@@ -67,21 +67,30 @@ class ReservationService
         }
 
         $total['totalTreatment'] = $total['price'];
-        if($customer->is_member == 1){
+        if ($customer->is_member == 1) {
             $total['totalTreatment'] = $total['member_price'];
         }
 
         return $total;
     }
 
-    public static function discMember(Customer $customer, $price, $member_price )
+    public static function discMember(Customer $customer, $price, $member_price)
     {
         $disc_member = 0;
-        if($customer->is_member)
-        {
+        if ($customer->is_member) {
             $disc_member = $price - $member_price;
         }
         return $disc_member;
     }
 
+    public static function getDurations($details)
+    {
+        return $details->reduce(function ($carry = 0, $detail) {
+            if ($detail->reservationable instanceof Treatment)
+                return $carry += $detail->reservationable->duration;
+
+            if ($detail->reservationable instanceof Packet)
+                return $carry += $detail->reservationable->treatments->sum('duration');
+        }, 0);
+    }
 }

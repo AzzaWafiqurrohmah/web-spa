@@ -45,7 +45,6 @@ class ScheduleController extends Controller
             ->where('time', '>=', date('H:i:s'))
             ->with(
                 'reservationDetail',
-                'reservationDetail.treatment',
                 'therapist'
             )->get();
 
@@ -64,16 +63,14 @@ class ScheduleController extends Controller
         $schedules = Reservation::where('date', $date)
             ->with(
                 'reservationDetail',
-                'reservationDetail.treatment',
                 'therapist'
             )->get();
 
-        if( $user instanceof Therapist ){
+        if ($user instanceof Therapist) {
             $schedules = Reservation::where('date', $date)
                 ->where('therapist_id', $user->id)
                 ->with(
                     'reservationDetail',
-                    'reservationDetail.treatment',
                     'therapist'
                 )->get();
         }

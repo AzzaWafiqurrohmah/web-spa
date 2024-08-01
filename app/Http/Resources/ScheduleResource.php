@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources;
 
+use App\Service\ReservationService;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
@@ -11,13 +12,10 @@ class ScheduleResource extends JsonResource
 {
     public function toArray(Request $request): array
     {
-        $date_start = Carbon::createFromFormat('Y-m-d', $this->date);
+        $date_start = $this->date;
         $date_start->setTimeFromTimeString($this->time);
 
-        $minutes = $this->reservationDetail->reduce(
-            fn (int $carry, $detail) => $carry + $detail->treatment->duration,
-            0
-        );
+        $minutes = ReservationService::getDurations($this->reservationDetail);
         $date_end = $date_start->copy()->addMinute($minutes);
 
         return [

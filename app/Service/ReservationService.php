@@ -16,17 +16,22 @@ class ReservationService
     {
         $user = Auth::user();
         $franchise = $user->franchise;
+        $transport_cost = 0;
         $setting = Setting::where('user_id', $user->id)
             ->where('key', 'biaya_transport')->first();
 
-        $coordinate1 = new Coordinate($customer->latitude, $customer->longitude);
-        $coordinate2 = new Coordinate($franchise->latitude, $franchise->longitude);
+        if ($customer->latitude !== null && $customer->longitude !== null) {
+            $coordinate1 = new Coordinate($customer->latitude, $customer->longitude);
+            $coordinate2 = new Coordinate($franchise->latitude, $franchise->longitude);
 
-        $calculator = new Vincenty();
+            $calculator = new Vincenty();
 
-        $distance = round($calculator->getDistance($coordinate1, $coordinate2) / 1000);
+            $distance = round($calculator->getDistance($coordinate1, $coordinate2) / 1000);
+            $transport_cost = $setting->value * $distance;
+        }
 
-        return ($setting->value * $distance);
+
+        return ($transport_cost);
     }
 
     public static function treatmentCost(Customer $customer, ?array $dataTreatment, ?array $dataPacket)

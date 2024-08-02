@@ -4,6 +4,7 @@ namespace App\Imports;
 
 use App\Models\Therapist;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Maatwebsite\Excel\Concerns\WithUpserts;
@@ -35,7 +36,7 @@ class TherapistImport implements ToModel, WithUpserts, WithHeadingRow
             'fullname' => $row['nama_lengkap'],
             'franchise_id' => $user->franchise_id,
             'email' => $row['email'],
-            'password' => $row['password']
+            'password' => Hash::make($row['password'])
         ]);
     }
 

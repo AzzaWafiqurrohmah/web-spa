@@ -284,8 +284,7 @@
             let color = 'grey';
             if (selection.id !== '') {
                 member = selection.member ?? parseInt($('#customer_member').val());
-                // console.log(member);
-                if (member === 1) {
+                if (member == 1) {
                     color = 'green';
                 }
                 return $(
@@ -299,26 +298,6 @@
             } else {
                 return $('<span style="color: grey;">' + selection.text + '</span>');
             }
-
-
-
-            // console.log(selection);
-            // let color = 'grey';
-            // if (selection.member === 1 && isSelected) {
-            //     color = 'green';
-            // }
-            // if (selection.id !== '') {
-            //     return $(
-            //             '<div class="d-flex gap-3">' +
-            //             `<i class="bi bi-person-circle" style="font-size: 1.4rem; color: ${color}; margin-top: -5px"></i>` +
-            //             '<div>' +
-            //             '<h4 class="m-0" style="font-size: 16px">' + selection.text + '</h4>' +
-            //             '</div>' +
-            //             '</div>'
-            //     );
-            // } else {
-            //     return $('<span style="color: grey;">' + selection.text + '</span>');
-            // }
         }
 
         $(".treatment-option").select2({
@@ -356,7 +335,7 @@
                 return repo.text;
             }
             let price = repo.price;
-            if(member){
+            if(member == 1){
                 price = repo.member_price
             }
             return $(

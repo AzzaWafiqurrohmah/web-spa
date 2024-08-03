@@ -22,13 +22,13 @@ class TherapistRequest extends FormRequest
     public function rules(): array
     {
         $rules = [
-            'fullname' => 'required|string',
+            'fullname' => 'required|string|unique:therapists,fullname',
             'birth_date' => 'required|date_format:Y-m-d',
             'gender' => 'required',
             'address' => 'required',
             'body_height' => 'required|int|min:0',
             'body_weight' => 'required|int|min:0',
-            'phone' => 'required|size:12',
+            'phone' => 'required|size:12|unique:therapists,phone',
             'start_working' => 'required|date_format:Y-m-d',
             'email' => 'required|email',
             'password' => 'nullable'

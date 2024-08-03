@@ -20,6 +20,10 @@ class CustomerResource extends JsonResource
         $user = Auth::user();
         $transport_cost = ReservationService::transport_cost($this->resource);
 
+        $memberId = null;
+        if($this->is_member == 1){
+            $memberId = format_member(format_id('customer', $user->franchise->raw_id, $this->gender, $this->id));
+        }
 
 
         return [
@@ -28,7 +32,7 @@ class CustomerResource extends JsonResource
             'fullname' => $this->fullname,
             'phone' => $this->phone,
             'is_member' => $this->is_member,
-            'member_id' => format_member(format_id('customer', $user->franchise->raw_id, $this->gender, $this->id)),
+            'member_id' => $memberId,
             'start_member' => $this->start_member,
             'address' => $this->address,
             'gender' => $this->gender,

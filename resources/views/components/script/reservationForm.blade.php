@@ -234,7 +234,7 @@
             }
 
             let color = 'grey';
-            if(repo.member === 1){
+            if(repo.member == 1){
                 color = 'green';
             }
             return $(

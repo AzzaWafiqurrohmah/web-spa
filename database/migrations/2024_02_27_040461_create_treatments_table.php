@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('franchise_id')->constrained()->cascadeOnDelete()->cascadeOnUpdate();
             $table->string('name', 100);
             $table->integer('duration');
-            $table->json('pictures')->default('[]')->nullable();
+            $table->json('pictures')->nullable();
             $table->date('period_start')->nullable();
             $table->date('period_end')->nullable();
             $table->integer('price');

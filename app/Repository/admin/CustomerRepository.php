@@ -19,6 +19,10 @@ class CustomerRepository
             $data['start_member'] = $now;
         }
 
+        if (empty($data['home_details'])) {
+            unset($data['home_details']);
+        }
+
         if (isset($data['home_pict']))
             $data['home_pict'] = $data['home_pict']->storePublicly('customers', 'public');
 

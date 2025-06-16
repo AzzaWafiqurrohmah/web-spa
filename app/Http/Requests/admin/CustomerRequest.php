@@ -26,12 +26,12 @@ class CustomerRequest extends FormRequest
             'birth_date' => 'required|date_format:Y-m-d',
             'phone' => 'required|size:12|unique:customers,phone',
             'gender' => 'required',
-            'home_details' => 'required',
+            'home_details' => 'nullable',
             'address' => 'required'
         ];
 
         if ($this->isMethod('POST')){
-            $rules['home_pict'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+            $rules['home_pict'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
         }
 
 

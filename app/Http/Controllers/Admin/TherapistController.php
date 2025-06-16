@@ -91,17 +91,25 @@ class TherapistController extends Controller
             message: "Berhasil menghapus data Terapis"
         );
     }
-
     public function datatables()
     {
         $user = Auth::user();
-        return datatables(Therapist::query())
+
+        $query = Therapist::query()
+            ->where('franchise_id', $user->franchise_id);
+
+        return datatables($query)
             ->addIndexColumn()
-            ->addColumn('id', fn($therapist) => format_id('therapist', $user->franchise->raw_id, $therapist->gender, $therapist->id))
+            ->addColumn('id', fn($therapist) =>
+                format_id('therapist', $user->franchise->raw_id, $therapist->gender, $therapist->id)
+            )
             ->addColumn('birth_date', fn($therapist) => format_date($therapist->birth_date))
-            ->addColumn('action', fn($therapist) => view('pages.admin.therapist.main.action', compact('therapist')))
+            ->addColumn('action', fn($therapist) =>
+                view('pages.admin.therapist.main.action', compact('therapist'))
+            )
             ->toJson();
     }
+
 
     public function json()
     {

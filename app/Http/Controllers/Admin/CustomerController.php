@@ -145,7 +145,9 @@ class CustomerController extends Controller
     public function datatables()
     {
         $user = Auth::user();
-        return datatables(Customer::query()->where('franchise_id', $user->franchise_id))
+        $query = Customer::query()->where('franchise_id', $user->franchise_id);
+
+        return datatables($query)
             ->addIndexColumn()
             ->addColumn('id', fn($customer) => format_id('customer' ,$user->franchise->raw_id, $customer->gender, $customer->id))
             ->addColumn('birth_date', fn($customer) => format_date($customer->birth_date))

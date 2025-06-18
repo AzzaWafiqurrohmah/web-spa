@@ -32,7 +32,8 @@ class TreatmentRepository
 
     public static function update(array $data, Treatment $treatment)
     {
-        $lastPict = $treatment->pictures;
+        // $lastPict = $treatment->pictures;
+        $lastPict = is_array($treatment->pictures) ? $treatment->pictures : [];
         if(isset($data['deletePict']))
         {
             $lastPict = static::removePict($lastPict, array_flip($data['deletePict']));

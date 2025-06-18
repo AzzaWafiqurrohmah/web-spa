@@ -20,7 +20,7 @@ class TreatmentExport implements FromCollection, WithMapping, WithHeadings, Shou
     */
     public function collection()
     {
-        $data = Treatment::all();
+        $data = Treatment::with(['tools', 'materials', 'treatmentCategory'])->get();
         $this->data = $data;
         return $data;
     }
@@ -28,8 +28,10 @@ class TreatmentExport implements FromCollection, WithMapping, WithHeadings, Shou
     public function columnFormats(): array
     {
         return [
-            'D' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+            'C' => NumberFormat::FORMAT_DATE_DDMMYYYY,
             'E' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+            'F' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1,
+            'G' => NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1
         ];
     }
 
@@ -38,10 +40,15 @@ class TreatmentExport implements FromCollection, WithMapping, WithHeadings, Shou
         return [
             'Kategori',
             'Nama Treatment',
+            'Tanggal Mulai',
             'Durasi',
             'Harga Normal',
             'Harga Member',
+            'Diskon',
+            'Alat Treatment',
+            'Bahan Treatment',
         ];
+        
     }
 
     public function map($row): array
@@ -49,18 +56,22 @@ class TreatmentExport implements FromCollection, WithMapping, WithHeadings, Shou
         return [
             $row->treatmentCategory->name,
             $row->name,
+            $row->period_start,
             $row->duration,
             $row->price,
             $row->member_price,
-            $row->discount
+            $row->discount,
+            $row->tools->pluck('name')->implode(','),
+            $row->materials->pluck('name')->implode(','),
         ];
     }
+
 
     public function styles(Worksheet $sheet)
     {
         $row = $this->data->count() + 2;
 
-        $sheet->getStyle("A1:F1")->getFont()->setBold(true);
+        $sheet->getStyle("A1:1")->getFont()->setBold(true);
         $sheet->getStyle("D{$row}")->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
         $sheet->getStyle("E{$row}")->getNumberFormat()

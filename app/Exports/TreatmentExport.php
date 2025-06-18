@@ -61,8 +61,8 @@ class TreatmentExport implements FromCollection, WithMapping, WithHeadings, Shou
             $row->price,
             $row->member_price,
             $row->discount,
-            $row->tools->pluck('name')->implode(', '),
-            $row->materials->pluck('name')->implode(', '),
+            $row->tools->pluck('name')->implode(','),
+            $row->materials->pluck('name')->implode(','),
         ];
     }
 

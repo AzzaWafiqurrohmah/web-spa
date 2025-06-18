@@ -96,7 +96,7 @@ class MaterialController extends Controller
     public function datatables()
     {
         $user = Auth::user();
-        $data = Material::where('franchise_id', $user->franchise_id);
+        $data = Material::query();
         return datatables($data)
             ->addIndexColumn()
             ->addColumn('action', fn($material) => view('pages.admin.treatment.material.action', compact('material')))

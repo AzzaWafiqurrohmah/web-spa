@@ -98,7 +98,7 @@ class ToolController extends Controller
     public function datatables()
     {
         $user = Auth::user();
-        $data = Tool::where('franchise_id', $user->franchise_id);
+        $data = Tool::query();
         return datatables($data)
             ->addIndexColumn()
             ->addColumn('action', fn($tool) => view('pages.admin.treatment.tool.action', compact('tool')) )

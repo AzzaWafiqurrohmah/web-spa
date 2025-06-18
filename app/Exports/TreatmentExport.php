@@ -61,8 +61,8 @@ class TreatmentExport implements FromCollection, WithMapping, WithHeadings, Shou
             $row->price,
             $row->member_price,
             $row->discount,
-            $row->tools->pluck('name')->implode(','),
-            $row->materials->pluck('name')->implode(','),
+            $row->tools->pluck('name')->implode(', '),
+            $row->materials->pluck('name')->implode(', '),
         ];
     }
 
@@ -71,7 +71,7 @@ class TreatmentExport implements FromCollection, WithMapping, WithHeadings, Shou
     {
         $row = $this->data->count() + 2;
 
-        $sheet->getStyle("A1:1")->getFont()->setBold(true);
+        $sheet->getStyle("A1:I1")->getFont()->setBold(true);
         $sheet->getStyle("D{$row}")->getNumberFormat()
             ->setFormatCode(NumberFormat::FORMAT_NUMBER_COMMA_SEPARATED1);
         $sheet->getStyle("E{$row}")->getNumberFormat()

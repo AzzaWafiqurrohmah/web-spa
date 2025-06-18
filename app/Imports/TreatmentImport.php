@@ -14,63 +14,6 @@ use Illuminate\Support\Collection;
 
 class TreatmentImport implements ToCollection, WithUpserts, WithHeadingRow
 {
-    /**
-    * @param array $row
-    *
-    * @return \Illuminate\Database\Eloquent\Model|null
-    */
-    // public function model(array $row)
-    // {
-    //     if (empty($row['kategori']) || empty($row['nama_treatment'])) {
-    //         return null;
-    //     }
-
-    //     $user = Auth::user();
-    //     $category = TreatmentCategory::where('name', $row['kategori'])->first();
-    //     if($category == null){
-    //         $category = TreatmentCategory::create([
-    //                 'name' => $row['kategori']
-    //             ]);
-    //     }
-
-    //     // Tools
-    //     $toolIds = collect(explode(',', $row['alat_treatment'] ?? ''))
-    //     ->map(function ($toolName) use ($user) {
-    //         $toolName = trim($toolName);
-    //         return Tool::firstOrCreate([
-    //             'name' => $toolName, 
-    //             'franchise_id' => $user->franchise_id
-    //         ])->id;
-    //     });
-
-    //     // Materials
-    //     $materialIds = collect(explode(',', $row['bahan_treatment'] ?? ''))
-    //     ->map(function ($materialName) use ($user) {
-    //         $materialName = trim($materialName);
-    //         return Material::firstOrCreate([
-    //             'name' => $materialName,
-    //             'franchise_id' => $user->franchise_id
-    //         ])->id;
-    //     });
-
-    //     $treatment->tools()->sync($toolIds);
-    //     $treatment->materials()->sync($materialIds);
-
-
-    //     return new Treatment([  
-    //         'treatment_category_id' => $category->id,
-    //         'franchise_id' => $user->franchise_id,
-    //         'name' => $row['nama_treatment'],
-    //         'duration' => $row['durasi'],
-    //         'pictures' => null,
-    //         'period_start' => null,
-    //         'period_end' => null,
-    //         'price' => $row['harga_normal'],
-    //         'member_price' => $row['harga_member'],
-    //         'discount' => 0
-    //     ]);
-    // }
-
     public $errors = [];
 
     public function collection(Collection $rows)

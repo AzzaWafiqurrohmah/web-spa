@@ -4,13 +4,16 @@ namespace App\Http\Controllers\Admin;
 
 use App\Exports\PacketsExport;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\admin\ImportRequest;
 use App\Http\Requests\admin\PacketRequest;
 use App\Http\Resources\admin\PacketResource;
+use App\Imports\PacketsImport;
 use App\Models\Packet;
 use App\Repository\admin\PacketRepository;
 use App\Service\PacketService;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Maatwebsite\Excel\Facades\Excel;
 
 class PacketController extends Controller
@@ -130,6 +133,29 @@ class PacketController extends Controller
         return response()->json([
             'data' => PacketResource::collection($packet)
         ]);
+    }
+
+    public function import(ImportRequest $request){
+        try {
+            $file = $request->file('fileImport')->storePublicly('packets', 'public');
+            Excel::import(new PacketsImport, 'public/' . $file);
+    
+            return $this->success(
+                message: 'Berhasil menambahkan data'
+            );
+    
+        } catch (ValidationException $e) {
+            return response()->json([
+                'message' => 'Import gagal',
+                'errors' => $e->errors()['file'] ?? [],
+            ], 422);
+    
+        } catch (\Exception $e) {
+            return response()->json([
+                'message' => 'Terjadi kesalahan saat import',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     public function export()

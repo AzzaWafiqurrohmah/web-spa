@@ -20,7 +20,7 @@
                             <button class="btn btn-success" id="export" name="export">Export</button>
                         </div>
                         <div >
-                            <button class="btn btn-primary" id="newMaterial" name="newMaterial">Tambah Paket</button>
+                            <a href="{{route('packets.create')}}" class="btn btn-primary">Tambah Paket</a>
                         </div>
                     </div>
                     <div class="table-responsive">
@@ -72,7 +72,7 @@
                 processData: false,
                 contentType: false,
                 success(res) {
-                    materialTable.ajax.reload();
+                    packetsTable.ajax.reload();
                     importModal.hide();
 
                     Swal.fire({
@@ -83,8 +83,21 @@
 
                 },
                 error(err) {
-                    if (err.status == 422) {
-                        displayFormErrors(err.responseJSON.data);
+                    importModal.hide();
+                    if (err.status === 422) {
+                        const errors = err.responseJSON.errors;
+
+                        // Gabungkan semua pesan error jadi satu string
+                        let message = err.responseJSON.message || 'Terjadi kesalahan validasi';
+                        if (errors && Array.isArray(errors)) {
+                            message += '<br>' + errors.join('<br>');
+                        }
+
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Import Gagal',
+                            html: message,
+                        });
                         return;
                     }
 
@@ -93,12 +106,20 @@
                         text: 'Terdapat masalah saat melakukan aksi',
                         timer: 1500,
                     });
-                },
+                }
+
             });
         }
 
         $('#packet-modal-import').on('show.bs.modal', function (event) {
             $('#packet-import-title').text('Import File Paket Treatment');
+        });
+
+        $('#packet-form-import').submit(function (e) {
+            e.preventDefault();
+
+            removeFormErrors();
+            saveFile();
         });
 
         $('#import').on('click', function (e) {

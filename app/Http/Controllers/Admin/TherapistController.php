@@ -135,7 +135,10 @@ class TherapistController extends Controller
         $duration = $request->input('duration');
         $endTime = Carbon::parse($time)->addMinutes($duration)->format('H:i:s');
 
-        $therapist = Therapist::whereNotIn('id', function ($query) use ($q, $date, $time, $endTime) {
+        $franchise_id = Auth::user()->franchise_id;
+
+        $therapist = Therapist::where('franchise_id', $franchise_id)
+            ->whereNotIn('id', function ($query) use ($q, $date, $time, $endTime) {
             $query->select('reservations.therapist_id')
                 ->distinct()
                 ->from('reservations')

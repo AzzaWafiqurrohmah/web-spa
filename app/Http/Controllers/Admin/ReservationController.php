@@ -173,11 +173,21 @@ class ReservationController extends Controller
 
     public function customers(Request $request)
     {
+        $franchise_id = Auth::user()->franchise_id;
         $q =  $request->input('q');
+        // $customer = Customer::query()
+        //     ->where('franchise_id', $franchise_id)
+        //     ->where('fullname', 'like', '%' . $q . '%')
+        //     ->orWhere('phone', 'like', '%' . $q . '%')
+        //     ->get();
         $customer = Customer::query()
-            ->where('fullname', 'like', '%' . $q . '%')
-            ->orWhere('phone', 'like', '%' . $q . '%')
+            ->where('franchise_id', $franchise_id)
+            ->where(function ($query) use ($q) {
+                $query->where('fullname', 'like', '%' . $q . '%')
+                    ->orWhere('phone', 'like', '%' . $q . '%');
+            })
             ->get();
+
         return response()->json([
             'data' => CustomerResource::collection($customer)
         ]);

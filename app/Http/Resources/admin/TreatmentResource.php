@@ -25,7 +25,10 @@ class TreatmentResource extends JsonResource
             'period_end' => $this->period_end,
             'price' => $this->price,
             'member_price' => $this->member_price,
-            'discount' => $this->discount
+            'discount' => $this->discount,
+            'tools' => $this->tools->pluck('name')->implode(', '),
+            'materials' => $this->materials->pluck('name')->implode(', ')
+
         ];
     }
 }

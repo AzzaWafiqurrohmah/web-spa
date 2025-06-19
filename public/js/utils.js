@@ -14,8 +14,6 @@ function fillFormdata(data) {
 
             if(inputElement.tagName !== 'INPUT' &&
                 inputElement.getAttribute('type') !== 'file'
-                // inputElement.tagName !== 'SELECT' &&
-                // inputElement.getAttribute('type') !== 'password'
             ){
                 inputElement.textContent = value;
             }

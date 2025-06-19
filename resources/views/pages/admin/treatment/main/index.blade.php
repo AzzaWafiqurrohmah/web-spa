@@ -44,8 +44,9 @@
             </div>
         </div>
     </div>
-    @include('components.modal.treatment')
+    {{-- @include('components.modal.treatment') --}}
     @include('components.modal.treatmentImport')
+    @include('components.modal.treatmentModal')
 @endsection
 
 @push('script')
@@ -76,7 +77,7 @@
         function fillForm() {
             let action = `/therapist/treatments/${ID}`;
             @can('crud treatments')
-                url = '/treatments/${ID}';
+                action = `/treatments/${ID}`;
             @endcan
             $.ajax({
                 url: action,

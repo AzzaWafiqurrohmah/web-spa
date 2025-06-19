@@ -128,6 +128,8 @@ Route::middleware('auth')->group(function () {
 
             Route::get('/{packet}/edit', 'edit')->name('edit');
             Route::match(['PUT', 'PATCH'], '{packet}/update', 'update')->name('update');
+            Route::post('/import', 'import')->name('import');
+            Route::get('/export', 'export')->name('export');
 
             Route::get('datatables', 'datatables')->name('datatables');
             Route::get('{packet}', 'show')->name('show');

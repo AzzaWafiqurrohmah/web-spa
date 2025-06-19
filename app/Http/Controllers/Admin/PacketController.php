@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Exports\PacketsExport;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\admin\PacketRequest;
 use App\Http\Resources\admin\PacketResource;
@@ -10,6 +11,7 @@ use App\Repository\admin\PacketRepository;
 use App\Service\PacketService;
 use App\Traits\ApiResponser;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 
 class PacketController extends Controller
 {
@@ -128,5 +130,15 @@ class PacketController extends Controller
         return response()->json([
             'data' => PacketResource::collection($packet)
         ]);
+    }
+
+    public function export()
+    {
+        if(count(Packet::all()) < 1){
+            return response()->json([
+                'data' => 'empty'
+            ]);
+        }
+        return Excel::download(new PacketsExport(), 'packets.xlsx');
     }
 }

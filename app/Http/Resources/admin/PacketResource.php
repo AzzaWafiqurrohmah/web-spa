@@ -18,7 +18,8 @@ class PacketResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'packet_price' => $this->packet_price,
-            'member_price' => $this->member_price
+            'member_price' => $this->member_price,
+            'treatments' => $this->treatments->pluck('name')->implode(', ')
         ];
     }
 }

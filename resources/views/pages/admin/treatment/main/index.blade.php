@@ -44,7 +44,6 @@
             </div>
         </div>
     </div>
-    {{-- @include('components.modal.treatment') --}}
     @include('components.modal.treatmentImport')
     @include('components.modal.treatmentModal')
 @endsection

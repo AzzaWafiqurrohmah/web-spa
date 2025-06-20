@@ -43,6 +43,7 @@
     </div>
 @endsection
 
+@include('components.modal.packetModal')
 @include('components.script.packet')
 @include('components.modal.packetImport')
 
@@ -157,6 +158,29 @@
                 },
             });
         });
+
+        // detail
+        const packetModal = new bootstrap.Modal('#packet-modal');
+
+        let ID = 0;
+
+        function fillForm() {
+            $.ajax({
+                url: `/packets/${ID}`,
+                success: (res) =>
+                    fillFormdata(res.data),
+            });
+        }
+
+        $('#packet-modal').on('show.bs.modal', function (event) {
+            fillForm();
+        });
+
+        $('#packets-table').on('click', '.btn-detail', function (e) {
+            ID = this.dataset.id;
+            packetModal.show();
+        });
+
     </script>
     
 @endpush
